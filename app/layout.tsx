@@ -21,6 +21,8 @@ export const metadata: Metadata = {
     'Encuentra restaurantes, médicos, estéticas, tiendas y más en San Juan del Río, Querétaro.',
 };
 
+import { SpeedInsights } from '@vercel/speed-insights/next';
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,6 +33,7 @@ export default function RootLayout({
       <body className="antialiased">
         {children}
         <Toaster position="bottom-right" />
+        <SpeedInsights />
       </body>
     </html>
   );
