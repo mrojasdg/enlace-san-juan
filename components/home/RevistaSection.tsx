@@ -99,14 +99,7 @@ export const RevistaSection = () => {
             </div>
           </div>
 
-          <div className="absolute -bottom-8 -right-8 bg-gold p-8 rounded-3xl text-white shadow-2xl z-20 group-hover:scale-110 transition-transform duration-300">
-            <h4 className="font-outfit font-black text-3xl mb-1 leading-tight">
-              MÁS DE <br /> 5K
-            </h4>
-            <p className="text-xs font-bold uppercase tracking-widest leading-relaxed">
-              Lectores <br /> locales
-            </p>
-          </div>
+
         </div>
       </div>
     </section>
