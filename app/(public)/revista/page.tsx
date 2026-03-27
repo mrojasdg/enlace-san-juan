@@ -115,7 +115,7 @@ export default async function RevistasPage() {
                   target="_blank"
                   className="group flex flex-col"
                 >
-                  <div className="relative w-full aspect-[9/16] bg-white rounded-[2rem] overflow-hidden border border-border shadow-lg transition-all duration-500 group-hover:-translate-y-3 group-hover:shadow-2xl group-hover:shadow-green/10 group-hover:border-green-pale">
+                  <div className="relative w-full aspect-[9/16] bg-white rounded-3xl overflow-hidden border border-border shadow-sm transition-all duration-500 group-hover:-translate-y-3 group-hover:shadow-2xl group-hover:shadow-green/10 group-hover:border-green-pale">
                     {mag.cover ? (
                       <img
                         src={mag.cover}
@@ -164,8 +164,8 @@ export default async function RevistasPage() {
         </div>
 
         {/* Sección de Beneficios & Call to Action */}
-        <div className="container mx-auto px-6 max-w-7xl">
-          <div className="bg-white rounded-[3.5rem] border border-border p-8 md:p-16 relative overflow-hidden shadow-xl">
+        <div className="container mx-auto px-6 max-w-7xl mb-32">
+          <div className="bg-white rounded-[2.5rem] border border-border p-8 md:p-16 relative overflow-hidden shadow-xl">
             {/* Background Decor */}
             <div className="absolute top-0 right-0 w-1/2 h-full bg-green-xpale opacity-30 select-none pointer-events-none -skew-x-12 translate-x-1/2"></div>
 
@@ -261,14 +261,14 @@ export default async function RevistasPage() {
                   </p>
                 </div>
                 <div className="space-y-4">
-                  <div className="p-4 bg-white rounded-2xl border border-border shadow-sm">
-                    <p className="text-2xl font-black text-ink font-outfit">
+                  <div className="p-10 bg-white rounded-[2rem] border border-border shadow-xl hover:shadow-2xl transition-all duration-300">
+                    <p className="text-5xl md:text-6xl font-black text-ink font-outfit tracking-tighter">
                       $249{' '}
-                      <span className="text-[10px] text-muted">
+                      <span className="text-[12px] text-muted block md:inline mt-2 md:mt-0 font-bold uppercase tracking-widest">
                         IVA Incluido
                       </span>
                     </p>
-                    <p className="text-[9px] font-black text-green uppercase tracking-widest mt-1">
+                    <p className="text-[11px] font-black text-green uppercase tracking-[0.3em] mt-6">
                       Costo extra por edición
                     </p>
                   </div>

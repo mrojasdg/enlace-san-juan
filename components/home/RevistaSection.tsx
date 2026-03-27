@@ -60,46 +60,40 @@ export const RevistaSection = () => {
             ))}
           </ul>
 
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-row gap-2 md:gap-4">
             <Link
               href="https://wa.me/524273232026?text=Me+interesa+la+revista"
               target="_blank"
-              className="flex-1"
+              className="flex-[2]"
             >
               <Button
                 size="lg"
-                className="w-full text-white bg-green-mid hover:bg-green shadow-lg"
+                className="w-full text-white bg-green-mid hover:bg-green shadow-lg text-[10px] md:text-base px-2 uppercase font-black tracking-tighter sm:tracking-normal"
               >
                 Quiero aparecer en la revista
               </Button>
             </Link>
-            <Link href="/revista/ultima-edicion" className="flex-1">
+            <Link href="/revista" className="flex-1">
               <Button
                 variant="outline"
                 size="lg"
-                className="w-full text-green-dark border-green-dark bg-transparent"
+                className="w-full text-green-dark border-green-dark bg-white text-[10px] md:text-base px-2 font-black uppercase tracking-tighter sm:tracking-normal"
               >
-                Ver última edición
+                Ver revista
               </Button>
             </Link>
           </div>
         </div>
 
-        {/* Right: Mockup Image */}
-        <div className="relative group cursor-pointer">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-green/10 rounded-full blur-[100px] pointer-events-none" />
-          <div className="bg-white border-8 border-ink rounded-[3rem] overflow-hidden shadow-2xl relative z-10 aspect-[9/18.5] md:aspect-auto md:w-full md:h-[600px]">
-            {/* Mockup content mockup */}
-            <div className="w-full h-full bg-gray-100 flex items-center justify-center text-muted font-bold animate-pulse text-sm text-center px-8 uppercase space-y-4 flex-col">
-              <BookOpen size={64} className="mb-4 text-green/20" />
-              <span>Espacio para vista previa de la revista</span>
-              <span className="text-[10px] lowercase normal-case opacity-50 font-normal">
-                Sube una imagen o mockup del PDF interactivo
-              </span>
-            </div>
-          </div>
-
-
+        {/* Right: Actual Image */}
+        <div className="relative group rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl transition-all duration-700 hover:shadow-green/20">
+          <Image
+            src="/revistaindex.jpg"
+            alt="Revista Enlace"
+            width={600}
+            height={850}
+            className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-1000"
+          />
         </div>
       </div>
     </section>
