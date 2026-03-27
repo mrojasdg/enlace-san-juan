@@ -11,7 +11,7 @@ const SearchMap = dynamic(() => import('@/components/search/SearchMap'), {
 });
 import { supabase } from '@/lib/supabase';
 import { useState, useEffect } from 'react';
-import { Filter, X, Map as MapIcon, List } from 'lucide-react';
+import { Filter, X, Map as MapIcon, List, Check } from 'lucide-react';
 
 export default function SearchPage({ searchParams }: { searchParams: any }) {
   const [businesses, setBusinesses] = useState<any[]>([]);
@@ -19,6 +19,7 @@ export default function SearchPage({ searchParams }: { searchParams: any }) {
   const [isLoading, setIsLoading] = useState(true);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [viewMode, setViewMode] = useState<'list' | 'map'>('list');
+  const [dynamicSearch, setDynamicSearch] = useState(true);
 
   const { q, cat, is_featured } = searchParams;
 
@@ -108,8 +109,35 @@ export default function SearchPage({ searchParams }: { searchParams: any }) {
         </section>
       </div>
 
+      {/* Floating Checkbox (Bottom On Mobile, Above main buttons) */}
+      <div
+        className={cn(
+          'lg:hidden fixed bottom-[100px] left-1/2 -translate-x-1/2 z-[2000] w-fit transition-all duration-300',
+          viewMode === 'map' ? 'opacity-100 scale-100' : 'opacity-0 scale-90 pointer-events-none'
+        )}
+      >
+        <label
+          onClick={() => setDynamicSearch(!dynamicSearch)}
+          className="bg-white/95 backdrop-blur-md shadow-2xl border border-border px-6 py-2.5 rounded-full flex items-center gap-3 cursor-pointer active:scale-95 transition-all duration-300"
+        >
+          <div className="relative w-5 h-5 border-2 border-green-xpale bg-white rounded-lg flex items-center justify-center overflow-hidden">
+            <div
+              className={cn(
+                'w-full h-full bg-green text-white flex items-center justify-center transition-transform duration-200',
+                dynamicSearch ? 'scale-100' : 'scale-0'
+              )}
+            >
+              <Check size={12} className="font-black" />
+            </div>
+          </div>
+          <span className="text-[10px] font-black font-jakarta text-ink uppercase tracking-[0.1em] whitespace-nowrap">
+            Buscar mientras muevo el mapa
+          </span>
+        </label>
+      </div>
+
       {/* Mobile Actions Floating Bar */}
-      <div className="lg:hidden fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2">
+      <div className="lg:hidden fixed bottom-8 left-1/2 -translate-x-1/2 z-[2000] flex items-center gap-2">
         <button
           onClick={() => setShowMobileFilters(true)}
           className="bg-ink text-white px-6 py-4 rounded-2xl font-black shadow-2xl flex items-center gap-3 active:scale-95 transition-all text-[10px] uppercase tracking-widest leading-none border-none"

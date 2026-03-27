@@ -69,11 +69,12 @@ export default function SearchMap({ businesses }: SearchMapProps) {
   const center: [number, number] = [20.3904, -100.0024]; // San Juan del Río center
 
   return (
-    <div className="w-full h-full relative cursor-crosshair">
+    <div className="w-full h-full relative">
       <MapContainer
         center={center}
         zoom={14}
         scrollWheelZoom={true}
+        dragging={true}
         className="w-full h-full"
       >
         <TileLayer
@@ -109,38 +110,6 @@ export default function SearchMap({ businesses }: SearchMapProps) {
             </Marker>
           ))}
       </MapContainer>
-
-      {/* Floating Checkbox */}
-      <div className="absolute top-6 lg:top-6 bottom-[100px] lg:bottom-auto left-1/2 -translate-x-1/2 z-[1000] w-fit">
-        <label className="bg-white/95 backdrop-blur-md shadow-2xl border border-border px-6 md:px-8 py-2 md:py-3 rounded-full flex items-center gap-3 md:gap-4 cursor-pointer hover:scale-105 transition-all duration-300">
-          <div className="relative w-6 h-6 border-2 border-green-xpale bg-white rounded-lg flex items-center justify-center overflow-hidden">
-            <input type="checkbox" className="peer sr-only" defaultChecked />
-            <div className="w-full h-full bg-green text-white scale-0 peer-checked:scale-100 transition-transform duration-200 flex items-center justify-center">
-              <span className="text-[10px] font-black">✓</span>
-            </div>
-          </div>
-          <span className="text-[10px] md:text-xs font-black font-jakarta text-ink2 uppercase tracking-[0.1em] md:tracking-[0.15em] whitespace-nowrap">
-            Buscar mientras muevo el mapa
-          </span>
-        </label>
-      </div>
-
-      {/* Map Legend / Branding */}
-      <div className="absolute bottom-6 right-6 z-[1000] bg-green-deeper text-white px-6 py-4 rounded-3xl shadow-2xl border border-white/10 hidden md:block">
-        <div className="flex items-center gap-4">
-          <div className="w-8 h-8 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
-            <span className="text-green-light font-black text-xs">JS</span>
-          </div>
-          <div>
-            <h5 className="font-outfit font-black text-[11px] uppercase tracking-widest leading-none mb-1">
-              Mapa de Negocios
-            </h5>
-            <p className="text-[10px] text-white/40 leading-none">
-              San Juan del Río, Qro.
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
   );
-};
+}
