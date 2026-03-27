@@ -24,7 +24,7 @@ export const BusinessCard = ({ business }: BusinessCardProps) => {
     >
       <div className="bg-white border border-border rounded-2xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-200">
         {/* Cover Image */}
-        <div className="h-48 relative overflow-hidden bg-gray-100">
+        <div className="h-32 md:h-48 relative overflow-hidden bg-gray-100">
           {business.cover_url ? (
             <Image
               src={business.cover_url}
@@ -63,10 +63,10 @@ export const BusinessCard = ({ business }: BusinessCardProps) => {
         </div>
 
         {/* Body */}
-        <div className="p-6 pt-0 relative">
+        <div className="p-4 md:p-6 pt-0 relative">
           {/* Floating Logo */}
-          <div className="relative -mt-10 mb-4 inline-block">
-            <div className="w-20 h-20 rounded-full border-4 border-white overflow-hidden bg-white shadow-2xl relative flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+          <div className="relative -mt-8 md:-mt-10 mb-3 md:mb-4 inline-block">
+            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-white overflow-hidden bg-white shadow-2xl relative flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
               {business.logo_url ? (
                 <Image
                   src={business.logo_url}
@@ -82,9 +82,9 @@ export const BusinessCard = ({ business }: BusinessCardProps) => {
             </div>
           </div>
 
-          <div className="mb-4">
-            <div className="flex items-center gap-2 mb-1">
-              <h3 className="font-outfit font-black text-ink text-2xl leading-tight group-hover:text-green transition-colors line-clamp-1">
+          <div className="mb-3 md:mb-4">
+            <div className="flex items-center gap-2 mb-0.5 md:mb-1">
+              <h3 className="font-outfit font-black text-ink text-xl md:text-2xl leading-none md:leading-tight group-hover:text-green transition-colors line-clamp-1">
                 {business.name}
               </h3>
               {business.verified && (
@@ -94,12 +94,12 @@ export const BusinessCard = ({ business }: BusinessCardProps) => {
                 />
               )}
             </div>
-            <p className="text-xs text-green-mid font-black uppercase tracking-[0.2em]">
+            <p className="text-[10px] md:text-xs text-green-mid font-black uppercase tracking-[0.2em]">
               {business.category?.name || 'Categoría'}
             </p>
           </div>
 
-          <p className="text-sm text-muted font-jakarta leading-relaxed line-clamp-2 h-10 mb-6 group-hover:text-ink transition-colors">
+          <p className="text-[13px] md:text-sm text-muted font-jakarta leading-tight md:leading-relaxed line-clamp-2 h-8 md:h-10 mb-4 md:mb-6 group-hover:text-ink transition-colors">
             {business.tagline ||
               business.description ||
               'Sin descripción disponible.'}
