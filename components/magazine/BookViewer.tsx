@@ -152,21 +152,18 @@ export const BookViewer = ({ pages, total }: BookViewerProps) => {
     return (
       <div
         className={`relative h-full aspect-[9/16] bg-[#111] shadow-2xl transition-all duration-300
-                    ${
-                      side === 'left'
-                        ? 'rounded-l-xl border-y border-l border-white/5'
-                        : ''
-                    }
-                    ${
-                      side === 'right'
-                        ? 'rounded-r-xl border-y border-r border-white/5'
-                        : ''
-                    }
-                    ${
-                      side === 'single'
-                        ? 'rounded-xl border border-white/5'
-                        : ''
-                    }
+                    ${side === 'left'
+            ? 'rounded-l-xl border-y border-l border-white/5'
+            : ''
+          }
+                    ${side === 'right'
+            ? 'rounded-r-xl border-y border-r border-white/5'
+            : ''
+          }
+                    ${side === 'single'
+            ? 'rounded-xl border border-white/5'
+            : ''
+          }
                 `}
       >
         <div className="w-full h-full overflow-hidden rounded-[inherit]">
@@ -188,7 +185,7 @@ export const BookViewer = ({ pages, total }: BookViewerProps) => {
         </div>
 
         {/* Botón Micrositio (Inferior) - Posicionado fuera de la imagen cerca del menú */}
-        {data?.business_link && scale === 1 && (
+        {data?.business_link && scale === 1 && isDesktop && (
           <div className="absolute -bottom-2 left-0 w-full flex justify-center z-[100] pointer-events-none px-4">
             <Link
               href={data.business_link}
@@ -215,6 +212,7 @@ export const BookViewer = ({ pages, total }: BookViewerProps) => {
   };
 
   const currentSlide = slides[slideIndex] || [1];
+  const activePageData = pages.find((p) => p.page_number === currentSlide[0]);
 
   // Prefetch de imágenes adyacentes
   const prefetchImages = useMemo(() => {
@@ -232,7 +230,7 @@ export const BookViewer = ({ pages, total }: BookViewerProps) => {
   }, [slideIndex, slides, pages]);
 
   return (
-    <div className="fixed inset-0 w-full h-[100dvh] bg-[#050706] flex flex-col items-center justify-start overflow-hidden select-none">
+    <div className="fixed inset-0 w-full h-[100svh] bg-[#050706] flex flex-col items-center justify-start overflow-hidden select-none">
       {/* Prefetch oculto */}
       <div className="hidden" aria-hidden="true">
         {prefetchImages.map((src) => (
@@ -245,7 +243,11 @@ export const BookViewer = ({ pages, total }: BookViewerProps) => {
       {/* Area de Lectura */}
       <div
         className={`relative flex-1 w-full flex justify-center overflow-hidden
-                ${isDesktop ? 'items-center pt-2 pb-24' : 'items-start pt-4'}
+                ${
+                  isDesktop
+                    ? 'items-center pt-2 pb-24'
+                    : 'items-center pt-2 pb-24'
+                }
             `}
       >
         {/* Mobile Side Nav Buttons (Overlay on visual area) */}
@@ -255,30 +257,28 @@ export const BookViewer = ({ pages, total }: BookViewerProps) => {
               onClick={handlePrev}
               className="absolute left-0 top-0 w-12 h-full z-[150] cursor-pointer flex items-center justify-center"
             >
-              <ArrowLeft className="w-5 h-5 text-white/10 group-active:text-white" />
+              <ArrowLeft className="w-5 h-5 text-white/30 group-active:text-white" />
             </div>
             <div
               onClick={handleNext}
               className="absolute right-0 top-0 w-12 h-full z-[150] cursor-pointer flex items-center justify-center"
             >
-              <ArrowRight className="w-5 h-5 text-white/10 group-active:text-white" />
+              <ArrowRight className="w-5 h-5 text-white/30 group-active:text-white" />
             </div>
           </>
         )}
 
         <div
           className={`flex items-center justify-center transition-all duration-300 transform-gpu
-                        ${
-                          isChanging
-                            ? 'opacity-0 scale-95'
-                            : 'opacity-100 scale-100'
-                        }
+                        ${isChanging
+              ? 'opacity-0 scale-95'
+              : 'opacity-100 scale-100'
+            }
                         ${scale > 1 ? 'cursor-grab active:cursor-grabbing' : ''}
                     `}
           style={{
-            transform: `scale(${scale}) translate(${offset.x / scale}px, ${
-              offset.y / scale
-            }px)`,
+            transform: `scale(${scale}) translate(${offset.x / scale}px, ${offset.y / scale
+              }px)`,
             transition: isDragging
               ? 'none'
               : 'transform 0.4s cubic-bezier(0.2, 0, 0.4, 1), opacity 0.3s ease',
@@ -293,7 +293,7 @@ export const BookViewer = ({ pages, total }: BookViewerProps) => {
         >
           <div
             className={`flex items-center justify-center max-w-full gap-0 ${
-              isDesktop ? 'h-[85vh]' : 'h-[82vh]'
+              isDesktop ? 'h-[85vh]' : 'h-[calc(100svh-190px)] mb-6'
             }`}
           >
             {currentSlide.length === 1 ? (
@@ -323,6 +323,26 @@ export const BookViewer = ({ pages, total }: BookViewerProps) => {
           <ArrowRight className="w-8 h-8" />
         </button>
       </div>
+
+      {/* Botón Flotante Responsivo (Solo Móvil) */}
+      {!isDesktop && scale === 1 && activePageData?.business_link && (
+        <div
+          className={`fixed bottom-[100px] left-0 w-full flex justify-center z-[170] px-6 pointer-events-none transition-opacity duration-300 ${
+            isChanging ? 'opacity-0' : 'opacity-100'
+          }`}
+        >
+          <Link
+            href={activePageData?.business_link || '#'}
+            target="_blank"
+            className="pointer-events-auto"
+          >
+            <button className="bg-green hover:bg-green-mid px-8 py-3.5 rounded-2xl text-white text-[12px] font-black uppercase tracking-widest shadow-[0_15px_30px_rgba(34,197,94,0.4)] border border-white/20 flex items-center gap-2 transform active:scale-95 transition-all backdrop-blur-md">
+              <ExternalLink size={16} />
+              {activePageData?.business_name || 'Ver Perfil en Enlace'}
+            </button>
+          </Link>
+        </div>
+      )}
 
       {/* Barra Inferior */}
       <div className="absolute bottom-0 left-0 w-full h-[80px] md:h-[90px] bg-black/95 backdrop-blur-xl border-t border-white/5 flex items-center justify-between px-4 md:px-12 z-[200]">
