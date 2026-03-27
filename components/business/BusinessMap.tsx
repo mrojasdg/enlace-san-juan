@@ -77,7 +77,7 @@ export default function BusinessMap({
       {/* Map Overlay Button */}
       <div className="absolute bottom-6 right-6 z-[1000]">
         <a
-          href={`https://google.com/maps?q=${lat},${lng}`}
+          href={`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`}
           target="_blank"
           className="bg-white/90 backdrop-blur-md px-6 py-3 rounded-2xl border border-white shadow-2xl flex items-center gap-2 font-black text-[10px] uppercase tracking-widest text-green hover:bg-green hover:text-white transition-all transform hover:scale-105"
         >

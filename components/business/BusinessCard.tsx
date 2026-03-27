@@ -24,7 +24,7 @@ export const BusinessCard = ({ business }: BusinessCardProps) => {
     >
       <div className="bg-white border border-border rounded-2xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-200">
         {/* Cover Image */}
-        <div className="h-32 md:h-48 relative overflow-hidden bg-gray-100">
+        <div className="h-24 md:h-48 relative overflow-hidden bg-gray-100">
           {business.cover_url ? (
             <Image
               src={business.cover_url}
@@ -42,18 +42,18 @@ export const BusinessCard = ({ business }: BusinessCardProps) => {
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
 
           {/* Badges */}
-          <div className="absolute top-4 left-4 flex flex-col gap-2">
+          <div className="absolute top-3 left-3 flex flex-col gap-2">
             {business.is_featured && (
-              <span className="bg-[#D4A520] text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-[0.2em] shadow-xl backdrop-blur-md">
+              <span className="bg-[#D4A520] text-white text-[8px] md:text-[10px] font-black px-3 md:px-4 py-1.5 rounded-full uppercase tracking-[0.2em] shadow-xl backdrop-blur-md">
                 Destacado
               </span>
             )}
           </div>
 
-          <div className="absolute top-4 right-4">
+          <div className="absolute top-3 right-3">
             <span
               className={cn(
-                'text-[10px] font-black px-3 py-1.5 rounded-full shadow-xl text-white backdrop-blur-md uppercase tracking-widest',
+                'text-[8px] md:text-[10px] font-black px-2.5 md:px-3 py-1 md:py-1.5 rounded-full shadow-xl text-white backdrop-blur-md uppercase tracking-widest',
                 isOpen ? 'bg-green/90' : 'bg-red-500/90'
               )}
             >
@@ -63,10 +63,10 @@ export const BusinessCard = ({ business }: BusinessCardProps) => {
         </div>
 
         {/* Body */}
-        <div className="p-4 md:p-6 pt-0 relative">
+        <div className="p-3 md:p-6 pt-0 relative">
           {/* Floating Logo */}
-          <div className="relative -mt-8 md:-mt-10 mb-3 md:mb-4 inline-block">
-            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-white overflow-hidden bg-white shadow-2xl relative flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+          <div className="relative -mt-6 md:-mt-10 mb-2 md:mb-4 inline-block">
+            <div className="w-12 h-12 md:w-20 md:h-20 rounded-full border-[3px] md:border-4 border-white overflow-hidden bg-white shadow-xl relative flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
               {business.logo_url ? (
                 <Image
                   src={business.logo_url}
@@ -82,9 +82,9 @@ export const BusinessCard = ({ business }: BusinessCardProps) => {
             </div>
           </div>
 
-          <div className="mb-3 md:mb-4">
-            <div className="flex items-center gap-2 mb-0.5 md:mb-1">
-              <h3 className="font-outfit font-black text-ink text-xl md:text-2xl leading-none md:leading-tight group-hover:text-green transition-colors line-clamp-1">
+          <div className="mb-2 md:mb-4">
+            <div className="flex items-center gap-2 mb-0 md:mb-1">
+              <h3 className="font-outfit font-black text-ink text-lg md:text-2xl leading-none md:leading-tight group-hover:text-green transition-colors line-clamp-1">
                 {business.name}
               </h3>
               {business.verified && (
@@ -94,12 +94,12 @@ export const BusinessCard = ({ business }: BusinessCardProps) => {
                 />
               )}
             </div>
-            <p className="text-[10px] md:text-xs text-green-mid font-black uppercase tracking-[0.2em]">
+            <p className="text-[9px] md:text-xs text-green-mid font-black uppercase tracking-[0.2em]">
               {business.category?.name || 'Categoría'}
             </p>
           </div>
 
-          <p className="text-[13px] md:text-sm text-muted font-jakarta leading-tight md:leading-relaxed line-clamp-2 h-8 md:h-10 mb-4 md:mb-6 group-hover:text-ink transition-colors">
+          <p className="text-[11px] md:text-sm text-muted font-jakarta font-medium leading-[1.15] md:leading-relaxed line-clamp-2 h-7 md:h-10 mb-3 md:mb-6 group-hover:text-ink transition-colors">
             {business.tagline ||
               business.description ||
               'Sin descripción disponible.'}
