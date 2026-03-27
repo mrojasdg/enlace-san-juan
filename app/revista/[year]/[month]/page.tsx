@@ -67,9 +67,16 @@ export default async function PublicMagazinePage({
     (p) => p.page_number <= totalPages
   );
 
+  const monthCapitalized = month.charAt(0).toUpperCase() + month.slice(1);
+  const magazineTitle = `Edición ${monthCapitalized} ${year}`;
+
   return (
     <main className="w-full h-screen bg-black overflow-hidden font-jakarta">
-      <BookViewer pages={finalPagesToRender} total={totalPages} />
+      <BookViewer 
+        pages={finalPagesToRender} 
+        total={totalPages} 
+        title={magazineTitle} 
+      />
     </main>
   );
 }

@@ -17,9 +17,10 @@ import { MagazinePage } from '@/types/magazine';
 interface BookViewerProps {
   pages: MagazinePage[];
   total: number;
+  title?: string;
 }
 
-export const BookViewer = ({ pages, total }: BookViewerProps) => {
+export const BookViewer = ({ pages, total, title }: BookViewerProps) => {
   const [slideIndex, setSlideIndex] = useState(0);
   const [scale, setScale] = useState(1);
   const [isDesktop, setIsDesktop] = useState(false);
@@ -246,10 +247,18 @@ export const BookViewer = ({ pages, total }: BookViewerProps) => {
                 ${
                   isDesktop
                     ? 'items-center pt-2 pb-24'
-                    : 'items-center pt-2 pb-24'
+                    : 'items-center pt-8 pb-20'
                 }
             `}
       >
+        {/* Título Superior (Móvil) */}
+        {!isDesktop && title && (
+          <div className="absolute top-2 left-0 w-full text-center z-[150] px-4">
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 font-jakarta leading-tight">
+              {title}
+            </span>
+          </div>
+        )}
         {/* Mobile Side Nav Buttons (Overlay on visual area) */}
         {!isDesktop && scale === 1 && (
           <>
@@ -293,7 +302,7 @@ export const BookViewer = ({ pages, total }: BookViewerProps) => {
         >
           <div
             className={`flex items-center justify-center max-w-full gap-0 ${
-              isDesktop ? 'h-[85vh]' : 'h-[calc(100svh-190px)] mb-6'
+              isDesktop ? 'h-[85vh]' : 'h-[calc(100svh-160px)]'
             }`}
           >
             {currentSlide.length === 1 ? (
@@ -327,7 +336,7 @@ export const BookViewer = ({ pages, total }: BookViewerProps) => {
       {/* Botón Flotante Responsivo (Solo Móvil) */}
       {!isDesktop && scale === 1 && activePageData?.business_link && (
         <div
-          className={`fixed bottom-[100px] left-0 w-full flex justify-center z-[170] px-6 pointer-events-none transition-opacity duration-300 ${
+          className={`fixed bottom-[92px] left-0 w-full flex justify-center z-[170] px-6 pointer-events-none transition-opacity duration-300 ${
             isChanging ? 'opacity-0' : 'opacity-100'
           }`}
         >
@@ -336,8 +345,8 @@ export const BookViewer = ({ pages, total }: BookViewerProps) => {
             target="_blank"
             className="pointer-events-auto"
           >
-            <button className="bg-green hover:bg-green-mid px-8 py-3.5 rounded-2xl text-white text-[12px] font-black uppercase tracking-widest shadow-[0_15px_30px_rgba(34,197,94,0.4)] border border-white/20 flex items-center gap-2 transform active:scale-95 transition-all backdrop-blur-md">
-              <ExternalLink size={16} />
+            <button className="bg-green hover:bg-green-mid px-6 py-2.5 rounded-xl text-white text-[10px] font-black uppercase tracking-widest shadow-[0_10px_20px_rgba(34,197,94,0.3)] border border-white/20 flex items-center gap-2 transform active:scale-95 transition-all backdrop-blur-md">
+              <ExternalLink size={14} />
               {activePageData?.business_name || 'Ver Perfil en Enlace'}
             </button>
           </Link>
