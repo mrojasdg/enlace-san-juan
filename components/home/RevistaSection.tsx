@@ -21,7 +21,7 @@ export const RevistaSection = () => {
       id="revista"
       className="py-24 px-6 md:px-12 bg-green-pale overflow-hidden"
     >
-      <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div className="container mx-auto grid grid-cols-1 lg:grid-cols-[1.1fr,0.9fr] gap-16 items-center">
         {/* Left: Content */}
         <div className="max-w-xl">
           <div className="flex items-center gap-3 mb-6 bg-white/50 w-fit px-4 py-2 rounded-full border border-border">
@@ -86,14 +86,16 @@ export const RevistaSection = () => {
         </div>
 
         {/* Right: Actual Image */}
-        <div className="relative group rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl transition-all duration-700 hover:shadow-green/20">
-          <Image
-            src="/revistaindex.jpg"
-            alt="Revista Enlace"
-            width={600}
-            height={850}
-            className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-1000"
-          />
+        <div className="flex justify-center lg:justify-end">
+          <div className="relative group rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl transition-all duration-700 hover:shadow-green/20 max-w-[420px] lg:max-w-full xl:max-w-[480px]">
+            <Image
+              src="/revistaindex.jpg"
+              alt="Revista Enlace"
+              width={600}
+              height={850}
+              className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-1000"
+            />
+          </div>
         </div>
       </div>
     </section>
