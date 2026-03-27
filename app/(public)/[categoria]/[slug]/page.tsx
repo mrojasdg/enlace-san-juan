@@ -123,7 +123,7 @@ export default async function BusinessMicrosite({
           <div className="lg:col-span-2 space-y-16">
             {/* Business Hero */}
             <section className="relative rounded-[1.5rem] overflow-hidden bg-white shadow-2xl border border-border group">
-              <div className="relative h-[320px] md:h-[400px] w-full bg-green-pale">
+              <div className="relative h-[220px] md:h-[400px] w-full bg-green-pale">
                 {business.cover_url ? (
                   <Image
                     src={business.cover_url}
@@ -165,9 +165,9 @@ export default async function BusinessMicrosite({
               </div>
 
               {/* Business Header Content Overlay */}
-              <div className="px-8 pb-10 -mt-20 relative z-10 flex flex-col md:flex-row items-end gap-6 text-center md:text-left">
+              <div className="px-6 md:px-8 pb-6 md:pb-10 -mt-14 md:-mt-20 relative z-10 flex flex-col md:flex-row items-end gap-6 text-center md:text-left">
                 {/* Logo - REDONDO COMPLETAMENTE */}
-                <div className="w-44 h-44 rounded-full bg-white border-4 border-white shadow-2xl overflow-hidden flex-shrink-0 relative group mx-auto md:mx-0">
+                <div className="w-28 h-28 md:w-44 md:h-44 rounded-full bg-white border-4 border-white shadow-2xl overflow-hidden flex-shrink-0 relative group mx-auto md:mx-0">
                   <div className="relative w-full h-full bg-white flex items-center justify-center rounded-full overflow-hidden">
                     {business.logo_url ? (
                       <Image
@@ -184,12 +184,12 @@ export default async function BusinessMicrosite({
                   </div>
                 </div>
 
-                <div className="flex-1 pb-4">
-                  <h1 className="font-outfit font-black text-4xl md:text-6xl text-ink md:text-white leading-[0.9] mb-4 drop-shadow-sm">
+                <div className="flex-1 pb-2 md:pb-4">
+                  <h1 className="font-outfit font-black text-3xl md:text-6xl text-ink md:text-white leading-[0.9] mb-3 md:mb-4 drop-shadow-sm">
                     {business.name}
                   </h1>
-                  <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
-                    <p className="text-muted md:text-white/90 font-medium text-xl italic leading-tight max-w-lg">
+                  <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 md:gap-4">
+                    <p className="text-muted md:text-white/90 font-medium text-base md:text-xl italic leading-[1.2] md:leading-tight max-w-lg">
                       {business.tagline}
                     </p>
                     <span className="bg-green-xpale text-green px-4 py-1.5 rounded-full font-black text-[11px] uppercase tracking-[0.2em] inline-block shadow-sm">
@@ -271,12 +271,12 @@ export default async function BusinessMicrosite({
             </div>
 
             {/* Description */}
-            <section className="bg-white rounded-[1.5rem] p-10 border border-border shadow-sm relative overflow-hidden">
+            <section className="bg-white rounded-[1.5rem] p-6 md:p-10 border border-border shadow-sm relative overflow-hidden">
               <div className="absolute top-0 left-0 w-1.5 h-full bg-green" />
-              <h2 className="font-outfit font-black text-xl text-green-deeper mb-6 uppercase tracking-[0.2em]">
+              <h2 className="font-outfit font-black text-lg md:text-xl text-green-deeper mb-4 md:mb-6 uppercase tracking-[0.2em]">
                 Descripción
               </h2>
-              <div className="text-muted text-lg font-jakarta leading-relaxed space-y-4">
+              <div className="text-muted text-base md:text-lg font-jakarta leading-snug md:leading-relaxed space-y-4">
                 {business.description ||
                   'Este negocio aún no ha añadido una descripción detallada.'}
               </div>
