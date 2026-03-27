@@ -3,7 +3,12 @@
 import { Navbar } from '@/components/layout/Navbar';
 import { SearchFilters } from '@/components/search/SearchFilters';
 import { SearchResults } from '@/components/search/SearchResults';
-import { SearchMap } from '@/components/search/SearchMap';
+import dynamic from 'next/dynamic';
+
+const SearchMap = dynamic(() => import('@/components/search/SearchMap'), {
+  ssr: false,
+  loading: () => <div className="w-full h-full bg-green-xpale flex items-center justify-center text-xs font-black uppercase tracking-widest text-muted2">Cargando mapa...</div>
+});
 import { supabase } from '@/lib/supabase';
 import { useState, useEffect } from 'react';
 import { Filter, X, Map as MapIcon, List } from 'lucide-react';
@@ -91,7 +96,14 @@ export default function SearchPage({ searchParams }: { searchParams: any }) {
               viewMode === 'map' ? 'flex' : 'hidden lg:flex'
             )}
           >
-            <SearchMap businesses={businesses} />
+            {/* Escritorio: Siempre activo */}
+            <div className="hidden lg:block w-full h-full">
+              <SearchMap businesses={businesses} />
+            </div>
+            {/* Móvil: Montamos/Desmontamos para forzar invalidateSize */}
+            <div className="lg:hidden w-full h-full">
+              {viewMode === 'map' && <SearchMap businesses={businesses} />}
+            </div>
           </div>
         </section>
       </div>

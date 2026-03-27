@@ -6,27 +6,24 @@ import { Business } from '@/types/business';
 import 'leaflet/dist/leaflet.css';
 
 // Dynamic import for Leaflet components (client-side only)
-const MapContainer = dynamic(
-  () => import('react-leaflet').then((mod) => mod.MapContainer),
-  { ssr: false }
-);
-const TileLayer = dynamic(
-  () => import('react-leaflet').then((mod) => mod.TileLayer),
-  { ssr: false }
-);
-const Marker = dynamic(
-  () => import('react-leaflet').then((mod) => mod.Marker),
-  { ssr: false }
-);
-const Popup = dynamic(() => import('react-leaflet').then((mod) => mod.Popup), {
-  ssr: false,
-});
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+
+// Componente para corregir el tamaño del mapa en móviles
+const MapResizer = () => {
+  const map = useMap();
+  useEffect(() => {
+    setTimeout(() => {
+      map.invalidateSize();
+    }, 400); // Un poco más de tiempo para el cambio de flex transition
+  }, [map]);
+  return null;
+};
 
 interface SearchMapProps {
   businesses: Business[];
 }
 
-export const SearchMap = ({ businesses }: SearchMapProps) => {
+export default function SearchMap({ businesses }: SearchMapProps) {
   const [L, setL] = useState<any>(null);
   const [mounted, setMounted] = useState(false);
 
@@ -83,6 +80,7 @@ export const SearchMap = ({ businesses }: SearchMapProps) => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <MapResizer />
 
         {businesses
           .filter((biz) => biz.latitude && biz.longitude)
@@ -113,15 +111,15 @@ export const SearchMap = ({ businesses }: SearchMapProps) => {
       </MapContainer>
 
       {/* Floating Checkbox */}
-      <div className="absolute top-6 left-1/2 -translate-x-1/2 z-[1000] w-fit">
-        <label className="bg-white/95 backdrop-blur-md shadow-2xl border border-border px-8 py-3 rounded-full flex items-center gap-4 cursor-pointer hover:scale-105 transition-all duration-300">
+      <div className="absolute top-6 lg:top-6 bottom-[100px] lg:bottom-auto left-1/2 -translate-x-1/2 z-[1000] w-fit">
+        <label className="bg-white/95 backdrop-blur-md shadow-2xl border border-border px-6 md:px-8 py-2 md:py-3 rounded-full flex items-center gap-3 md:gap-4 cursor-pointer hover:scale-105 transition-all duration-300">
           <div className="relative w-6 h-6 border-2 border-green-xpale bg-white rounded-lg flex items-center justify-center overflow-hidden">
             <input type="checkbox" className="peer sr-only" defaultChecked />
             <div className="w-full h-full bg-green text-white scale-0 peer-checked:scale-100 transition-transform duration-200 flex items-center justify-center">
               <span className="text-[10px] font-black">✓</span>
             </div>
           </div>
-          <span className="text-xs font-black font-jakarta text-ink2 uppercase tracking-[0.15em] whitespace-nowrap">
+          <span className="text-[10px] md:text-xs font-black font-jakarta text-ink2 uppercase tracking-[0.1em] md:tracking-[0.15em] whitespace-nowrap">
             Buscar mientras muevo el mapa
           </span>
         </label>
