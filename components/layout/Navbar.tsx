@@ -93,9 +93,9 @@ const NavbarInner = () => {
           <Image
             src="/logo.png"
             alt="Enlace San Juan"
-            width={160}
-            height={36}
-            className="h-8 md:h-9 w-auto object-contain"
+            width={180}
+            height={40}
+            className="h-[34px] md:h-[40px] w-auto object-contain"
             priority
           />
         </Link>
