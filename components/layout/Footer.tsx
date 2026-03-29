@@ -76,6 +76,14 @@ export const Footer = () => {
                 Registra tu negocio
               </Link>
             </li>
+            <li>
+              <Link
+                href="/terminos"
+                className="text-white/50 hover:text-white/85 text-sm transition-colors"
+              >
+                Términos y Condiciones
+              </Link>
+            </li>
           </ul>
         </div>
 

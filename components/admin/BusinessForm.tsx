@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -121,6 +122,7 @@ const businessSchema = z.object({
       sabado: { open: '10:00', close: '14:00', closed: false },
       domingo: { open: '', close: '', closed: true },
     }),
+  terms_accepted: z.boolean().default(false),
 });
 
 interface BusinessFormProps {
@@ -245,6 +247,7 @@ export const BusinessForm = ({
           sabado: { open: '10:00', close: '14:00', closed: false },
           domingo: { open: null, close: null, closed: true },
         },
+        terms_accepted: false,
       },
   });
 
@@ -352,16 +355,25 @@ export const BusinessForm = ({
         catalog_pdf_url,
       };
 
+      // Remove terms_accepted from finalData if it exists as it's not a DB column
+      const { terms_accepted, ...dbData } = finalData as any;
+
+      if (!initialData && !terms_accepted) {
+        toast.error('Debes aceptar los términos y condiciones');
+        setLoading(false);
+        return;
+      }
+
       if (initialData) {
         const { error } = await supabase
           .from('businesses')
-          .update(finalData)
+          .update(dbData)
           .eq('id', initialData.id);
         if (error) throw error;
         toast.success('Negocio actualizado correctamente');
         router.push('/admin/negocios');
       } else {
-        const { error } = await supabase.from('businesses').insert(finalData);
+        const { error } = await supabase.from('businesses').insert(dbData);
         if (error) throw error;
 
         if (isPublicRegistration) {
@@ -1192,6 +1204,36 @@ export const BusinessForm = ({
                 </div>
               </div>
             </div>
+          </div>
+        )}
+
+        {/* Terms and Conditions Acceptance (Only for new registrations) */}
+        {!initialData && (
+          <div className="mt-12 p-8 bg-green-xpale/50 border border-green-pale rounded-[2rem] flex flex-col md:flex-row items-center gap-6 shadow-sm">
+            <div className="flex-1">
+              <h4 className="font-outfit font-black text-ink text-sm uppercase tracking-widest mb-1">
+                Aceptación Legal
+              </h4>
+              <p className="text-muted text-[10px] font-bold leading-tight uppercase tracking-wider">
+                Para registrar tu micrositio es necesario aceptar nuestro contrato de prestación de servicios.
+              </p>
+            </div>
+            
+            <label className="flex items-center gap-4 cursor-pointer group">
+              <div className="relative w-8 h-8 rounded-xl border-2 border-green/30 bg-white flex items-center justify-center transition-all group-hover:border-green group-hover:shadow-lg">
+                <input 
+                  type="checkbox" 
+                  {...register('terms_accepted')}
+                  className="peer absolute inset-0 opacity-0 cursor-pointer"
+                />
+                <div className="w-5 h-5 bg-green text-white rounded-md flex items-center justify-center scale-0 peer-checked:scale-100 transition-transform duration-200 shadow-lg">
+                  <CheckCircle2 size={16} />
+                </div>
+              </div>
+              <div className="text-[11px] font-black text-ink uppercase tracking-[0.05em]">
+                Acepto los <Link href="/terminos" target="_blank" className="text-green hover:underline decoration-2">términos y condiciones</Link> así como el <Link href="/terminos" target="_blank" className="text-green hover:underline decoration-2">aviso de privacidad</Link>
+              </div>
+            </label>
           </div>
         )}
 
