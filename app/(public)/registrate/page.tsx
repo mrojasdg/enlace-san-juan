@@ -3,9 +3,10 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { BusinessForm } from '@/components/admin/BusinessForm';
 import { supabase } from '@/lib/supabase';
+import { PageTracker } from '@/components/shared/PageTracker';
 
 export const metadata = {
-  title: 'Registra tu Negocio | Enlace San Juan',
+  // ...
   description:
     'Llena el formulario para dar de alta tu empresa en el directorio local de San Juan del Río.',
 };
@@ -21,6 +22,7 @@ export default async function RegistratePage() {
 
   return (
     <div className="min-h-screen pt-20 bg-[#F9FCFA]">
+      <PageTracker path="registrate" />
       <Navbar />
 
       <main className="container max-w-7xl mx-auto px-6 py-12">

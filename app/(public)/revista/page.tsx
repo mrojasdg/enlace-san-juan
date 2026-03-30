@@ -12,6 +12,7 @@ import {
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { Button } from '@/components/ui/Button';
+import { PageTracker } from '@/components/shared/PageTracker';
 
 export const revalidate = 0;
 
@@ -84,6 +85,7 @@ export default async function RevistasPage() {
 
   return (
     <div className="min-h-screen bg-[#F9FCFA]">
+      <PageTracker path="revista" />
       <Navbar />
 
       <main className="pt-32 pb-20">

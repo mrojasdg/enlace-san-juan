@@ -7,6 +7,7 @@ import { StatsStrip } from '@/components/home/StatsStrip';
 import { RevistaSection } from '@/components/home/RevistaSection';
 import { CTASection } from '@/components/home/CTASection';
 import { supabase } from '@/lib/supabase';
+import { PageTracker } from '@/components/shared/PageTracker';
 
 // Next.js ISR: Revalidate every 60 seconds
 export const revalidate = 60;
@@ -28,6 +29,7 @@ export default async function HomePage() {
 
   return (
     <main className="min-h-screen pt-20 selection:bg-green-pale selection:text-green-deeper">
+      <PageTracker path="index" />
       <Navbar />
       <HeroSection />
 

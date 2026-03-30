@@ -4,6 +4,7 @@ import { Footer } from '@/components/layout/Footer';
 import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 import Image from 'next/image';
+import { PageTracker } from '@/components/shared/PageTracker';
 import {
   CheckCircle,
   Smartphone,
@@ -33,6 +34,7 @@ export const metadata = {
 export default function PreciosPage() {
   return (
     <div className="min-h-screen pt-12 selection:bg-green-pale selection:text-green-deeper bg-[#F9FCFA]">
+      <PageTracker path="precios" />
       <Navbar />
 
       {/* HERO SECTION */}

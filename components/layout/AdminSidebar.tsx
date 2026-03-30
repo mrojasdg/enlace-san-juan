@@ -25,6 +25,7 @@ const menuItems = [
   { name: 'Agregar nuevo', href: '/admin/negocios/nuevo', icon: PlusCircle },
   { name: 'Categorías', href: '/admin/categorias', icon: Grid3X3 },
   { name: 'Revista Web', href: '/admin/revistas', icon: BookOpen },
+  { name: 'Estadísticas', href: '/admin/estadisticas', icon: BarChart3 },
 ];
 
 const secondaryItems = [
