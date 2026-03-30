@@ -123,7 +123,7 @@ export default async function BusinessMicrosite({
           <div className="lg:col-span-2 space-y-16">
             {/* Business Hero */}
             <section className="relative rounded-[1.5rem] overflow-hidden bg-white shadow-2xl border border-border group">
-              <div className="relative h-[220px] md:h-[400px] w-full bg-green-pale">
+              <div className="relative h-[220px] md:h-[300px] w-full bg-green-pale">
                 {business.cover_url ? (
                   <Image
                     src={business.cover_url}
@@ -165,7 +165,7 @@ export default async function BusinessMicrosite({
               </div>
 
               {/* Business Header Content Overlay */}
-              <div className="px-6 md:px-8 pb-10 md:pb-16 -mt-14 md:-mt-20 relative z-10 flex flex-col md:flex-row items-end gap-6 text-center md:text-left">
+              <div className="px-6 md:px-8 pb-10 md:pb-20 -mt-14 md:-mt-20 relative z-10 flex flex-col md:flex-row items-end gap-5 md:gap-8 text-center md:text-left">
                 {/* Logo - REDONDO COMPLETAMENTE */}
                 <div className="w-28 h-28 md:w-44 md:h-44 rounded-full bg-white border-4 border-white shadow-2xl overflow-hidden flex-shrink-0 relative group mx-auto md:mx-0">
                   <div className="relative w-full h-full bg-white flex items-center justify-center rounded-full overflow-hidden">
@@ -184,17 +184,17 @@ export default async function BusinessMicrosite({
                   </div>
                 </div>
 
-                <div className="flex-1 pb-4 md:pb-6">
-                  <h1 className="font-outfit font-black text-3xl md:text-5xl text-ink md:text-white leading-tight md:leading-[1.1] mb-2 md:mb-4 drop-shadow-xl">
+                <div className="flex-1 pb-4 md:pb-8">
+                  <h1 className="font-outfit font-black text-3xl md:text-5xl text-ink md:text-white leading-tight md:leading-[1.05] mb-2 md:mb-5 drop-shadow-2xl">
                     {business.name}
                   </h1>
-                  <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 md:gap-4">
-                    <p className="text-muted md:text-white/90 font-medium text-base md:text-xl italic leading-[1.2] md:leading-tight max-w-lg">
-                      {business.tagline}
-                    </p>
+                  <div className="flex flex-col items-center md:items-start gap-2 md:gap-4">
                     <span className="bg-green-xpale text-green px-4 py-1.5 rounded-full font-black text-[11px] uppercase tracking-[0.2em] inline-block shadow-sm">
                       {category?.name || 'Premium'}
                     </span>
+                    <p className="text-muted md:text-white/90 font-medium text-base md:text-xl italic leading-tight max-w-lg">
+                      {business.tagline}
+                    </p>
                   </div>
                 </div>
               </div>
