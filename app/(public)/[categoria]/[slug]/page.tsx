@@ -165,7 +165,7 @@ export default async function BusinessMicrosite({
               </div>
 
               {/* Business Header Content Overlay */}
-              <div className="px-6 md:px-8 pb-6 md:pb-10 -mt-14 md:-mt-20 relative z-10 flex flex-col md:flex-row items-end gap-6 text-center md:text-left">
+              <div className="px-6 md:px-8 pb-10 md:pb-16 -mt-14 md:-mt-20 relative z-10 flex flex-col md:flex-row items-end gap-6 text-center md:text-left">
                 {/* Logo - REDONDO COMPLETAMENTE */}
                 <div className="w-28 h-28 md:w-44 md:h-44 rounded-full bg-white border-4 border-white shadow-2xl overflow-hidden flex-shrink-0 relative group mx-auto md:mx-0">
                   <div className="relative w-full h-full bg-white flex items-center justify-center rounded-full overflow-hidden">
@@ -184,8 +184,8 @@ export default async function BusinessMicrosite({
                   </div>
                 </div>
 
-                <div className="flex-1 pb-2 md:pb-4">
-                  <h1 className="font-outfit font-black text-3xl md:text-6xl text-ink md:text-white leading-[0.9] mb-3 md:mb-4 drop-shadow-sm">
+                <div className="flex-1 pb-4 md:pb-6">
+                  <h1 className="font-outfit font-black text-3xl md:text-5xl text-ink md:text-white leading-tight md:leading-[1.1] mb-2 md:mb-4 drop-shadow-xl">
                     {business.name}
                   </h1>
                   <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 md:gap-4">
