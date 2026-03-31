@@ -82,8 +82,11 @@ export const BookViewer = ({ pages, total, title }: BookViewerProps) => {
     setIsChanging(true);
     setTimeout(() => {
       setSlideIndex((prev) => prev + 1);
-      setIsChanging(false);
-    }, 300);
+      // Pequeño retardo adicional para permitir que React renderice el nuevo índice/imagen
+      setTimeout(() => {
+        setIsChanging(false);
+      }, 50);
+    }, 250); // Lote de salida un poco más rápido
   };
 
   const handlePrev = () => {
@@ -91,8 +94,10 @@ export const BookViewer = ({ pages, total, title }: BookViewerProps) => {
     setIsChanging(true);
     setTimeout(() => {
       setSlideIndex((prev) => prev - 1);
-      setIsChanging(false);
-    }, 300);
+      setTimeout(() => {
+        setIsChanging(false);
+      }, 50);
+    }, 250);
   };
 
   const handleZoomIn = () => setScale((prev) => Math.min(prev + 0.5, 3));
@@ -278,10 +283,10 @@ export const BookViewer = ({ pages, total, title }: BookViewerProps) => {
         )}
 
         <div
-          className={`flex items-center justify-center transition-all duration-300 transform-gpu
+          className={`flex items-center justify-center transition-opacity duration-300 transform-gpu
                         ${isChanging
-              ? 'opacity-0 scale-95'
-              : 'opacity-100 scale-100'
+              ? 'opacity-0'
+              : 'opacity-100'
             }
                         ${scale > 1 ? 'cursor-grab active:cursor-grabbing' : ''}
                     `}
@@ -290,7 +295,7 @@ export const BookViewer = ({ pages, total, title }: BookViewerProps) => {
               }px)`,
             transition: isDragging
               ? 'none'
-              : 'transform 0.4s cubic-bezier(0.2, 0, 0.4, 1), opacity 0.3s ease',
+              : 'transform 0.4s cubic-bezier(0.2, 0, 0.4, 1), opacity 0.3s ease-out',
           }}
           onMouseDown={onMouseDown}
           onMouseMove={onMouseMove}
