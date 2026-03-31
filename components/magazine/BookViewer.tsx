@@ -80,13 +80,14 @@ export const BookViewer = ({ pages, total, title }: BookViewerProps) => {
   const handleNext = () => {
     if (slideIndex >= slides.length - 1 || isChanging) return;
     setIsChanging(true);
+    // Agregamos un ligero movimiento para que parezca que la hoja se va
     setTimeout(() => {
       setSlideIndex((prev) => prev + 1);
-      // Pequeño retardo adicional para permitir que React renderice el nuevo índice/imagen
+      // Forzamos un pequeño respiro para que el navegador cambie la fuente de la imagen
       setTimeout(() => {
         setIsChanging(false);
-      }, 50);
-    }, 250); // Lote de salida un poco más rápido
+      }, 100); 
+    }, 450); // Un poco más de tiempo para que la salida sea suave
   };
 
   const handlePrev = () => {
@@ -96,8 +97,8 @@ export const BookViewer = ({ pages, total, title }: BookViewerProps) => {
       setSlideIndex((prev) => prev - 1);
       setTimeout(() => {
         setIsChanging(false);
-      }, 50);
-    }, 250);
+      }, 100);
+    }, 450);
   };
 
   const handleZoomIn = () => setScale((prev) => Math.min(prev + 0.5, 3));
@@ -283,10 +284,11 @@ export const BookViewer = ({ pages, total, title }: BookViewerProps) => {
         )}
 
         <div
-          className={`flex items-center justify-center transition-opacity duration-300 transform-gpu
+          key={slideIndex}
+          className={`flex items-center justify-center transition-all duration-500 ease-out transform-gpu
                         ${isChanging
-              ? 'opacity-0'
-              : 'opacity-100'
+              ? 'opacity-0 scale-95 translate-x-12'
+              : 'opacity-100 scale-100 translate-x-0'
             }
                         ${scale > 1 ? 'cursor-grab active:cursor-grabbing' : ''}
                     `}
