@@ -376,6 +376,26 @@ export const BusinessForm = ({
         const { error } = await supabase.from('businesses').insert(dbData);
         if (error) throw error;
 
+        // NOTIFICACIÓN POR CORREO (Solo para registros nuevos)
+        try {
+          fetch('/api/notify/registration', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: dbData.name,
+              category:
+                categories.find((c) => c.id === dbData.category_id)?.name ||
+                'General',
+              contact_name: dbData.contact_name,
+              phone: dbData.phone,
+              whatsapp: dbData.whatsapp,
+              email: dbData.email,
+            }),
+          });
+        } catch (e) {
+          console.error('Error enviando notificación:', e);
+        }
+
         if (isPublicRegistration) {
           toast.success('¡Tu negocio se registró con éxito!');
           router.push('/pago');
