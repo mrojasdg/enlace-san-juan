@@ -4,24 +4,17 @@ import { Search, RotateCcw, Filter, Check } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/utils/cn';
 
-const categories = [
-  { name: 'Gastronomía', id: 'gastronomia' },
-  { name: 'Salud & Bienestar', id: 'salud' },
-  { name: 'Belleza & Cuidado', id: 'belleza' },
-  { name: 'Tiendas & Retail', id: 'retail' },
-  { name: 'Otros Servicios', id: 'otros' },
-];
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { supabase } from '@/lib/supabase';
 
 const features = [
   'Pago con Tarjeta',
   'Estacionamiento',
   'WiFi',
   'Aire Acondicionado',
-  'Delivery',
+  'Para llevar',
 ];
-
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
 
 interface SearchFiltersProps {
   onApply?: () => void;
@@ -33,6 +26,19 @@ export const SearchFilters = ({ onApply }: SearchFiltersProps) => {
 
   const [query, setQuery] = useState(searchParams.get('q') || '');
   const [category, setCategory] = useState(searchParams.get('cat') || '');
+  const [categories, setCategories] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const { data } = await supabase
+        .from('categories')
+        .select('name, slug')
+        .eq('is_active', true)
+        .order('order_num', { ascending: true });
+      setCategories(data || []);
+    };
+    fetchCategories();
+  }, []);
 
   const handleApply = () => {
     const params = new URLSearchParams();
@@ -93,7 +99,7 @@ export const SearchFilters = ({ onApply }: SearchFiltersProps) => {
           >
             <option value="">Todas las categorías</option>
             {categories.map((cat) => (
-              <option key={cat.id} value={cat.id}>
+              <option key={cat.slug} value={cat.slug}>
                 {cat.name}
               </option>
             ))}

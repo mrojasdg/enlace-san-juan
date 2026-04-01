@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
 import {
     Utensils,
     HeartPulse,
@@ -13,26 +15,46 @@ import {
     Building,
     CalendarCheck,
     Palette,
-    LayoutGrid
+    LayoutGrid,
+    LucideIcon
 } from "lucide-react";
 import { cn } from "@/utils/cn";
 
-const categories = [
-    { name: "Gastronomía", slug: "gastronomia", icon: Utensils, sub: "Restaurantes, Cafés, Bares" },
-    { name: "Salud & Bienestar", slug: "salud", icon: HeartPulse, sub: "Clínicas, Médicos, Gyms" },
-    { name: "Belleza & Cuidado", slug: "belleza", icon: Scissors, sub: "Peluquerías, Spa, Barbería" },
-    { name: "Tiendas & Retail", slug: "retail", icon: ShoppingBag, sub: "Ropa, Accesorios, Super" },
-    { name: "Servicios al Hogar", slug: "hogar", icon: Home, sub: "Mantenimiento, Jardinería" },
-    { name: "Educación", slug: "educacion", icon: GraduationCap, sub: "Escuelas, Cursos, Talleres" },
-    { name: "Servicios Profesionales", slug: "profesionales", icon: Briefcase, sub: "Abogados, Diseño, Tech" },
-    { name: "Automotriz", slug: "automotriz", icon: Car, sub: "Talleres, Llantas, Venta" },
-    { name: "Inmobiliario", slug: "inmobiliario", icon: Building, sub: "Bienes Raíces, Renta" },
-    { name: "Eventos & Entretenimiento", slug: "eventos", icon: CalendarCheck, sub: "Fiestas, Salones, DJ" },
-    { name: "Artesanías & Cultura", slug: "artesanias", icon: Palette, sub: "Arte local, Museo" },
-    { name: "Otros Servicios", slug: "otros", icon: LayoutGrid, sub: "Lavanderías, Varios" },
-];
+const ICON_MAP: Record<string, LucideIcon> = {
+    utensils: Utensils,
+    heart: HeartPulse,
+    scissors: Scissors,
+    bag: ShoppingBag,
+    home: Home,
+    graduation: GraduationCap,
+    briefcase: Briefcase,
+    car: Car,
+    building: Building,
+    calendar: CalendarCheck,
+    palette: Palette,
+    grid: LayoutGrid,
+};
 
 export const CategoryGrid = () => {
+    const [categories, setCategories] = useState<any[]>([]);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            const { data } = await supabase
+                .from('categories')
+                .select('*')
+                .eq('is_active', true)
+                .order('order_num', { ascending: true });
+            setCategories(data || []);
+        };
+        fetchCategories();
+    }, []);
+
+    const getIcon = (iconName: string) => {
+        const key = iconName?.toLowerCase() || 'grid';
+        return ICON_MAP[key] || LayoutGrid;
+    };
+
     return (
         <section id="categorias" className="py-24 px-6 md:px-12 bg-white">
             <div className="container mx-auto">
@@ -49,23 +71,26 @@ export const CategoryGrid = () => {
 
                 {/* Grid */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
-                    {categories.map((cat) => (
-                        <Link key={cat.slug} href={`/categoria/${cat.slug}`} className="group">
-                            <div className="h-full bg-white border border-border rounded-3xl p-6 text-center flex flex-col items-center gap-4 hover:border-green hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-                                <div className="w-16 h-16 rounded-2xl bg-green-xpale text-green flex items-center justify-center group-hover:bg-green group-hover:text-white transition-all duration-300 transform group-hover:rotate-6">
-                                    <cat.icon size={32} />
+                    {categories.map((cat) => {
+                        const IconComponent = getIcon(cat.icon);
+                        return (
+                            <Link key={cat.slug} href={`/categoria/${cat.slug}`} className="group">
+                                <div className="h-full bg-white border border-border rounded-3xl p-6 text-center flex flex-col items-center gap-4 hover:border-green hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                                    <div className="w-16 h-16 rounded-2xl bg-green-xpale text-green flex items-center justify-center group-hover:bg-green group-hover:text-white transition-all duration-300 transform group-hover:rotate-6">
+                                        <IconComponent size={32} />
+                                    </div>
+                                    <div>
+                                        <h3 className="font-jakarta font-black text-[13px] text-ink leading-tight mb-1">
+                                            {cat.name}
+                                        </h3>
+                                        <p className="text-[10px] text-muted leading-tight line-clamp-2">
+                                          {cat.description || cat.name}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h3 className="font-jakarta font-black text-[13px] text-ink leading-tight mb-1">
-                                        {cat.name}
-                                    </h3>
-                                    <p className="text-[10px] text-muted leading-tight line-clamp-2">
-                                        {cat.sub}
-                                    </p>
-                                </div>
-                            </div>
-                        </Link>
-                    ))}
+                            </Link>
+                        );
+                    })}
                 </div>
             </div>
         </section>

@@ -387,6 +387,7 @@ export const BusinessForm = ({
                 categories.find((c) => c.id === dbData.category_id)?.name ||
                 'General',
               contact_name: dbData.contact_name,
+              contact_email: dbData.contact_email,
               phone: dbData.phone,
               whatsapp: dbData.whatsapp,
               email: dbData.email,
