@@ -192,7 +192,7 @@ export default async function BusinessMicrosite({
                     <span className="bg-green-xpale text-green px-4 py-1.5 rounded-full font-black text-[11px] uppercase tracking-[0.2em] inline-block shadow-sm">
                       {category?.name || 'Premium'}
                     </span>
-                    <p className="text-muted md:text-white/90 font-medium text-base md:text-xl italic leading-tight max-w-lg">
+                    <p className="text-ink/60 font-medium text-base md:text-lg italic leading-tight max-w-lg">
                       {business.tagline}
                     </p>
                   </div>
