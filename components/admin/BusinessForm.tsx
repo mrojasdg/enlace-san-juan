@@ -436,19 +436,19 @@ export const BusinessForm = ({
             type="button"
             onClick={() => setActiveTab(tab.id)}
             className={cn(
-              'flex items-center gap-3 px-8 py-5 rounded-[1.5rem] transition-all duration-300 font-jakarta font-black text-xs uppercase tracking-widest leading-none whitespace-nowrap',
+              'flex items-center gap-2 md:gap-3 px-4 md:px-8 py-3 md:py-5 rounded-2xl md:rounded-[1.5rem] transition-all duration-300 font-jakarta font-black text-[10px] md:text-xs uppercase tracking-widest leading-none whitespace-nowrap',
               activeTab === tab.id
-                ? 'bg-white text-green shadow-[0_10px_20px_rgba(42,122,59,0.1)] translate-y-2 ring-1 ring-border'
+                ? 'bg-white text-green shadow-[0_10px_20px_rgba(42,122,59,0.1)] translate-y-1 md:translate-y-2 ring-1 ring-border'
                 : 'text-muted/40 hover:text-green-mid hover:bg-white/50'
             )}
           >
             <tab.icon
-              size={16}
+              size={14}
               className={activeTab === tab.id ? 'text-green' : 'text-muted/20'}
             />
             {tab.label}
             {activeTab === tab.id && (
-              <div className="ml-2 w-1.5 h-1.5 bg-green rounded-full shadow-[0_0_8px_rgba(34,197,94,0.5)]" />
+              <div className="ml-1 md:ml-2 w-1 md:w-1.5 h-1 md:h-1.5 bg-green rounded-full shadow-[0_0_8px_rgba(34,197,94,0.5)]" />
             )}
           </button>
         ))}
@@ -456,19 +456,19 @@ export const BusinessForm = ({
 
       <form
         onSubmit={handleSubmit(onSubmit, onFormError)}
-        className="p-10 md:p-14"
+        className="p-5 md:p-14"
       >
         {/* TAB 1: GENERAL */}
         {activeTab === 'general' && (
           <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div>
-              <h2 className="font-outfit font-black text-3xl text-green-deeper mb-4 flex items-center gap-4">
-                <span className="w-10 h-10 rounded-2xl bg-green text-white flex items-center justify-center text-lg">
+              <h2 className="font-outfit font-black text-xl md:text-3xl text-green-deeper mb-3 md:mb-4 flex items-center gap-3 md:gap-4">
+                <span className="w-8 h-8 md:w-10 md:h-10 rounded-xl md:rounded-2xl bg-green text-white flex items-center justify-center text-sm md:text-lg">
                   1
                 </span>
                 Información básica
               </h2>
-              <p className="text-muted text-sm font-jakarta max-w-lg">
+              <p className="text-muted text-[12px] md:text-sm font-jakarta max-w-lg leading-snug">
                 Define el nombre atractivo y la descripción que enganchará a tus
                 clientes.
               </p>
@@ -483,7 +483,7 @@ export const BusinessForm = ({
                   {...register('name')}
                   placeholder="Ej: Pizzas Don Pepe"
                   className={cn(
-                    'w-full bg-green-xpale border border-border focus:bg-white focus:border-green focus:shadow-xl outline-none rounded-2xl py-5 px-6 font-bold text-ink transition-all placeholder:opacity-20',
+                    'w-full bg-green-xpale border border-border focus:bg-white focus:border-green focus:shadow-xl outline-none rounded-xl md:rounded-2xl py-4 md:py-5 px-5 md:px-6 font-bold text-sm md:text-base text-ink transition-all placeholder:opacity-20',
                     errors.name && 'border-red-500'
                   )}
                 />
@@ -514,7 +514,7 @@ export const BusinessForm = ({
                 <input
                   {...register('tagline')}
                   placeholder="La mejor cocina italiana..."
-                  className="w-full bg-green-xpale border border-border focus:bg-white focus:border-green outline-none rounded-2xl py-5 px-6 font-bold text-ink transition-all"
+                  className="w-full bg-green-xpale border border-border focus:bg-white focus:border-green focus:shadow-xl outline-none rounded-xl md:rounded-2xl py-4 md:py-5 px-5 md:px-6 font-bold text-sm md:text-base text-ink transition-all placeholder:opacity-20"
                 />
               </div>
               <div className="md:col-span-2 space-y-2 group">
@@ -525,7 +525,7 @@ export const BusinessForm = ({
                   {...register('description')}
                   rows={5}
                   placeholder="Describe qué hace único a tu negocio..."
-                  className="w-full bg-green-xpale border border-border focus:bg-white focus:border-green outline-none rounded-2xl py-5 px-6 font-bold text-ink transition-all"
+                  className="w-full bg-green-xpale border border-border focus:bg-white focus:border-green focus:shadow-xl outline-none rounded-xl md:rounded-2xl py-4 md:py-5 px-5 md:px-6 font-bold text-sm md:text-base text-ink transition-all placeholder:opacity-20"
                 />
               </div>
               <div
@@ -541,7 +541,7 @@ export const BusinessForm = ({
                 <input
                   {...register('search_keywords')}
                   placeholder="tacos, garnachas, comida rapida, economico"
-                  className="w-full bg-blue-50/50 border border-blue-100 focus:bg-white focus:border-blue-400 outline-none rounded-2xl py-4 px-6 font-bold text-ink transition-all placeholder:opacity-50"
+                  className="w-full bg-blue-50/50 border border-blue-100 focus:bg-white focus:border-blue-400 outline-none rounded-xl md:rounded-2xl py-4 md:py-5 px-5 md:px-6 font-bold text-sm md:text-base text-ink transition-all placeholder:opacity-50"
                 />
                 <p className="text-[9px] text-muted font-bold ml-2">
                   Agrega palabras separadas por comas. Estas palabras ayudarán a
@@ -572,7 +572,7 @@ export const BusinessForm = ({
                   <input
                     {...register('contact_name')}
                     placeholder="Nombre completo"
-                    className="w-full bg-white border border-border focus:border-red-400 outline-none rounded-2xl py-5 px-6 font-bold text-ink transition-all"
+                    className="w-full bg-white border border-border focus:border-red-400 focus:shadow-xl outline-none rounded-xl md:rounded-2xl py-4 md:py-5 px-5 md:px-6 font-bold text-sm md:text-base text-ink transition-all placeholder:opacity-20"
                   />
                 </div>
                 <div className="space-y-2 group">
@@ -583,7 +583,7 @@ export const BusinessForm = ({
                     type="email"
                     {...register('contact_email')}
                     placeholder="correo@ejemplo.com"
-                    className="w-full bg-white border border-border focus:border-red-400 outline-none rounded-2xl py-5 px-6 font-bold text-ink transition-all"
+                    className="w-full bg-white border border-border focus:border-red-400 focus:shadow-xl outline-none rounded-xl md:rounded-2xl py-4 md:py-5 px-5 md:px-6 font-bold text-sm md:text-base text-ink transition-all placeholder:opacity-20"
                   />
                 </div>
                 <div className="space-y-2 group">
@@ -594,7 +594,7 @@ export const BusinessForm = ({
                     type="tel"
                     {...register('contact_phone')}
                     placeholder="427 123 4567"
-                    className="w-full bg-white border border-border focus:border-red-400 outline-none rounded-2xl py-5 px-6 font-bold text-ink transition-all"
+                    className="w-full bg-white border border-border focus:border-red-400 focus:shadow-xl outline-none rounded-xl md:rounded-2xl py-4 md:py-5 px-5 md:px-6 font-bold text-sm md:text-base text-ink transition-all placeholder:opacity-20"
                   />
                 </div>
               </div>
@@ -614,7 +614,7 @@ export const BusinessForm = ({
                 </label>
                 <select
                   {...register('category_id')}
-                  className="w-full bg-green-xpale border border-border focus:bg-white focus:border-green outline-none rounded-2xl py-5 px-6 font-bold text-ink appearance-none cursor-pointer"
+                  className="w-full bg-green-xpale border border-border focus:bg-white focus:border-green focus:shadow-xl outline-none rounded-xl md:rounded-2xl py-4 md:py-5 px-5 md:px-6 font-bold text-sm md:text-base text-ink transition-all appearance-none cursor-pointer"
                 >
                   <option value="">Selecciona una categoría</option>
                   {categories.map((cat) => (
