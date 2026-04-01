@@ -385,6 +385,18 @@ export default async function BusinessMicrosite({
                       color:
                         'hover:bg-[#FF0000] hover:border-[#FF0000] hover:text-white',
                     },
+                    {
+                      icon: ShoppingBag,
+                      key: 'uber_eats',
+                      color:
+                        'hover:bg-[#06C167] hover:border-[#06C167] hover:text-white',
+                    },
+                    {
+                      icon: ShoppingBag,
+                      key: 'didi_food',
+                      color:
+                        'hover:bg-[#FF8B00] hover:border-[#FF8B00] hover:text-white',
+                    },
                   ].map((social) => {
                     const url = (business as any)[social.key];
                     if (!url || url === '' || url === '#') return null;

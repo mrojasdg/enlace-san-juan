@@ -102,6 +102,8 @@ const businessSchema = z.object({
   tiktok: z.string().nullable().optional().or(z.literal('')),
   pinterest: z.string().nullable().optional().or(z.literal('')),
   linkedin: z.string().nullable().optional().or(z.literal('')),
+  uber_eats: z.string().nullable().optional().or(z.literal('')),
+  didi_food: z.string().nullable().optional().or(z.literal('')),
   features: z.array(z.string()).default([]),
   catalog_label: z.string().nullable().optional().default('Menú / Catálogo'),
   search_keywords: z.string().nullable().optional().or(z.literal('')),
@@ -1220,6 +1222,28 @@ export const BusinessForm = ({
                       {...register('linkedin')}
                       placeholder="LinkedIn URL"
                       className="w-full bg-green-xpale border border-border rounded-2xl py-4 pl-12 pr-6 font-bold text-sm"
+                    />
+                  </div>
+                  <div className="relative group">
+                    <ShoppingBag
+                      className="absolute left-4 top-1/2 -translate-y-1/2 text-muted/40 group-focus-within:text-green-600 transition-colors"
+                      size={18}
+                    />
+                    <input
+                      {...register('uber_eats')}
+                      placeholder="Link Uber Eats o # para solo icono"
+                      className="w-full bg-green-xpale border border-border focus:bg-white focus:border-green-600 focus:shadow-xl outline-none rounded-xl md:rounded-2xl py-4 md:py-5 pl-12 pr-6 font-bold text-sm md:text-base text-ink transition-all placeholder:opacity-50"
+                    />
+                  </div>
+                  <div className="relative group">
+                    <ShoppingBag
+                      className="absolute left-4 top-1/2 -translate-y-1/2 text-muted/40 group-focus-within:text-orange-600 transition-colors"
+                      size={18}
+                    />
+                    <input
+                      {...register('didi_food')}
+                      placeholder="Link Didi Food o # para solo icono"
+                      className="w-full bg-green-xpale border border-border focus:bg-white focus:border-orange-600 focus:shadow-xl outline-none rounded-xl md:rounded-2xl py-4 md:py-5 pl-12 pr-6 font-bold text-sm md:text-base text-ink transition-all placeholder:opacity-50"
                     />
                   </div>
                 </div>
