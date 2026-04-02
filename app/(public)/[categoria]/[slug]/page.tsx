@@ -185,11 +185,21 @@ export default async function BusinessMicrosite({
                   </div>
                 </div>
 
-                <div className="flex-1 pb-2 md:pb-4">
-                  <h1 className="font-outfit font-black text-3xl md:text-5xl text-ink md:text-white leading-tight md:leading-[1.05] mb-2 md:mb-2 drop-shadow-2xl">
+                <div className={cn(
+                  "flex-1 pb-2 md:pb-4 transition-all duration-500",
+                  business.name.length > 20 ? "md:-mb-8" : "md:-mb-2"
+                )}>
+                  <h1 className={cn(
+                    "font-outfit font-black text-ink md:text-white leading-tight md:leading-[0.95] mb-2 drop-shadow-2xl transition-all duration-500",
+                    business.name.length > 20 
+                      ? "text-2xl md:text-[2.6rem]" 
+                      : business.name.length > 12 
+                        ? "text-3xl md:text-[3.5rem]" 
+                        : "text-3xl md:text-5xl"
+                  )}>
                     {business.name}
                   </h1>
-                  <div className="flex flex-col items-center md:items-start gap-2 md:gap-4 mt-8 md:mt-6">
+                  <div className="flex flex-col items-center md:items-start gap-2 md:gap-4 mt-8 md:mt-4">
                     <span className="bg-green-xpale text-green px-4 py-1.5 rounded-full font-black text-[11px] uppercase tracking-[0.2em] inline-block shadow-sm">
                       {category?.name || 'Premium'}
                     </span>
@@ -218,34 +228,36 @@ export default async function BusinessMicrosite({
                   </Button>
                 </Link>
               )}
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  href={`https://wa.me/52${business.whatsapp}`}
-                  target="_blank"
-                  className="flex-1 min-w-[240px]"
-                >
-                  <Button
-                    size="lg"
-                    className="w-full bg-[#25D366] hover:bg-[#128C7E] border-none flex items-center justify-center gap-4 rounded-2xl shadow-xl h-20 text-xl font-black tracking-tight text-white"
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {business.whatsapp && (
+                  <Link
+                    href={`https://wa.me/52${business.whatsapp.replace(/\s+/g, '')}`}
+                    target="_blank"
+                    className="w-full"
                   >
-                    <MessageCircle size={32} />
-                    Contactar en WhatsApp
-                  </Button>
-                </Link>
-                <div className="flex gap-4 flex-1 min-w-[240px]">
-                  <Link href={`tel:${business.phone}`} className="flex-1">
+                    <Button
+                      size="lg"
+                      className="w-full bg-[#25D366] hover:bg-[#128C7E] border-none flex items-center justify-center gap-4 rounded-2xl shadow-xl h-20 text-xl font-black tracking-tight text-white transition-all hover:scale-[1.02] active:scale-[0.98]"
+                    >
+                      <MessageCircle size={32} />
+                      Contactar en WhatsApp
+                    </Button>
+                  </Link>
+                )}
+                {business.phone && (
+                  <Link href={`tel:${business.phone.replace(/\s+/g, '')}`} className="w-full">
                     <Button
                       variant="outline"
                       size="lg"
-                      className="w-full h-20 border-border hover:bg-white text-ink rounded-2xl shadow-lg"
+                      className="w-full h-20 border-border hover:bg-white text-ink rounded-2xl shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98]"
                     >
                       <Phone size={24} className="text-green-mid" />
                       <span className="ml-3 font-black uppercase text-sm tracking-widest">
-                        Llamar
+                        Llamar ahora
                       </span>
                     </Button>
                   </Link>
-                </div>
+                )}
               </div>
               {business.website && (
                 <Link
