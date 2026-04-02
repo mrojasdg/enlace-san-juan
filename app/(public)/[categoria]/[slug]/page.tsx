@@ -400,18 +400,36 @@ export default async function BusinessMicrosite({
                     },
                   ].map((social) => {
                     const url = (business as any)[social.key];
-                    if (!url || url === '' || url === '#') return null;
+                    if (!url || url === '') return null;
+
+                    const iconContent = (
+                      <div
+                        className={`w-12 h-12 rounded-xl bg-green-xpale text-green flex items-center justify-center transition-all duration-300 hover:text-white ${social.color} hover:shadow-xl transform hover:-translate-y-1 border border-green-pale`}
+                      >
+                        <social.icon size={20} />
+                      </div>
+                    );
+
+                    // Si es solo icono (valor '#'), lo mostramos sin link
+                    if (url === '#') {
+                      return (
+                        <div
+                          key={social.key}
+                          className="cursor-help"
+                          title="Disponible en esta plataforma"
+                        >
+                          {iconContent}
+                        </div>
+                      );
+                    }
+
                     return (
                       <Link
                         key={social.key}
                         href={url as string}
                         target="_blank"
                       >
-                        <div
-                          className={`w-12 h-12 rounded-xl bg-green-xpale text-green flex items-center justify-center transition-all duration-300 hover:text-white ${social.color} hover:shadow-xl transform hover:-translate-y-1 border border-green-pale`}
-                        >
-                          <social.icon size={20} />
-                        </div>
+                        {iconContent}
                       </Link>
                     );
                   })}
