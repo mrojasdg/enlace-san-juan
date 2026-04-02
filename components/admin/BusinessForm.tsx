@@ -1002,8 +1002,8 @@ export const BusinessForm = ({
 
         {/* ... TABS 4 & 5 (Schedule & Extra) ... Same as before ... */}
         {activeTab === 'schedule' && (
-          <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="bg-green-xpale/50 rounded-[2.5rem] border border-border p-8 space-y-4 shadow-inner">
+          <div className="space-y-6 md:space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="bg-green-xpale/50 rounded-[2rem] md:rounded-[2.5rem] border border-border p-4 md:p-8 space-y-4 shadow-inner">
               {[
                 'lunes',
                 'martes',
@@ -1015,28 +1015,28 @@ export const BusinessForm = ({
               ].map((day) => (
                 <div
                   key={day}
-                  className="flex flex-col md:flex-row md:items-center justify-between gap-4 py-4 border-b border-border/50 last:border-0 hover:bg-white/40 transition-colors px-4 rounded-xl"
+                  className="flex flex-col md:flex-row md:items-center justify-between gap-4 py-6 md:py-4 border-b border-border/50 last:border-0 hover:bg-white/40 transition-colors px-2 md:px-4 rounded-xl"
                 >
-                  <span className="font-outfit font-black text-sm uppercase tracking-widest text-green-deeper min-w-[120px]">
+                  <span className="font-outfit font-black text-xs md:text-sm uppercase tracking-widest text-green-deeper min-w-[120px] w-full md:w-auto">
                     {day}
                   </span>
-                   <div className="flex flex-col gap-4">
-                    <div className="grid grid-cols-[1fr,auto,1fr] items-center gap-3">
+                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full md:w-auto">
+                    <div className="grid grid-cols-[1fr,auto,1fr] items-center gap-2 w-full md:w-[350px]">
                       <input
                         type="time"
                         {...register(`schedule.${day}.open`)}
                         disabled={watch(`schedule.${day}.closed`)}
-                        className="w-full bg-white border border-border rounded-xl px-4 py-3 text-xs md:text-sm disabled:opacity-30 outline-none focus:border-green"
+                        className="w-full bg-white border border-border rounded-xl px-4 py-3 text-xs md:text-sm disabled:opacity-30 outline-none focus:border-green transition-all"
                       />
-                      <span className="text-muted text-[10px] uppercase font-black">a</span>
+                      <span className="text-muted text-[10px] uppercase font-black px-1">a</span>
                       <input
                         type="time"
                         {...register(`schedule.${day}.close`)}
                         disabled={watch(`schedule.${day}.closed`)}
-                        className="w-full bg-white border border-border rounded-xl px-4 py-3 text-xs md:text-sm disabled:opacity-30 outline-none focus:border-green"
+                        className="w-full bg-white border border-border rounded-xl px-4 py-3 text-xs md:text-sm disabled:opacity-30 outline-none focus:border-green transition-all"
                       />
                     </div>
-                    <div className="flex md:ml-4">
+                    <div className="flex-shrink-0 w-full sm:w-auto flex justify-start sm:justify-end">
                       <Toggle
                         checked={watch(`schedule.${day}.closed`)}
                         onChange={(val) =>
