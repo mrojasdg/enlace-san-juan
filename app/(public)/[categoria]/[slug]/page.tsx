@@ -165,8 +165,8 @@ export default async function BusinessMicrosite({
                 </div>
               </div>
 
-              {/* Business Header Content Overlay */}
-              <div className="px-6 md:px-8 pb-4 md:pb-10 -mt-20 md:-mt-32 relative z-10 flex flex-col md:flex-row items-end gap-5 md:gap-8 text-center md:text-left">
+              {/* Business Header Content Overlay - Ajustado para bajar el nombre */}
+              <div className="px-6 md:px-8 pb-4 md:pb-10 -mt-20 md:-mt-26 relative z-10 flex flex-col md:flex-row items-end gap-5 md:gap-8 text-center md:text-left">
                 {/* Logo - REDONDO COMPLETAMENTE */}
                 <div className="w-28 h-28 md:w-44 md:h-44 rounded-full bg-white border-4 border-white shadow-2xl overflow-hidden flex-shrink-0 relative group mx-auto md:mx-0">
                   <div className="relative w-full h-full bg-white flex items-center justify-center rounded-full overflow-hidden">
@@ -185,12 +185,9 @@ export default async function BusinessMicrosite({
                   </div>
                 </div>
 
-                <div className={cn(
-                  "flex-1 pb-2 md:pb-4 transition-all duration-500",
-                  business.name.length > 20 ? "md:-translate-y-10" : "md:-translate-y-4"
-                )}>
+                <div className="flex-1 pb-2 md:pb-4 transition-all duration-500">
                   <h1 className={cn(
-                    "font-outfit font-black text-ink md:text-white leading-tight md:leading-[0.85] mb-2 drop-shadow-2xl transition-all duration-500",
+                    "font-outfit font-black text-ink md:text-white leading-tight md:leading-[0.95] mb-2 drop-shadow-2xl transition-all duration-500",
                     business.name.length > 30
                       ? "text-2xl md:text-[2.2rem]"
                       : business.name.length > 20 
@@ -201,11 +198,11 @@ export default async function BusinessMicrosite({
                   )}>
                     {business.name}
                   </h1>
-                  <div className="flex flex-col items-center md:items-start gap-2 md:gap-3 mt-8 md:mt-12">
+                  <div className="flex flex-col items-center md:items-start mt-2">
                     <span className="bg-green-xpale text-green px-4 py-1.5 rounded-full font-black text-[11px] uppercase tracking-[0.2em] inline-block shadow-sm">
                       {category?.name || 'Premium'}
                     </span>
-                    <p className="text-ink/60 font-medium text-base md:text-lg italic leading-tight max-w-xl md:text-ink">
+                    <p className="text-ink/60 font-medium text-base md:text-lg italic leading-tight max-w-xl md:text-ink mt-6 md:mt-10">
                       {business.tagline}
                     </p>
                   </div>
