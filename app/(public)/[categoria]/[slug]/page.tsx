@@ -402,11 +402,19 @@ export default async function BusinessMicrosite({
                     const url = (business as any)[social.key];
                     if (!url || url === '') return null;
 
+                    const isBrand =
+                      social.key === 'uber_eats' || social.key === 'didi_food';
+
                     const iconContent = (
                       <div
-                        className={`w-12 h-12 rounded-xl bg-green-xpale text-green flex items-center justify-center transition-all duration-300 hover:text-white ${social.color} hover:shadow-xl transform hover:-translate-y-1 border border-green-pale`}
+                        className={cn(
+                          'w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1 overflow-hidden',
+                          isBrand
+                            ? 'p-0 bg-transparent'
+                            : `bg-green-xpale text-green hover:text-white ${social.color} border border-green-pale`
+                        )}
                       >
-                        <social.icon size={20} />
+                        <social.icon size={isBrand ? 48 : 20} />
                       </div>
                     );
 

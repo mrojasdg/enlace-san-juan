@@ -10,7 +10,7 @@ export const UberEatsIcon = ({ size = 24, className = "" }: { size?: number, cla
     xmlns="http://www.w3.org/2000/svg"
   >
     <path 
-      fill="currentColor" 
+      fill="#06C167" 
       d="M65.42,210h109.17c19.56,0,35.42-15.86,35.42-35.42v-109.17c0-19.56-15.86-35.42-35.42-35.42h-109.17c-19.56,0-35.42,15.85-35.42,35.42v109.17c0,19.56,15.85,35.42,35.42,35.42Z" 
     />
     <path 
@@ -29,7 +29,7 @@ export const DidiFoodIcon = ({ size = 24, className = "" }: { size?: number, cla
     fill="none" 
     xmlns="http://www.w3.org/2000/svg"
   >
-    <rect x="1.35" y="2.28" width="158.55" height="158.55" rx="9.19" ry="9.19" fill="currentColor" />
+    <rect x="0" y="0" width="161.78" height="161.64" rx="12" ry="12" fill="#FF8B00" />
     <path 
       fill="white" 
       d="M80.86,77.1c9.93-.33,17.79-8.25,17.88-18.06l-.02-8.43,10.92-.02.02,9.33c-.18,15.17-13.35,27.17-28.79,27.54h0c-15.7-.07-29.01-12.09-29.26-27.43l-.03-16.77c-.03-1.71,1.09-2.83,2.77-2.81l44.34-.09.02,10.24-34.77.08c-.89,0-1.43.55-1.42,1.43v6.83c.15,9.94,8.18,18.07,18.33,18.16h0Z" 
