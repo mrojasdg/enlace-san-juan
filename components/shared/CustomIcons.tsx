@@ -4,7 +4,7 @@ export const UberEatsIcon = ({ size = 24, className = "" }: { size?: number, cla
   <svg 
     width={size} 
     height={size} 
-    viewBox="0 0 240 240" 
+    viewBox="30 30 180 180" 
     className={className}
     fill="none" 
     xmlns="http://www.w3.org/2000/svg"
