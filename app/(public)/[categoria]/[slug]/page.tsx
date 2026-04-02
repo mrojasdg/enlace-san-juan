@@ -166,7 +166,7 @@ export default async function BusinessMicrosite({
               </div>
 
               {/* Business Header Content Overlay */}
-              <div className="px-6 md:px-8 pb-4 md:pb-10 -mt-20 md:-mt-24 relative z-10 flex flex-col md:flex-row items-end gap-5 md:gap-8 text-center md:text-left">
+              <div className="px-6 md:px-8 pb-4 md:pb-10 -mt-20 md:-mt-32 relative z-10 flex flex-col md:flex-row items-end gap-5 md:gap-8 text-center md:text-left">
                 {/* Logo - REDONDO COMPLETAMENTE */}
                 <div className="w-28 h-28 md:w-44 md:h-44 rounded-full bg-white border-4 border-white shadow-2xl overflow-hidden flex-shrink-0 relative group mx-auto md:mx-0">
                   <div className="relative w-full h-full bg-white flex items-center justify-center rounded-full overflow-hidden">
@@ -187,19 +187,21 @@ export default async function BusinessMicrosite({
 
                 <div className={cn(
                   "flex-1 pb-2 md:pb-4 transition-all duration-500",
-                  business.name.length > 20 ? "md:-mb-8" : "md:-mb-2"
+                  business.name.length > 20 ? "md:-translate-y-10" : "md:-translate-y-4"
                 )}>
                   <h1 className={cn(
-                    "font-outfit font-black text-ink md:text-white leading-tight md:leading-[0.95] mb-2 drop-shadow-2xl transition-all duration-500",
-                    business.name.length > 20 
-                      ? "text-2xl md:text-[2.6rem]" 
-                      : business.name.length > 12 
-                        ? "text-3xl md:text-[3.5rem]" 
-                        : "text-3xl md:text-5xl"
+                    "font-outfit font-black text-ink md:text-white leading-tight md:leading-[0.85] mb-2 drop-shadow-2xl transition-all duration-500",
+                    business.name.length > 30
+                      ? "text-2xl md:text-[2.2rem]"
+                      : business.name.length > 20 
+                        ? "text-2xl md:text-[2.8rem]" 
+                        : business.name.length > 12 
+                          ? "text-3xl md:text-[3.5rem]" 
+                          : "text-3xl md:text-5xl"
                   )}>
                     {business.name}
                   </h1>
-                  <div className="flex flex-col items-center md:items-start gap-2 md:gap-4 mt-8 md:mt-4">
+                  <div className="flex flex-col items-center md:items-start gap-2 md:gap-3 mt-8 md:mt-2">
                     <span className="bg-green-xpale text-green px-4 py-1.5 rounded-full font-black text-[11px] uppercase tracking-[0.2em] inline-block shadow-sm">
                       {category?.name || 'Premium'}
                     </span>
@@ -349,120 +351,133 @@ export default async function BusinessMicrosite({
             {/* Social Media & Schedule at the bottom */}
             <div className="grid grid-cols-1 gap-8">
               {/* Social Media */}
-              <div className="bg-white rounded-[1.5rem] p-10 border border-border shadow-xl">
-                <h3 className="font-outfit font-black text-lg text-green-deeper uppercase tracking-[0.2em] mb-6 leading-tight">
-                  Redes sociales de <br />
-                  <span className="text-green">{business.name}</span>
-                </h3>
-                <div className="flex flex-wrap gap-4">
-                  {[
-                    {
-                      icon: Facebook,
-                      key: 'facebook',
-                      color:
-                        'hover:bg-[#1877F2] hover:border-[#1877F2] hover:text-white',
-                    },
-                    {
-                      icon: Instagram,
-                      key: 'instagram',
-                      color:
-                        'hover:bg-[#E4405F] hover:border-[#E4405F] hover:text-white',
-                    },
-                    {
-                      icon: Tiktok,
-                      key: 'tiktok',
-                      color:
-                        'hover:bg-black hover:border-black hover:text-white',
-                    },
-                    {
-                      icon: Twitter,
-                      key: 'twitter_x',
-                      color:
-                        'hover:bg-[#000000] hover:border-[#000000] hover:text-white',
-                    },
-                    {
-                      icon: Linkedin,
-                      key: 'linkedin',
-                      color:
-                        'hover:bg-[#0A66C2] hover:border-[#0A66C2] hover:text-white',
-                    },
-                    {
-                      icon: Pinterest,
-                      key: 'pinterest',
-                      color:
-                        'hover:bg-[#E60023] hover:border-[#E60023] hover:text-white',
-                    },
-                    {
-                      icon: Youtube,
-                      key: 'youtube',
-                      color:
-                        'hover:bg-[#FF0000] hover:border-[#FF0000] hover:text-white',
-                    },
-                    {
-                      icon: UberEatsIcon,
-                      key: 'uber_eats',
-                      color:
-                        'hover:bg-[#06C167] hover:border-[#06C167] hover:text-white',
-                    },
-                    {
-                      icon: DidiFoodIcon,
-                      key: 'didi_food',
-                      color:
-                        'hover:bg-[#FF8B00] hover:border-[#FF8B00] hover:text-white',
-                    },
-                    {
-                      icon: RappiIcon,
-                      key: 'rappi',
-                      color:
-                        'hover:bg-[#ff441f] hover:border-[#ff441f] hover:text-white',
-                    },
-                  ].map((social) => {
-                    const url = (business as any)[social.key];
-                    if (!url || url === '') return null;
+              {/* Social Media Section - Only if at least one exists */}
+              {(() => {
+                const socialKeys = ['facebook', 'instagram', 'tiktok', 'twitter_x', 'linkedin', 'pinterest', 'youtube', 'uber_eats', 'didi_food', 'rappi'];
+                const hasSocials = socialKeys.some(key => {
+                  const val = (business as any)[key];
+                  return val && val !== '';
+                });
 
-                    const isBrand =
-                      social.key === 'uber_eats' ||
-                      social.key === 'didi_food' ||
-                      social.key === 'rappi';
+                if (!hasSocials) return null;
 
-                    const iconContent = (
-                      <div
-                        className={cn(
-                          'w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1 overflow-hidden',
-                          isBrand
-                            ? 'p-0 bg-transparent'
-                            : `bg-green-xpale text-green hover:text-white ${social.color} border border-green-pale`
-                        )}
-                      >
-                        <social.icon size={isBrand ? 48 : 20} />
-                      </div>
-                    );
+                return (
+                  <div className="bg-white rounded-[1.5rem] p-10 border border-border shadow-xl">
+                    <h3 className="font-outfit font-black text-lg text-green-deeper uppercase tracking-[0.2em] mb-6 leading-tight">
+                      Redes sociales de <br />
+                      <span className="text-green">{business.name}</span>
+                    </h3>
+                    <div className="flex flex-wrap gap-4">
+                      {[
+                        {
+                          icon: Facebook,
+                          key: 'facebook',
+                          color:
+                            'hover:bg-[#1877F2] hover:border-[#1877F2] hover:text-white',
+                        },
+                        {
+                          icon: Instagram,
+                          key: 'instagram',
+                          color:
+                            'hover:bg-[#E4405F] hover:border-[#E4405F] hover:text-white',
+                        },
+                        {
+                          icon: Tiktok,
+                          key: 'tiktok',
+                          color:
+                            'hover:bg-black hover:border-black hover:text-white',
+                        },
+                        {
+                          icon: Twitter,
+                          key: 'twitter_x',
+                          color:
+                            'hover:bg-[#000000] hover:border-[#000000] hover:text-white',
+                        },
+                        {
+                          icon: Linkedin,
+                          key: 'linkedin',
+                          color:
+                            'hover:bg-[#0A66C2] hover:border-[#0A66C2] hover:text-white',
+                        },
+                        {
+                          icon: Pinterest,
+                          key: 'pinterest',
+                          color:
+                            'hover:bg-[#E60023] hover:border-[#E60023] hover:text-white',
+                        },
+                        {
+                          icon: Youtube,
+                          key: 'youtube',
+                          color:
+                            'hover:bg-[#FF0000] hover:border-[#FF0000] hover:text-white',
+                        },
+                        {
+                          icon: UberEatsIcon,
+                          key: 'uber_eats',
+                          color:
+                            'hover:bg-[#06C167] hover:border-[#06C167] hover:text-white',
+                        },
+                        {
+                          icon: DidiFoodIcon,
+                          key: 'didi_food',
+                          color:
+                            'hover:bg-[#FF8B00] hover:border-[#FF8B00] hover:text-white',
+                        },
+                        {
+                          icon: RappiIcon,
+                          key: 'rappi',
+                          color:
+                            'hover:bg-[#ff441f] hover:border-[#ff441f] hover:text-white',
+                        },
+                      ].map((social) => {
+                        const url = (business as any)[social.key];
+                        if (!url || url === '') return null;
 
-                    // Si es solo icono (valor '#'), lo mostramos sin link
-                    if (url === '#') {
-                      return (
-                        <div
-                          key={social.key}
-                          className="cursor-help"
-                          title="Disponible en esta plataforma"
-                        >
-                          {iconContent}
-                        </div>
-                      );
-                    }
+                        const isBrand =
+                          social.key === 'uber_eats' ||
+                          social.key === 'didi_food' ||
+                          social.key === 'rappi';
 
-                    return (
-                      <Link
-                        key={social.key}
-                        href={url as string}
-                        target="_blank"
-                      >
-                        {iconContent}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
+                        const iconContent = (
+                          <div
+                            className={cn(
+                              'w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1 overflow-hidden',
+                              isBrand
+                                ? 'p-0 bg-transparent'
+                                : `bg-green-xpale text-green hover:text-white ${social.color} border border-green-pale`
+                            )}
+                          >
+                            <social.icon size={isBrand ? 48 : 20} />
+                          </div>
+                        );
+
+                        // Si es solo icono (valor '#'), lo mostramos sin link
+                        if (url === '#') {
+                          return (
+                            <div
+                              key={social.key}
+                              className="cursor-help"
+                              title="Disponible en esta plataforma"
+                            >
+                              {iconContent}
+                            </div>
+                          );
+                        }
+
+                        return (
+                          <Link
+                            key={social.key}
+                            href={url as string}
+                            target="_blank"
+                          >
+                            {iconContent}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })()}
 
               {/* Schedule Card */}
               <div className="bg-white rounded-[1.5rem] overflow-hidden border border-border shadow-2xl">
@@ -553,58 +568,61 @@ export default async function BusinessMicrosite({
           {/* Sidebar (1/3) */}
           <aside className="lg:col-span-1 space-y-10">
             {/* Contact Card */}
-            <div className="bg-white rounded-[1.5rem] p-10 border border-border shadow-xl space-y-10">
-              <h3 className="font-outfit font-black text-xl text-green-deeper uppercase tracking-[0.2em]">
-                Contacto Directo
-              </h3>
-              <div className="space-y-8">
-                {business.phone && (
-                  <div className="flex items-start gap-5 group">
-                    <div className="w-12 h-12 rounded-[0.75rem] bg-green-xpale text-green flex items-center justify-center flex-shrink-0 group-hover:bg-green group-hover:text-white transition-all shadow-sm">
-                      <Phone size={20} />
+            {/* Contact Card - Only if at least one field is filled */}
+            {(business.phone || business.email || business.address) && (
+              <div className="bg-white rounded-[1.5rem] p-10 border border-border shadow-xl space-y-10">
+                <h3 className="font-outfit font-black text-xl text-green-deeper uppercase tracking-[0.2em]">
+                  Contacto Directo
+                </h3>
+                <div className="space-y-8">
+                  {business.phone && (
+                    <div className="flex items-start gap-5 group">
+                      <div className="w-12 h-12 rounded-[0.75rem] bg-green-xpale text-green flex items-center justify-center flex-shrink-0 group-hover:bg-green group-hover:text-white transition-all shadow-sm">
+                        <Phone size={20} />
+                      </div>
+                      <div>
+                        <p className="text-[10px] text-muted font-black uppercase tracking-widest mb-1">
+                          Teléfono principal
+                        </p>
+                        <p className="font-jakarta font-black text-ink2 text-lg">
+                          {business.phone}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-[10px] text-muted font-black uppercase tracking-widest mb-1">
-                        Teléfono principal
-                      </p>
-                      <p className="font-jakarta font-black text-ink2 text-lg">
-                        {business.phone}
-                      </p>
+                  )}
+                  {business.email && (
+                    <div className="flex items-start gap-5 group">
+                      <div className="w-12 h-12 rounded-[0.75rem] bg-green-xpale text-green flex items-center justify-center flex-shrink-0 group-hover:bg-green group-hover:text-white transition-all shadow-sm">
+                        <Mail size={20} />
+                      </div>
+                      <div className="overflow-hidden">
+                        <p className="text-[10px] text-muted font-black uppercase tracking-widest mb-1">
+                          Enviar mensaje
+                        </p>
+                        <p className="font-jakarta font-black text-ink2 truncate">
+                          {business.email}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                )}
-                {business.email && (
-                  <div className="flex items-start gap-5 group">
-                    <div className="w-12 h-12 rounded-[0.75rem] bg-green-xpale text-green flex items-center justify-center flex-shrink-0 group-hover:bg-green group-hover:text-white transition-all shadow-sm">
-                      <Mail size={20} />
+                  )}
+                  {business.address && (
+                    <div className="flex items-start gap-5 group">
+                      <div className="w-12 h-12 rounded-[0.75rem] bg-green-xpale text-green flex items-center justify-center flex-shrink-0 group-hover:bg-green group-hover:text-white transition-all shadow-sm">
+                        <MapPin size={20} />
+                      </div>
+                      <div>
+                        <p className="text-[10px] text-muted font-black uppercase tracking-widest mb-1">
+                          Dirección oficial
+                        </p>
+                        <p className="font-jakarta font-black text-ink2 text-sm leading-snug">
+                          {business.address}, <br /> {business.neighborhood}
+                        </p>
+                      </div>
                     </div>
-                    <div className="overflow-hidden">
-                      <p className="text-[10px] text-muted font-black uppercase tracking-widest mb-1">
-                        Enviar mensaje
-                      </p>
-                      <p className="font-jakarta font-black text-ink2 truncate">
-                        {business.email}
-                      </p>
-                    </div>
-                  </div>
-                )}
-                {business.address && (
-                  <div className="flex items-start gap-5 group">
-                    <div className="w-12 h-12 rounded-[0.75rem] bg-green-xpale text-green flex items-center justify-center flex-shrink-0 group-hover:bg-green group-hover:text-white transition-all shadow-sm">
-                      <MapPin size={20} />
-                    </div>
-                    <div>
-                      <p className="text-[10px] text-muted font-black uppercase tracking-widest mb-1">
-                        Dirección oficial
-                      </p>
-                      <p className="font-jakarta font-black text-ink2 text-sm leading-snug">
-                        {business.address}, <br /> {business.neighborhood}
-                      </p>
-                    </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Share Card */}
             <div className="bg-green p-10 rounded-[1.5rem] flex flex-col items-center text-center text-white shadow-[0_10px_30px_rgba(42,122,59,0.3)] border-4 border-white/20">
