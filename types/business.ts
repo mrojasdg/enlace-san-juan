@@ -58,4 +58,5 @@ export interface Business {
   search_keywords?: string;
   uber_eats?: string;
   didi_food?: string;
+  rappi?: string;
 }

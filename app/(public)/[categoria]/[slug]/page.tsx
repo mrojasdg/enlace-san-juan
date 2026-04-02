@@ -42,7 +42,7 @@ import Link from 'next/link';
 import { CTASection } from '@/components/home/CTASection';
 import { ViewTracker } from '@/components/business/ViewTracker';
 import dynamic from 'next/dynamic';
-import { UberEatsIcon, DidiFoodIcon } from '@/components/shared/CustomIcons';
+import { UberEatsIcon, DidiFoodIcon, RappiIcon } from '@/components/shared/CustomIcons';
 
 const BusinessGallery = dynamic(
   () =>
@@ -398,12 +398,20 @@ export default async function BusinessMicrosite({
                       color:
                         'hover:bg-[#FF8B00] hover:border-[#FF8B00] hover:text-white',
                     },
+                    {
+                      icon: RappiIcon,
+                      key: 'rappi',
+                      color:
+                        'hover:bg-[#ff441f] hover:border-[#ff441f] hover:text-white',
+                    },
                   ].map((social) => {
                     const url = (business as any)[social.key];
                     if (!url || url === '') return null;
 
                     const isBrand =
-                      social.key === 'uber_eats' || social.key === 'didi_food';
+                      social.key === 'uber_eats' ||
+                      social.key === 'didi_food' ||
+                      social.key === 'rappi';
 
                     const iconContent = (
                       <div
@@ -459,32 +467,43 @@ export default async function BusinessMicrosite({
                     <Clock size={20} />
                   </div>
                 </div>
-                <div className="p-6 space-y-3">
-                  {Object.entries(business.schedule || {}).map(
-                    ([day, sch]: [string, any]) => (
-                      <div
-                        key={day}
-                        className={cn(
-                          'flex justify-between items-center py-1.5 transition-all px-3 rounded-lg',
-                          day === days[new Date().getDay()]
-                            ? 'bg-green-xpale text-green shadow-inner'
-                            : 'text-muted hover:bg-black/[0.02]'
-                        )}
-                      >
-                        <span className="uppercase font-black text-[10px] tracking-widest">
-                          {day}
-                        </span>
-                        <span className="text-xs font-bold font-jakarta">
-                          {sch.closed ? (
-                            <span className="opacity-40 italic">Cerrado</span>
-                          ) : (
-                            `${sch.open} - ${sch.close} hrs`
+                  <div className="p-6 space-y-3">
+                    {[
+                      'lunes',
+                      'martes',
+                      'miercoles',
+                      'jueves',
+                      'viernes',
+                      'sabado',
+                      'domingo',
+                    ].map((day) => {
+                      const sch = (business.schedule as any)?.[day] || {
+                        closed: true,
+                      };
+                      return (
+                        <div
+                          key={day}
+                          className={cn(
+                            'flex justify-between items-center py-1.5 transition-all px-3 rounded-lg',
+                            day === days[new Date().getDay()]
+                              ? 'bg-green-xpale text-green shadow-inner'
+                              : 'text-muted hover:bg-black/[0.02]'
                           )}
-                        </span>
-                      </div>
-                    )
-                  )}
-                </div>
+                        >
+                          <span className="uppercase font-black text-[10px] tracking-widest">
+                            {day}
+                          </span>
+                          <span className="text-xs font-bold font-jakarta">
+                            {sch.closed ? (
+                              <span className="opacity-40 italic">Cerrado</span>
+                            ) : (
+                              `${sch.open} - ${sch.close} hrs`
+                            )}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
               </div>
             </div>
 
