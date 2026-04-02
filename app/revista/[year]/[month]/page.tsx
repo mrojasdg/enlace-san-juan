@@ -2,6 +2,7 @@ import { supabase } from '@/lib/supabase';
 import { notFound } from 'next/navigation';
 import { BookViewer } from '@/components/magazine/BookViewer';
 import { Magazine, MagazinePage } from '@/types/magazine';
+import { PageTracker } from '@/components/shared/PageTracker';
 
 // Revalidar en 0 para que siempre esté viva y soporte modo "Borrador"
 export const revalidate = 0;
@@ -72,6 +73,7 @@ export default async function PublicMagazinePage({
 
   return (
     <main className="w-full h-screen bg-black overflow-hidden font-jakarta">
+      <PageTracker path={`revista/${year}/${month}`} />
       <BookViewer 
         pages={finalPagesToRender} 
         total={totalPages} 

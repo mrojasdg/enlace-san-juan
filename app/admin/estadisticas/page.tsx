@@ -118,41 +118,100 @@ export default async function EstadisticasPage() {
 
         {/* Listado Detallado (Ultimas Fechas) */}
         {!error && stats && stats.length > 0 && (
-          <div className="bg-white rounded-[3rem] border border-border shadow-2xl overflow-hidden">
-             <div className="p-8 border-b border-border bg-green-xpale/20 flex items-center justify-between">
-                <h2 className="font-outfit font-black text-xl text-ink uppercase tracking-widest">Actividad Reciente Día a Día</h2>
-                <div className="text-[10px] font-bold text-muted uppercase tracking-[0.2em] bg-white px-4 py-2 rounded-full border border-border">
-                   Mostrando historial completo
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Tabla por Edición de Revista */}
+            <div className="lg:col-span-1 bg-white rounded-[2.5rem] border border-border shadow-xl overflow-hidden flex flex-col">
+              <div className="p-6 border-b border-border bg-green-xpale/10 flex items-center gap-3">
+                <BookOpen size={18} className="text-green" />
+                <h2 className="font-outfit font-black text-sm text-ink uppercase tracking-widest">Impacto por Edición</h2>
+              </div>
+              <div className="flex-1 overflow-y-auto max-h-[500px]">
+                <table className="w-full">
+                  <thead className="sticky top-0 bg-white shadow-sm z-10">
+                    <tr className="text-[9px] font-black text-muted uppercase tracking-widest border-b border-border">
+                      <th className="px-6 py-4 text-left">Revista</th>
+                      <th className="px-6 py-4 text-right">Hoy/30d</th>
+                      <th className="px-6 py-4 text-right">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border/50">
+                    {(() => {
+                      const magStats = (stats || [])
+                        .filter(s => s.page_path.startsWith('revista/'))
+                        .reduce((acc: any, curr) => {
+                          const path = curr.page_path.replace('revista/', '');
+                          if (!acc[path]) acc[path] = { path, total: 0, last30: 0 };
+                          acc[path].total += Number(curr.count);
+                          const thirtyDaysAgo = new Date();
+                          thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+                          if (new Date(curr.view_date) >= thirtyDaysAgo) {
+                            acc[path].last30 += Number(curr.count);
+                          }
+                          return acc;
+                        }, {});
+                      
+                      const sorted = Object.values(magStats).sort((a: any, b: any) => b.total - a.total);
+                      
+                      if (sorted.length === 0) {
+                        return <tr><td colSpan={3} className="px-6 py-10 text-center text-[10px] font-bold text-muted uppercase tracking-widest">Sin datos aún</td></tr>
+                      }
+
+                      return sorted.map((mag: any) => (
+                        <tr key={mag.path} className="hover:bg-green-xpale/5 transition-colors">
+                          <td className="px-6 py-4 font-outfit font-black text-ink text-xs uppercase">
+                            {mag.path}
+                          </td>
+                          <td className="px-6 py-4 text-right font-jakarta font-bold text-green text-xs">
+                            {mag.last30}
+                          </td>
+                          <td className="px-6 py-4 text-right font-outfit font-black text-ink text-sm">
+                            {mag.total}
+                          </td>
+                        </tr>
+                      ));
+                    })()}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Tabla Detallada Día a Día */}
+            <div className="lg:col-span-2 bg-white rounded-[2.5rem] border border-border shadow-xl overflow-hidden flex flex-col">
+              <div className="p-6 border-b border-border bg-green-xpale/10 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <Calendar size={18} className="text-green" />
+                  <h2 className="font-outfit font-black text-sm text-ink uppercase tracking-widest">Actividad Día a Día</h2>
                 </div>
-             </div>
-             <div className="overflow-x-auto">
-               <table className="w-full">
-                 <thead>
-                   <tr className="bg-white text-[10px] font-black text-muted uppercase tracking-[0.2em] border-b border-border">
-                     <th className="px-10 py-6 text-left">Fecha</th>
-                     <th className="px-10 py-6 text-left">Página</th>
-                     <th className="px-10 py-6 text-right">Visitas</th>
-                   </tr>
-                 </thead>
-                 <tbody className="divide-y divide-border/50">
-                   {stats.slice(0, 50).map((row: any) => (
-                     <tr key={row.id} className="hover:bg-green-xpale/10 transition-colors">
-                       <td className="px-10 py-5 font-mono text-xs font-bold text-muted">
-                         {new Date(row.view_date).toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' })}
-                       </td>
-                       <td className="px-10 py-5">
-                         <span className="px-3 py-1 bg-gray-100 rounded-full text-[10px] font-black uppercase text-ink tracking-widest">
-                           {row.page_path}
-                         </span>
-                       </td>
-                       <td className="px-10 py-5 text-right font-outfit font-black text-green text-lg">
-                         {row.count}
-                       </td>
-                     </tr>
-                   ))}
-                 </tbody>
-               </table>
-             </div>
+              </div>
+              <div className="flex-1 overflow-x-auto overflow-y-auto max-h-[500px]">
+                <table className="w-full">
+                  <thead className="sticky top-0 bg-white shadow-sm z-10">
+                    <tr className="text-[9px] font-black text-muted uppercase tracking-widest border-b border-border">
+                      <th className="px-8 py-4 text-left">Fecha</th>
+                      <th className="px-8 py-4 text-left">Canal/Página</th>
+                      <th className="px-8 py-4 text-right">Hits</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border/50">
+                    {stats.slice(0, 50).map((row: any) => (
+                      <tr key={row.id} className="hover:bg-green-xpale/5 transition-colors">
+                        <td className="px-8 py-4 font-mono text-[10px] font-bold text-muted">
+                          {new Date(row.view_date).toLocaleDateString('es-MX', { year: '2-digit', month: 'short', day: 'numeric' })}
+                        </td>
+                        <td className="px-8 py-4">
+                          <span className="px-2 py-0.5 bg-gray-100 rounded text-[9px] font-black uppercase text-ink tracking-widest">
+                            {row.page_path}
+                          </span>
+                        </td>
+                        <td className="px-8 py-4 text-right font-outfit font-black text-green">
+                          {row.count}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         )}
       </div>
