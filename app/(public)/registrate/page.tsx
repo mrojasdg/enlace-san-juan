@@ -42,7 +42,7 @@ export default async function RegistratePage() {
           </p>
         </div>
 
-        <div className="bg-white rounded-[2rem] md:rounded-[3rem] shadow-xl p-4 md:p-8 lg:p-12 mb-20 border border-border overflow-hidden">
+        <div className="bg-transparent md:bg-white rounded-[2rem] md:rounded-[3rem] md:shadow-xl p-0 md:p-8 lg:p-12 mb-20 md:border md:border-border overflow-hidden">
           <BusinessForm
             categories={categories || []}
             isPublicRegistration={true}

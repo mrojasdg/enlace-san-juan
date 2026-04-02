@@ -431,7 +431,10 @@ export const BusinessForm = ({
   ];
 
   return (
-    <div className="bg-white rounded-[3rem] border border-border overflow-hidden shadow-2xl relative">
+    <div className={cn(
+      "bg-white rounded-[1.5rem] md:rounded-[3rem] relative",
+      !isPublicRegistration ? "border border-border shadow-2xl overflow-hidden" : ""
+    )}>
       {/* Tab Navigation */}
       <div className="flex bg-[#F4FBF5] border-b border-border overflow-x-auto scrollbar-hide py-2 px-6">
         {tabs.map((tab) => (
@@ -460,7 +463,7 @@ export const BusinessForm = ({
 
       <form
         onSubmit={handleSubmit(onSubmit, onFormError)}
-        className="p-5 md:p-14"
+        className="p-4 md:p-14"
       >
         {/* TAB 1: GENERAL */}
         {activeTab === 'general' && (
@@ -681,7 +684,7 @@ export const BusinessForm = ({
                 <label className="text-[10px] font-black text-green uppercase tracking-[0.2em] ml-2 block">
                   Catálogo / Menú (PDF)
                 </label>
-                <div className="flex items-center gap-6">
+                <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
                   <div className="flex-1 relative">
                     <div
                       className={cn(
@@ -691,7 +694,7 @@ export const BusinessForm = ({
                     >
                       <FileText
                         className={cn(
-                          'text-muted transition-colors',
+                          'text-muted transition-colors flex-shrink-0',
                           (pdfFile || pdfUrl) && 'text-green'
                         )}
                         size={32}
@@ -718,7 +721,7 @@ export const BusinessForm = ({
                             setPdfFile(null);
                             setPdfUrl(null);
                           }}
-                          className="w-8 h-8 rounded-full bg-red-500 text-white flex items-center justify-center hover:bg-red-600 transition-colors shadow-lg"
+                          className="w-8 h-8 rounded-full bg-red-500 text-white flex-shrink-0 flex items-center justify-center hover:bg-red-600 transition-colors shadow-lg"
                         >
                           <X size={14} />
                         </button>
@@ -746,14 +749,14 @@ export const BusinessForm = ({
                       }}
                     />
                   </div>
-                  <div className="w-1/3">
+                  <div className="w-full md:w-1/3">
                     <label className="text-[9px] font-black text-muted uppercase tracking-widest ml-1 block mb-2">
                       Etiqueta del botón
                     </label>
                     <input
                       {...register('catalog_label')}
                       placeholder="Menú / Catálogo"
-                      className="w-full bg-green-xpale border border-border focus:bg-white focus:border-green outline-none rounded-xl py-3 px-4 font-bold text-xs"
+                      className="w-full bg-green-xpale border border-border focus:bg-white focus:border-green outline-none rounded-xl py-4 px-4 font-bold text-xs"
                     />
                   </div>
                 </div>
@@ -1017,21 +1020,23 @@ export const BusinessForm = ({
                   <span className="font-outfit font-black text-sm uppercase tracking-widest text-green-deeper min-w-[120px]">
                     {day}
                   </span>
-                  <div className="flex items-center gap-4">
-                    <input
-                      type="time"
-                      {...register(`schedule.${day}.open`)}
-                      disabled={watch(`schedule.${day}.closed`)}
-                      className="bg-white border border-border rounded-xl px-4 py-2 text-sm disabled:opacity-30"
-                    />
-                    <span className="text-muted text-xs">a</span>
-                    <input
-                      type="time"
-                      {...register(`schedule.${day}.close`)}
-                      disabled={watch(`schedule.${day}.closed`)}
-                      className="bg-white border border-border rounded-xl px-4 py-2 text-sm disabled:opacity-30"
-                    />
-                    <div className="ml-4">
+                   <div className="flex flex-col gap-4">
+                    <div className="grid grid-cols-[1fr,auto,1fr] items-center gap-3">
+                      <input
+                        type="time"
+                        {...register(`schedule.${day}.open`)}
+                        disabled={watch(`schedule.${day}.closed`)}
+                        className="w-full bg-white border border-border rounded-xl px-4 py-3 text-xs md:text-sm disabled:opacity-30 outline-none focus:border-green"
+                      />
+                      <span className="text-muted text-[10px] uppercase font-black">a</span>
+                      <input
+                        type="time"
+                        {...register(`schedule.${day}.close`)}
+                        disabled={watch(`schedule.${day}.closed`)}
+                        className="w-full bg-white border border-border rounded-xl px-4 py-3 text-xs md:text-sm disabled:opacity-30 outline-none focus:border-green"
+                      />
+                    </div>
+                    <div className="flex md:ml-4">
                       <Toggle
                         checked={watch(`schedule.${day}.closed`)}
                         onChange={(val) =>
@@ -1277,8 +1282,8 @@ export const BusinessForm = ({
               </p>
             </div>
             
-            <label className="flex items-center gap-4 cursor-pointer group">
-              <div className="relative w-8 h-8 rounded-xl border-2 border-green/30 bg-white flex items-center justify-center transition-all group-hover:border-green group-hover:shadow-lg">
+            <label className="flex items-center gap-4 cursor-pointer group w-full md:w-auto">
+              <div className="relative w-8 h-8 rounded-xl border-2 border-green/30 bg-white flex-shrink-0 flex items-center justify-center transition-all group-hover:border-green group-hover:shadow-lg">
                 <input 
                   type="checkbox" 
                   {...register('terms_accepted')}

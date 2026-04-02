@@ -16,21 +16,36 @@ import {
     CalendarCheck,
     Palette,
     LayoutGrid,
+    Stethoscope,
+    Store,
+    BookOpen,
+    Ticket,
     LucideIcon
 } from "lucide-react";
 import { cn } from "@/utils/cn";
 
 const ICON_MAP: Record<string, LucideIcon> = {
     utensils: Utensils,
+    'heart-pulse': Stethoscope,
     heart: HeartPulse,
+    stethoscope: Stethoscope,
     scissors: Scissors,
+    'shopping-bag': ShoppingBag,
     bag: ShoppingBag,
+    store: Store,
+    retail: Store,
     home: Home,
+    'graduation-cap': GraduationCap,
     graduation: GraduationCap,
+    'book-open': BookOpen,
+    educacion: BookOpen,
     briefcase: Briefcase,
     car: Car,
     building: Building,
-    calendar: CalendarCheck,
+    'calendar-check': CalendarCheck,
+    'calendar-star': Ticket,
+    ticket: Ticket,
+    eventos: Ticket,
     palette: Palette,
     grid: LayoutGrid,
 };
