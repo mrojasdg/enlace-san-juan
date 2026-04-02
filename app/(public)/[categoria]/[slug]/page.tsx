@@ -201,11 +201,11 @@ export default async function BusinessMicrosite({
                   )}>
                     {business.name}
                   </h1>
-                  <div className="flex flex-col items-center md:items-start gap-2 md:gap-3 mt-8 md:mt-2">
+                  <div className="flex flex-col items-center md:items-start gap-2 md:gap-3 mt-8 md:mt-12">
                     <span className="bg-green-xpale text-green px-4 py-1.5 rounded-full font-black text-[11px] uppercase tracking-[0.2em] inline-block shadow-sm">
                       {category?.name || 'Premium'}
                     </span>
-                    <p className="text-ink/60 font-medium text-base md:text-lg italic leading-tight max-w-lg">
+                    <p className="text-ink/60 font-medium text-base md:text-lg italic leading-tight max-w-xl md:text-ink">
                       {business.tagline}
                     </p>
                   </div>
