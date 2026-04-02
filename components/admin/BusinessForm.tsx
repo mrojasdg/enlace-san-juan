@@ -53,6 +53,7 @@ import { cn } from '@/utils/cn';
 import { generateSlug } from '@/utils/slug';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
+import { UberEatsIcon, DidiFoodIcon } from '@/components/shared/CustomIcons';
 
 const MapPicker = dynamic(
   () => import('./MapPicker').then((mod) => mod.default),
@@ -1225,9 +1226,9 @@ export const BusinessForm = ({
                     />
                   </div>
                   <div className="relative group">
-                    <ShoppingBag
-                      className="absolute left-4 top-1/2 -translate-y-1/2 text-muted/40 group-focus-within:text-green-600 transition-colors"
-                      size={18}
+                    <UberEatsIcon
+                      className="absolute left-4 top-1/2 -translate-y-1/2 text-muted/40 group-focus-within:text-[#06C167] transition-colors"
+                      size={20}
                     />
                     <input
                       {...register('uber_eats')}
@@ -1236,9 +1237,9 @@ export const BusinessForm = ({
                     />
                   </div>
                   <div className="relative group">
-                    <ShoppingBag
-                      className="absolute left-4 top-1/2 -translate-y-1/2 text-muted/40 group-focus-within:text-orange-600 transition-colors"
-                      size={18}
+                    <DidiFoodIcon
+                      className="absolute left-4 top-1/2 -translate-y-1/2 text-muted/40 group-focus-within:text-[#FF8B00] transition-colors"
+                      size={20}
                     />
                     <input
                       {...register('didi_food')}

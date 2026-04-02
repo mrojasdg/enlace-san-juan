@@ -42,6 +42,7 @@ import Link from 'next/link';
 import { CTASection } from '@/components/home/CTASection';
 import { ViewTracker } from '@/components/business/ViewTracker';
 import dynamic from 'next/dynamic';
+import { UberEatsIcon, DidiFoodIcon } from '@/components/shared/CustomIcons';
 
 const BusinessGallery = dynamic(
   () =>
@@ -386,13 +387,13 @@ export default async function BusinessMicrosite({
                         'hover:bg-[#FF0000] hover:border-[#FF0000] hover:text-white',
                     },
                     {
-                      icon: ShoppingBag,
+                      icon: UberEatsIcon,
                       key: 'uber_eats',
                       color:
                         'hover:bg-[#06C167] hover:border-[#06C167] hover:text-white',
                     },
                     {
-                      icon: ShoppingBag,
+                      icon: DidiFoodIcon,
                       key: 'didi_food',
                       color:
                         'hover:bg-[#FF8B00] hover:border-[#FF8B00] hover:text-white',
