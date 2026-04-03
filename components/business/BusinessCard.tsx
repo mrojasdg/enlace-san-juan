@@ -62,10 +62,10 @@ export const BusinessCard = ({ business }: BusinessCardProps) => {
           </div>
 
           {/* Title shifted to right of logo, bottom aligned over cover */}
-          <div className="absolute bottom-2 left-[110px] pr-4 z-10 flex flex-col justify-end items-start pointer-events-none">
+          <div className="absolute bottom-5 left-[110px] pr-4 z-10 flex flex-col justify-end items-start pointer-events-none">
             <h3 
               className="font-outfit font-black text-white text-[24px] leading-tight drop-shadow-lg"
-              style={{ maxWidth: '14ch', wordWrap: 'break-word' }}
+              style={{ maxWidth: '12ch', wordWrap: 'break-word' }}
             >
               {business.name}
             </h3>
@@ -75,7 +75,7 @@ export const BusinessCard = ({ business }: BusinessCardProps) => {
         {/* Body */}
         <div className="p-6 pt-0 relative">
           {/* Floating Logo */}
-          <div className="absolute top-[-40px] left-6 z-20">
+          <div className="absolute top-[-54px] left-6 z-20">
             <div className="w-20 h-20 rounded-full border-4 border-white overflow-hidden bg-white shadow-xl relative flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
               {business.logo_url ? (
                 <Image
@@ -92,7 +92,7 @@ export const BusinessCard = ({ business }: BusinessCardProps) => {
             </div>
           </div>
 
-          <div className="mb-4 ml-[90px] pt-2 flex items-center gap-2">
+          <div className="mb-3 ml-[90px] pt-1 flex items-center gap-2">
             <span className="inline-block bg-[#F2F8F4] text-green-mid font-black text-[9px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-xl">
               {business.category?.name || 'Categoría'}
             </span>
