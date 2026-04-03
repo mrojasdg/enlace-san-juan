@@ -1126,12 +1126,12 @@ export const BusinessForm = ({
                         <div
                           className={cn(
                             'w-10 h-10 rounded-xl flex items-center justify-center transition-colors',
-                            isSelected
-                              ? 'bg-green text-white'
-                              : 'bg-green-xpale text-green'
+                            feature.color 
+                              ? 'bg-transparent' 
+                              : (isSelected ? 'bg-green text-white' : 'bg-green-xpale text-green')
                           )}
                         >
-                          <feature.icon size={20} />
+                          <feature.icon size={feature.color ? 40 : 20} className={feature.color ? "rounded-[10px] overflow-hidden" : ""} />
                         </div>
                         <div className="flex-1">
                           <p

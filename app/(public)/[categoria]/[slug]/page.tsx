@@ -395,12 +395,12 @@ export default async function BusinessMicrosite({
                       className="flex flex-col items-center text-center group"
                     >
                       <div className={cn(
-                        "w-14 h-14 rounded-xl flex items-center justify-center mb-3 transition-all duration-300 shadow-sm",
+                        "w-14 h-14 rounded-xl flex items-center justify-center mb-3 transition-all duration-300",
                         feature.color 
-                          ? "bg-transparent group-hover:scale-110" 
-                          : "bg-green-xpale text-green group-hover:bg-green group-hover:text-white"
+                          ? "bg-transparent group-hover:scale-110 shadow-none" 
+                          : "bg-green-xpale text-green group-hover:bg-green group-hover:text-white shadow-sm"
                       )}>
-                        <feature.icon size={28} />
+                        <feature.icon size={feature.color ? 56 : 28} className={feature.color ? "rounded-xl overflow-hidden" : ""} />
                       </div>
                       <span className="font-jakarta font-black text-[9px] uppercase tracking-widest text-ink leading-tight">
                         {feature.label}
