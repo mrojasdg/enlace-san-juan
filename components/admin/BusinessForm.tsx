@@ -47,13 +47,21 @@ import {
   Snowflake,
   Dog,
   Gamepad2,
+  Coins,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { cn } from '@/utils/cn';
 import { generateSlug } from '@/utils/slug';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
-import { UberEatsIcon, DidiFoodIcon, RappiIcon } from '@/components/shared/CustomIcons';
+import {
+  UberEatsIcon,
+  DidiFoodIcon,
+  RappiIcon,
+  WellhubIcon,
+  TotalPassIcon,
+  FitPassIcon,
+} from '@/components/shared/CustomIcons';
 
 const MapPicker = dynamic(
   () => import('./MapPicker').then((mod) => mod.default),
@@ -103,9 +111,6 @@ const businessSchema = z.object({
   tiktok: z.string().nullable().optional().or(z.literal('')),
   pinterest: z.string().nullable().optional().or(z.literal('')),
   linkedin: z.string().nullable().optional().or(z.literal('')),
-  uber_eats: z.string().nullable().optional().or(z.literal('')),
-  didi_food: z.string().nullable().optional().or(z.literal('')),
-  rappi: z.string().nullable().optional().or(z.literal('')),
   features: z.array(z.string()).default([]),
   catalog_label: z.string().nullable().optional().default('Menú / Catálogo'),
   search_keywords: z.string().nullable().optional().or(z.literal('')),
@@ -136,6 +141,7 @@ interface BusinessFormProps {
 }
 
 const ALL_FEATURES = [
+  { id: 'Pago en efectivo', label: 'Pago en efectivo', icon: Coins },
   { id: 'Pago con tarjeta', label: 'Pago con tarjeta', icon: CreditCard },
   {
     id: 'Pago con transferencia',
@@ -158,6 +164,42 @@ const ALL_FEATURES = [
     id: 'Con juegos infantiles',
     label: 'Con juegos infantiles',
     icon: Gamepad2,
+  },
+  {
+    id: 'Uber Eats',
+    label: 'Uber Eats',
+    icon: UberEatsIcon,
+    color: 'text-[#06C167]',
+  },
+  {
+    id: 'Didi Food',
+    label: 'Didi Food',
+    icon: DidiFoodIcon,
+    color: 'text-[#FF8B00]',
+  },
+  {
+    id: 'Rappi',
+    label: 'Rappi',
+    icon: RappiIcon,
+    color: 'text-[#ff441f]',
+  },
+  {
+    id: 'Wellhub',
+    label: 'Wellhub',
+    icon: WellhubIcon,
+    color: 'text-[#f2496b]',
+  },
+  {
+    id: 'Total Pass',
+    label: 'Total Pass',
+    icon: TotalPassIcon,
+    color: 'text-[#27d07d]', // Just an approx dominant color if needed
+  },
+  {
+    id: 'Fit pass',
+    label: 'Fit pass',
+    icon: FitPassIcon,
+    color: 'text-[#09cee9]', // Approx gradient color
   },
 ];
 
@@ -1229,39 +1271,6 @@ export const BusinessForm = ({
                       {...register('linkedin')}
                       placeholder="LinkedIn URL"
                       className="w-full bg-green-xpale border border-border rounded-2xl py-4 pl-12 pr-6 font-bold text-sm"
-                    />
-                  </div>
-                  <div className="relative group">
-                    <UberEatsIcon
-                      className="absolute left-4 top-1/2 -translate-y-1/2 text-muted/40 group-focus-within:text-[#06C167] transition-colors"
-                      size={20}
-                    />
-                    <input
-                      {...register('uber_eats')}
-                      placeholder="Link Uber Eats o # para solo icono"
-                      className="w-full bg-green-xpale border border-border focus:bg-white focus:border-green-600 focus:shadow-xl outline-none rounded-xl md:rounded-2xl py-4 md:py-5 pl-12 pr-6 font-bold text-sm md:text-base text-ink transition-all placeholder:opacity-50"
-                    />
-                  </div>
-                  <div className="relative group">
-                    <DidiFoodIcon
-                      className="absolute left-4 top-1/2 -translate-y-1/2 text-muted/40 group-focus-within:text-[#FF8B00] transition-colors"
-                      size={20}
-                    />
-                    <input
-                      {...register('didi_food')}
-                      placeholder="Link Didi Food o # para solo icono"
-                      className="w-full bg-green-xpale border border-border focus:bg-white focus:border-orange-600 focus:shadow-xl outline-none rounded-xl md:rounded-2xl py-4 md:py-5 pl-12 pr-6 font-bold text-sm md:text-base text-ink transition-all placeholder:opacity-50"
-                    />
-                  </div>
-                  <div className="relative group">
-                    <RappiIcon
-                      className="absolute left-4 top-1/2 -translate-y-1/2 text-muted/40 group-focus-within:text-[#ff441f] transition-colors"
-                      size={20}
-                    />
-                    <input
-                      {...register('rappi')}
-                      placeholder="Link Rappi o # para solo icono"
-                      className="w-full bg-green-xpale border border-border focus:bg-white focus:border-red-600 focus:shadow-xl outline-none rounded-xl md:rounded-2xl py-4 md:py-5 pl-12 pr-6 font-bold text-sm md:text-base text-ink transition-all placeholder:opacity-50"
                     />
                   </div>
                 </div>

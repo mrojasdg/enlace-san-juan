@@ -33,6 +33,7 @@ import {
   Snowflake,
   Dog,
   Gamepad2,
+  Coins,
 } from 'lucide-react';
 import { isOpenNow } from '@/utils/schedule';
 import { Navbar } from '@/components/layout/Navbar';
@@ -42,7 +43,14 @@ import Link from 'next/link';
 import { CTASection } from '@/components/home/CTASection';
 import { ViewTracker } from '@/components/business/ViewTracker';
 import dynamic from 'next/dynamic';
-import { UberEatsIcon, DidiFoodIcon, RappiIcon } from '@/components/shared/CustomIcons';
+import {
+  UberEatsIcon,
+  DidiFoodIcon,
+  RappiIcon,
+  WellhubIcon,
+  TotalPassIcon,
+  FitPassIcon,
+} from '@/components/shared/CustomIcons';
 
 const BusinessGallery = dynamic(
   () =>
@@ -60,6 +68,7 @@ const BusinessMap = dynamic(
 );
 
 const ALL_FEATURES = [
+  { id: 'Pago en efectivo', label: 'Pago en efectivo', icon: Coins },
   { id: 'Pago con tarjeta', label: 'Pago con tarjeta', icon: CreditCard },
   {
     id: 'Pago con transferencia',
@@ -82,6 +91,42 @@ const ALL_FEATURES = [
     id: 'Con juegos infantiles',
     label: 'Con juegos infantiles',
     icon: Gamepad2,
+  },
+  {
+    id: 'Uber Eats',
+    label: 'Uber Eats',
+    icon: UberEatsIcon,
+    color: 'text-[#06C167]',
+  },
+  {
+    id: 'Didi Food',
+    label: 'Didi Food',
+    icon: DidiFoodIcon,
+    color: 'text-[#FF8B00]',
+  },
+  {
+    id: 'Rappi',
+    label: 'Rappi',
+    icon: RappiIcon,
+    color: 'text-[#ff441f]',
+  },
+  {
+    id: 'Wellhub',
+    label: 'Wellhub',
+    icon: WellhubIcon,
+    color: 'text-[#f2496b]',
+  },
+  {
+    id: 'Total Pass',
+    label: 'Total Pass',
+    icon: TotalPassIcon,
+    color: 'text-[#27d07d]', // Just an approx dominant color if needed
+  },
+  {
+    id: 'Fit pass',
+    label: 'Fit pass',
+    icon: FitPassIcon,
+    color: 'text-[#09cee9]', // Approx gradient color
   },
 ];
 
@@ -349,7 +394,12 @@ export default async function BusinessMicrosite({
                       key={feature.id}
                       className="flex flex-col items-center text-center group"
                     >
-                      <div className="w-14 h-14 rounded-xl bg-green-xpale text-green flex items-center justify-center mb-3 group-hover:bg-green group-hover:text-white transition-all duration-300 shadow-sm">
+                      <div className={cn(
+                        "w-14 h-14 rounded-xl flex items-center justify-center mb-3 transition-all duration-300 shadow-sm",
+                        feature.color 
+                          ? "bg-transparent group-hover:scale-110" 
+                          : "bg-green-xpale text-green group-hover:bg-green group-hover:text-white"
+                      )}>
                         <feature.icon size={28} />
                       </div>
                       <span className="font-jakarta font-black text-[9px] uppercase tracking-widest text-ink leading-tight">
@@ -391,7 +441,7 @@ export default async function BusinessMicrosite({
               {/* Social Media */}
               {/* Social Media Section - Only if at least one exists */}
               {(() => {
-                const socialKeys = ['facebook', 'instagram', 'tiktok', 'twitter_x', 'linkedin', 'pinterest', 'youtube', 'uber_eats', 'didi_food', 'rappi'];
+                const socialKeys = ['facebook', 'instagram', 'tiktok', 'twitter_x', 'linkedin', 'pinterest', 'youtube'];
                 const hasSocials = socialKeys.some(key => {
                   const val = (business as any)[key];
                   return val && val !== '';
@@ -449,43 +499,18 @@ export default async function BusinessMicrosite({
                           color:
                             'hover:bg-[#FF0000] hover:border-[#FF0000] hover:text-white',
                         },
-                        {
-                          icon: UberEatsIcon,
-                          key: 'uber_eats',
-                          color:
-                            'hover:bg-[#06C167] hover:border-[#06C167] hover:text-white',
-                        },
-                        {
-                          icon: DidiFoodIcon,
-                          key: 'didi_food',
-                          color:
-                            'hover:bg-[#FF8B00] hover:border-[#FF8B00] hover:text-white',
-                        },
-                        {
-                          icon: RappiIcon,
-                          key: 'rappi',
-                          color:
-                            'hover:bg-[#ff441f] hover:border-[#ff441f] hover:text-white',
-                        },
                       ].map((social) => {
                         const url = (business as any)[social.key];
                         if (!url || url === '') return null;
 
-                        const isBrand =
-                          social.key === 'uber_eats' ||
-                          social.key === 'didi_food' ||
-                          social.key === 'rappi';
-
                         const iconContent = (
                           <div
                             className={cn(
-                              'w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1 overflow-hidden',
-                              isBrand
-                                ? 'p-0 bg-transparent'
-                                : `bg-green-xpale text-green hover:text-white ${social.color} border border-green-pale`
+                              'w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1 overflow-hidden bg-green-xpale text-green hover:text-white border border-green-pale',
+                              social.color
                             )}
                           >
-                            <social.icon size={isBrand ? 48 : 20} />
+                            <social.icon size={20} />
                           </div>
                         );
 
