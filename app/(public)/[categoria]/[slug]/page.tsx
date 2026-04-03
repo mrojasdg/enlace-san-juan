@@ -100,7 +100,8 @@ export async function generateMetadata({
 
   if (!business) return { title: 'Negocio no encontrado' };
 
-  const finalImage = business.logo_url || business.cover_url || 'https://enlacesanjuan.com.mx/wp-content/uploads/2025/12/enlaceLogoSanJuan-300x125.png';
+  // Priorizamos la portada para redes sociales porque es rectangular y llena mejor el espacio
+  const finalImage = business.cover_url || business.logo_url || 'https://enlacesanjuan.com.mx/wp-content/uploads/2025/12/enlaceLogoSanJuan-300x125.png';
 
   return {
     title: `${business.name} | Enlace San Juan`,
