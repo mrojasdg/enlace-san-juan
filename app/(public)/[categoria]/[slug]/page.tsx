@@ -87,6 +87,46 @@ const ALL_FEATURES = [
 
 export const revalidate = 60;
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { categoria: string; slug: string };
+}) {
+  const { data: business } = await supabase
+    .from('businesses')
+    .select('name, tagline, logo_url, cover_url, description')
+    .eq('slug', params.slug)
+    .single();
+
+  if (!business) return { title: 'Negocio no encontrado' };
+
+  const finalImage = business.logo_url || business.cover_url || 'https://enlacesanjuan.com.mx/wp-content/uploads/2025/12/enlaceLogoSanJuan-300x125.png';
+
+  return {
+    title: `${business.name} | Enlace San Juan`,
+    description: business.tagline || business.description?.slice(0, 160),
+    openGraph: {
+      title: business.name,
+      description: business.tagline || business.description?.slice(0, 160),
+      images: [
+        {
+          url: finalImage,
+          width: 1200,
+          height: 630,
+          alt: business.name,
+        },
+      ],
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: business.name,
+      description: business.tagline || business.description?.slice(0, 160),
+      images: [finalImage],
+    },
+  };
+}
+
 export default async function BusinessMicrosite({
   params,
 }: {
