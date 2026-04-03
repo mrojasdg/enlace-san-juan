@@ -33,7 +33,12 @@ const secondaryItems = [
   { name: 'Soporte', href: '/admin/support', icon: HelpCircle },
 ];
 
-export const AdminSidebar = () => {
+interface AdminSidebarProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+}
+
+export const AdminSidebar = ({ isOpen, onClose }: AdminSidebarProps) => {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -49,7 +54,21 @@ export const AdminSidebar = () => {
   };
 
   return (
-    <aside className="w-[300px] h-screen bg-green-deeper text-white flex flex-col items-center justify-between py-12 px-6 border-r border-white/5 relative z-50 shadow-2xl overflow-hidden shrink-0">
+    <>
+      {/* Overlay for mobile */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-ink/60 backdrop-blur-sm z-[60] lg:hidden animate-in fade-in duration-300"
+          onClick={onClose}
+        />
+      )}
+
+      <aside
+        className={cn(
+          'fixed lg:relative w-[300px] h-screen bg-green-deeper text-white flex flex-col items-center justify-between py-12 px-6 border-r border-white/5 z-[70] shadow-2xl overflow-hidden shrink-0 transition-transform duration-300 ease-out',
+          isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+        )}
+      >
       {/* Decorative pulse background */}
       <div className="absolute top-0 left-0 w-full h-[300px] bg-gradient-to-b from-green/10 to-transparent pointer-events-none" />
 
@@ -164,5 +183,6 @@ export const AdminSidebar = () => {
         </p>
       </div>
     </aside>
+    </>
   );
 };

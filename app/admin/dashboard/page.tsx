@@ -47,15 +47,15 @@ export default async function AdminDashboardPage() {
     return (
         <AdminLayout>
             {/* KPI Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
                 {kpis.map((kpi) => (
-                    <div key={kpi.label} className="bg-white p-8 rounded-[2.5rem] border border-border shadow-sm flex items-center justify-between group hover:shadow-2xl hover:shadow-green/5 hover:-translate-y-1 transition-all duration-300">
-                        <div className="space-y-2">
-                            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted/60">{kpi.label}</p>
-                            <h3 className="font-outfit font-black text-5xl text-ink leading-none">{kpi.value}</h3>
+                    <div key={kpi.label} className="bg-white p-6 md:p-8 rounded-3xl md:rounded-[2.5rem] border border-border shadow-sm flex items-center justify-between group hover:shadow-2xl hover:shadow-green/5 transition-all duration-300">
+                        <div className="space-y-1 md:space-y-2">
+                            <p className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-muted/60">{kpi.label}</p>
+                            <h3 className="font-outfit font-black text-3xl md:text-5xl text-ink leading-none">{kpi.value}</h3>
                         </div>
-                        <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110", kpi.bg, kpi.color)}>
-                            <kpi.icon size={24} />
+                        <div className={cn("w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110", kpi.bg, kpi.color)}>
+                            <kpi.icon size={20} className="md:w-6 md:h-6" />
                         </div>
                     </div>
                 ))}
