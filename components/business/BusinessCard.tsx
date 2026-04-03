@@ -38,8 +38,8 @@ export const BusinessCard = ({ business }: BusinessCardProps) => {
             </div>
           )}
 
-          {/* Overlay Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+          {/* Overlay Gradient for readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
 
           {/* Badges */}
           <div className="absolute top-4 left-4 flex flex-col gap-2">
@@ -50,7 +50,7 @@ export const BusinessCard = ({ business }: BusinessCardProps) => {
             )}
           </div>
 
-          <div className="absolute top-4 right-4">
+          <div className="absolute top-4 right-4 z-10">
             <span
               className={cn(
                 'text-[10px] font-black px-3 py-1.5 rounded-full shadow-xl text-white backdrop-blur-md uppercase tracking-widest',
@@ -60,13 +60,23 @@ export const BusinessCard = ({ business }: BusinessCardProps) => {
               {isOpen ? 'Abierto' : 'Cerrado'}
             </span>
           </div>
+
+          {/* Title shifted to right of logo, bottom aligned over cover */}
+          <div className="absolute bottom-2 left-[110px] pr-4 z-10 flex flex-col justify-end items-start pointer-events-none">
+            <h3 
+              className="font-outfit font-black text-white text-[24px] leading-tight drop-shadow-lg"
+              style={{ maxWidth: '14ch', wordWrap: 'break-word' }}
+            >
+              {business.name}
+            </h3>
+          </div>
         </div>
 
         {/* Body */}
         <div className="p-6 pt-0 relative">
           {/* Floating Logo */}
-          <div className="relative -mt-10 mb-4 inline-block">
-            <div className="w-20 h-20 rounded-full border-4 border-white overflow-hidden bg-white shadow-2xl relative flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+          <div className="absolute top-[-40px] left-6 z-20">
+            <div className="w-20 h-20 rounded-full border-4 border-white overflow-hidden bg-white shadow-xl relative flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
               {business.logo_url ? (
                 <Image
                   src={business.logo_url}
@@ -82,21 +92,16 @@ export const BusinessCard = ({ business }: BusinessCardProps) => {
             </div>
           </div>
 
-          <div className="mb-4">
-            <div className="flex items-center gap-2 mb-1">
-              <h3 className="font-outfit font-black text-ink text-2xl leading-tight group-hover:text-green transition-colors line-clamp-1">
-                {business.name}
-              </h3>
-              {business.verified && (
-                <CheckCircle
-                  size={18}
-                  className="text-blue-500 flex-shrink-0"
-                />
-              )}
-            </div>
-            <p className="text-xs text-green-mid font-black uppercase tracking-[0.2em]">
+          <div className="mb-4 ml-[90px] pt-2 flex items-center gap-2">
+            <span className="inline-block bg-[#F2F8F4] text-green-mid font-black text-[9px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-xl">
               {business.category?.name || 'Categoría'}
-            </p>
+            </span>
+            {business.verified && (
+              <CheckCircle
+                size={16}
+                className="text-blue-500 flex-shrink-0"
+              />
+            )}
           </div>
 
           <p className="text-sm text-muted font-jakarta leading-relaxed line-clamp-2 h-10 mb-6 group-hover:text-ink transition-colors">
