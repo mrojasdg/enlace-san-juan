@@ -61,22 +61,13 @@ export const BusinessCard = ({ business }: BusinessCardProps) => {
             </span>
           </div>
 
-          {/* Title shifted to right of logo, bottom aligned over cover */}
-          <div className="absolute bottom-5 left-[110px] pr-4 z-10 flex flex-col justify-end items-start pointer-events-none">
-            <h3 
-              className="font-outfit font-black text-white text-[24px] leading-tight drop-shadow-lg"
-              style={{ maxWidth: '12ch', wordWrap: 'break-word' }}
-            >
-              {business.name}
-            </h3>
-          </div>
         </div>
 
         {/* Body */}
         <div className="p-6 pt-0 relative">
           {/* Floating Logo */}
-          <div className="absolute top-[-54px] left-6 z-20">
-            <div className="w-20 h-20 rounded-full border-4 border-white overflow-hidden bg-white shadow-xl relative flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+          <div className="relative -mt-12 mb-3 inline-block">
+            <div className="w-24 h-24 rounded-full border-4 border-white overflow-hidden bg-white shadow-xl relative flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
               {business.logo_url ? (
                 <Image
                   src={business.logo_url}
@@ -85,23 +76,30 @@ export const BusinessCard = ({ business }: BusinessCardProps) => {
                   className="object-cover"
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center font-outfit font-black text-green-xpale text-2xl">
+                <div className="w-full h-full flex items-center justify-center font-outfit font-black text-green-xpale text-3xl">
                   {business.name[0]}
                 </div>
               )}
             </div>
           </div>
 
-          <div className="mb-3 ml-[90px] pt-1 flex items-center gap-2">
-            <span className="inline-block bg-[#F2F8F4] text-green-mid font-black text-[9px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-xl">
-              {business.category?.name || 'Categoría'}
-            </span>
-            {business.verified && (
-              <CheckCircle
-                size={16}
-                className="text-blue-500 flex-shrink-0"
-              />
-            )}
+          <div className="mb-4 text-left">
+            <div className="flex items-center gap-2 mb-2">
+              <h3 className="font-outfit font-black text-ink text-[22px] leading-tight group-hover:text-green transition-colors line-clamp-1">
+                {business.name}
+              </h3>
+              {business.verified && (
+                <CheckCircle
+                  size={18}
+                  className="text-blue-500 flex-shrink-0"
+                />
+              )}
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="inline-block bg-[#F2F8F4] text-green-mid font-black text-[9px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-xl">
+                {business.category?.name || 'Categoría'}
+              </span>
+            </div>
           </div>
 
           <p className="text-sm text-muted font-jakarta leading-relaxed line-clamp-2 h-10 mb-6 group-hover:text-ink transition-colors">
