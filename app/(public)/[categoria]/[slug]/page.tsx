@@ -251,8 +251,8 @@ export default async function BusinessMicrosite({
                 </div>
               </div>
 
-              {/* Business Header Content Overlay - Ajustado para bajar el nombre */}
-              <div className="px-6 md:px-8 pb-4 md:pb-10 -mt-20 md:-mt-26 relative z-10 flex flex-col md:flex-row items-end gap-5 md:gap-8 text-center md:text-left">
+              {/* Business Header Content Overlay - Ajustado para subir logo y nombre pero manteniendo la descripción en la zona blanca */}
+              <div className="px-6 md:px-8 pb-4 md:pb-8 -mt-28 md:-mt-36 relative z-10 flex flex-col md:flex-row items-end gap-5 md:gap-8 text-center md:text-left">
                 {/* Logo - REDONDO COMPLETAMENTE */}
                 <div className="w-28 h-28 md:w-44 md:h-44 rounded-full bg-white border-4 border-white shadow-2xl overflow-hidden flex-shrink-0 relative group mx-auto md:mx-0">
                   <div className="relative w-full h-full bg-white flex items-center justify-center rounded-full overflow-hidden">
@@ -271,24 +271,29 @@ export default async function BusinessMicrosite({
                   </div>
                 </div>
 
-                <div className="flex-1 pb-2 md:pb-4 transition-all duration-500">
-                  <h1 className={cn(
-                    "font-outfit font-black text-ink md:text-white leading-tight md:leading-[0.95] mb-2 drop-shadow-2xl transition-all duration-500",
-                    business.name.length > 30
-                      ? "text-2xl md:text-[2.2rem]"
-                      : business.name.length > 20 
-                        ? "text-2xl md:text-[2.8rem]" 
-                        : business.name.length > 12 
-                          ? "text-3xl md:text-[3.5rem]" 
-                          : "text-3xl md:text-5xl"
-                  )}>
-                    {business.name}
-                  </h1>
-                  <div className="flex flex-col items-center md:items-start mt-2">
+                <div className="flex-1 pb-2 md:pb-4 transition-all duration-500 relative">
+                  {/* Title positioned carefully */}
+                  <div className="mb-4 md:mb-8 absolute bottom-full mb-12 sm:mb-12 md:relative md:bottom-auto md:mb-4">
+                     <h1 
+                        className={cn(
+                          "font-outfit font-black text-ink md:text-white leading-[0.95] drop-shadow-2xl transition-all duration-500",
+                          business.name.length > 30
+                            ? "text-2xl md:text-[2.2rem]"
+                            : business.name.length > 20 
+                              ? "text-2xl md:text-[2.8rem]" 
+                              : "text-3xl md:text-[3.5rem]"
+                        )}
+                        style={{ maxWidth: '12ch', wordWrap: 'break-word', wordBreak: 'break-word' }}
+                      >
+                        {business.name}
+                      </h1>
+                  </div>
+
+                  <div className="flex flex-col items-center md:items-start pt-2 md:pt-4">
                     <span className="bg-green-xpale text-green px-4 py-1.5 rounded-full font-black text-[11px] uppercase tracking-[0.2em] inline-block shadow-sm">
                       {category?.name || 'Premium'}
                     </span>
-                    <p className="text-ink/60 font-medium text-base md:text-lg italic leading-tight max-w-xl md:text-ink mt-6 md:mt-10">
+                    <p className="text-ink/60 font-medium text-base md:text-lg italic leading-tight max-w-xl text-ink mt-4 md:mt-6">
                       {business.tagline}
                     </p>
                   </div>
