@@ -254,7 +254,7 @@ export default async function BusinessMicrosite({
               {/* Business Header Content Overlay - Ajustado para subir logo y nombre pero manteniendo la descripción en la zona blanca */}
               <div className="px-6 md:px-8 pb-2 md:pb-4 -mt-28 md:-mt-36 relative z-10 flex flex-col md:flex-row items-center md:items-end gap-5 md:gap-8 text-center md:text-left">
                 {/* Logo - REDONDO COMPLETAMENTE */}
-                <div className="w-28 h-28 md:w-44 md:h-44 rounded-full bg-white border-4 border-white shadow-2xl overflow-hidden flex-shrink-0 relative group mx-auto md:mx-0 md:mb-[42px]">
+                <div className="w-36 h-36 md:w-44 md:h-44 rounded-full bg-white border-4 border-white shadow-2xl overflow-hidden flex-shrink-0 relative group mx-auto md:mx-0 md:mb-[42px]">
                   <div className="relative w-full h-full bg-white flex items-center justify-center rounded-full overflow-hidden">
                     {business.logo_url ? (
                       <Image
@@ -276,7 +276,7 @@ export default async function BusinessMicrosite({
                   <div className="mb-4 md:mb-0 relative w-full pt-4 md:pt-0">
                      <h1 
                         className={cn(
-                          "font-outfit font-black text-ink md:text-white leading-[0.95] drop-shadow-2xl transition-all duration-500",
+                          "font-outfit font-black text-ink md:text-white leading-[0.95] drop-shadow-2xl transition-all duration-500 mx-auto md:mx-0",
                           business.name.length > 30
                             ? "text-2xl md:text-[2.2rem]"
                             : business.name.length > 20 
