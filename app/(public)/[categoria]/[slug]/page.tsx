@@ -252,9 +252,9 @@ export default async function BusinessMicrosite({
               </div>
 
               {/* Business Header Content Overlay - Ajustado para subir logo y nombre pero manteniendo la descripción en la zona blanca */}
-              <div className="px-6 md:px-8 pb-4 md:pb-8 -mt-28 md:-mt-36 relative z-10 flex flex-col md:flex-row items-end gap-5 md:gap-8 text-center md:text-left">
+              <div className="px-6 md:px-8 pb-2 md:pb-4 -mt-28 md:-mt-36 relative z-10 flex flex-col md:flex-row items-end gap-5 md:gap-8 text-center md:text-left">
                 {/* Logo - REDONDO COMPLETAMENTE */}
-                <div className="w-28 h-28 md:w-44 md:h-44 rounded-full bg-white border-4 border-white shadow-2xl overflow-hidden flex-shrink-0 relative group mx-auto md:mx-0">
+                <div className="w-28 h-28 md:w-44 md:h-44 rounded-full bg-white border-4 border-white shadow-2xl overflow-hidden flex-shrink-0 relative group mx-auto md:mx-0 md:mb-[42px]">
                   <div className="relative w-full h-full bg-white flex items-center justify-center rounded-full overflow-hidden">
                     {business.logo_url ? (
                       <Image
@@ -273,7 +273,7 @@ export default async function BusinessMicrosite({
 
                 <div className="flex-1 pb-2 md:pb-4 transition-all duration-500 relative">
                   {/* Title positioned carefully */}
-                  <div className="mb-4 md:mb-8 absolute bottom-full mb-12 sm:mb-12 md:relative md:bottom-auto md:mb-4">
+                  <div className="mb-4 md:mb-0 absolute bottom-full sm:mb-12 md:relative md:bottom-auto">
                      <h1 
                         className={cn(
                           "font-outfit font-black text-ink md:text-white leading-[0.95] drop-shadow-2xl transition-all duration-500",
@@ -289,7 +289,7 @@ export default async function BusinessMicrosite({
                       </h1>
                   </div>
 
-                  <div className="flex flex-col items-center md:items-start pt-2 md:pt-4">
+                  <div className="flex flex-col items-center md:items-start pt-2 md:pt-4 pr-8">
                     <span className="bg-green-xpale text-green px-4 py-1.5 rounded-full font-black text-[11px] uppercase tracking-[0.2em] inline-block shadow-sm">
                       {category?.name || 'Premium'}
                     </span>
