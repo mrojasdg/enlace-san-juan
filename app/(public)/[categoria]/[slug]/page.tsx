@@ -379,7 +379,7 @@ export default async function BusinessMicrosite({
               <h2 className="font-outfit font-black text-lg md:text-xl text-green-deeper mb-4 md:mb-6 uppercase tracking-[0.2em]">
                 Descripción
               </h2>
-              <div className="text-muted text-base md:text-lg font-jakarta leading-snug md:leading-relaxed space-y-4">
+              <div className="whitespace-pre-line text-muted text-base md:text-lg font-jakarta leading-snug md:leading-relaxed space-y-4">
                 {business.description ||
                   'Este negocio aún no ha añadido una descripción detallada.'}
               </div>
