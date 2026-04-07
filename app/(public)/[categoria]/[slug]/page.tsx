@@ -50,6 +50,7 @@ import {
   WellhubIcon,
   TotalPassIcon,
   FitPassIcon,
+  WhatsappIcon,
 } from '@/components/shared/CustomIcons';
 
 const BusinessGallery = dynamic(
@@ -329,7 +330,7 @@ export default async function BusinessMicrosite({
                       size="lg"
                       className="w-full bg-[#25D366] hover:bg-[#128C7E] border-none flex items-center justify-center gap-4 rounded-2xl shadow-xl h-20 text-xl font-black tracking-tight text-white transition-all hover:scale-[1.02] active:scale-[0.98]"
                     >
-                      <MessageCircle size={32} />
+                      <WhatsappIcon size={32} />
                       Contactar en WhatsApp
                     </Button>
                   </Link>
