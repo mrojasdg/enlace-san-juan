@@ -37,7 +37,7 @@ export const RevistaSection = () => {
           </h2>
 
           <p className="text-muted text-lg font-jakarta mb-10 leading-relaxed">
-            Cada primer lunes de mes publicamos la revista digital que llega a
+            Cada día 15 de cada mes publicamos la revista digital que llega a
             miles de personas en San Juan del Río. No te quedes fuera de la
             próxima edición.
           </p>
