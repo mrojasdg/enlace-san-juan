@@ -83,7 +83,7 @@ export default function PagoPage() {
 
             <div className="mt-auto w-full">
               <a
-                href="https://mpago.li/1k74vmi"
+                href="https://mpago.li/1Wr2v4V"
                 target="_blank"
                 rel="noopener noreferrer"
               >
