@@ -140,24 +140,39 @@ export default function PagoPage() {
           </p>
         </div>
 
-        {/* Nota Final */}
-        <div className="max-w-3xl mx-auto text-center bg-green-xpale border border-green/20 p-6 rounded-2xl">
-          <p className="text-sm md:text-base font-bold text-green-deeper mb-3">
-            ¿Ya realizaste tu pago?
-          </p>
-          <p className="text-xs md:text-sm text-muted font-jakarta">
-            Avísanos por WhatsApp que tu pago está aplicado para revisar tu
-            información y autorizar tu anuncio de inmediato.
-          </p>
-          <a
-            href="https://wa.me/524273232026?text=Hola,%20mi%20pago%20ya%20está%20aplicado%20para%20activar%20mi%20anuncio"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button className="mt-4 bg-green text-white hover:bg-green-mid rounded-full px-6 font-bold text-[10px] uppercase tracking-widest">
-              Notificar Pago
-            </Button>
-          </a>
+        {/* Nota Final Mejorada con Link a Confirmación */}
+        <div className="max-w-3xl mx-auto text-center bg-white border-2 border-green/10 p-8 md:p-12 rounded-[2.5rem] shadow-xl shadow-green/5 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-green-xpale rounded-full blur-3xl -mr-16 -mt-16"></div>
+          
+          <div className="relative z-10 space-y-6">
+            <div className="space-y-2">
+              <h3 className="text-xl font-black font-outfit text-ink uppercase tracking-tight">
+                ¿Ya realizaste tu pago?
+              </h3>
+              <p className="text-sm text-muted font-jakarta max-w-xl mx-auto">
+                Es fundamental validar tu información y el comprobante para autorizar la visualización de tu empresa en el directorio.
+              </p>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link href="/pago/confirmacion">
+                <Button className="w-full sm:w-auto bg-green text-white hover:bg-green-mid rounded-2xl px-10 h-14 font-black text-[11px] uppercase tracking-widest shadow-lg shadow-green/20">
+                  Ver Pasos de Activación
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              </Link>
+              
+              <a
+                href="https://wa.me/524273232026?text=Hola,%20mi%20pago%20ya%20está%20aplicado%20para%20activar%20mi%20anuncio"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button variant="outline" className="w-full sm:w-auto border-2 border-border hover:border-green hover:text-green rounded-2xl px-10 h-14 font-black text-[11px] uppercase tracking-widest transition-all">
+                  Notificar ahora
+                </Button>
+              </a>
+            </div>
+          </div>
         </div>
       </main>
 
