@@ -521,7 +521,7 @@ export default function PreciosPage() {
                       </p>
                     </div>
 
-                    <Link href="/pago" className="w-full relative z-10">
+                    <Link href="/registrate" className="w-full relative z-10">
                       <Button className="w-full h-16 bg-green hover:bg-green-mid text-white border-none rounded-2xl font-black uppercase tracking-widest text-[11px] shadow-xl shadow-green/20 group-hover:scale-105 active:scale-95 transition-all">
                         Aprovechar Promo
                         <ArrowRight className="ml-3 w-5 h-5 animate-pulse" />
