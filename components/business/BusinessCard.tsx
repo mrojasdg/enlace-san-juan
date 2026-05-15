@@ -111,3 +111,4 @@ export const BusinessCard = ({ business }: BusinessCardProps) => {
             </div>
         </Link>
     );
+};

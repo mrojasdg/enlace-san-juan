@@ -16,4 +16,6 @@ export default async function ShortlinkPage({ params }: { params: { categoria: s
     }
 
     // Redirect to the canonical URL
-    redirect(`/${business.category.slug}/${business.slug}`);
+    const categorySlug = Array.isArray(business.category) ? business.category[0].slug : (business.category as any).slug;
+    redirect(`/${categorySlug}/${business.slug}`);
+}

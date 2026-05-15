@@ -79,3 +79,4 @@ export const AdminLayout = ({ children, title }: AdminLayoutProps) => {
             </main>
         </div>
     );
+};

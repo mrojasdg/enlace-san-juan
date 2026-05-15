@@ -163,3 +163,4 @@ export default function PagoPage() {
             <Footer />
         </div>
     );
+}

@@ -122,3 +122,4 @@ export default function SearchPage({ searchParams }: { searchParams: any }) {
 
 function cn(...inputs: any[]) {
     return inputs.filter(Boolean).join(" ");
+}
