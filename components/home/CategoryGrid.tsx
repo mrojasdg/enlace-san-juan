@@ -1,11 +1,7 @@
 "use client";
 
 import Link from "next/link";
-<<<<<<< HEAD
-=======
 import { useState, useEffect } from "react";
-import { supabase } from "@/lib/supabase";
->>>>>>> 56f280e928b510cd316e3d7a637182573aeb8b42
 import {
     Utensils,
     HeartPulse,
@@ -18,10 +14,8 @@ import {
     Building,
     CalendarCheck,
     Palette,
-<<<<<<< HEAD
     LayoutGrid
 } from "lucide-react";
-import { cn } from "@/utils/cn";
 
 const categories = [
     { name: "Gastronomía", slug: "gastronomia", icon: Utensils, sub: "Restaurantes, Cafés, Bares" },
@@ -39,119 +33,30 @@ const categories = [
 ];
 
 export const CategoryGrid = () => {
-=======
-    LayoutGrid,
-    Stethoscope,
-    Store,
-    BookOpen,
-    Ticket,
-    LucideIcon
-} from "lucide-react";
-import { cn } from "@/utils/cn";
-
-const ICON_MAP: Record<string, LucideIcon> = {
-    utensils: Utensils,
-    'heart-pulse': Stethoscope,
-    heart: HeartPulse,
-    stethoscope: Stethoscope,
-    scissors: Scissors,
-    'shopping-bag': ShoppingBag,
-    bag: ShoppingBag,
-    store: Store,
-    retail: Store,
-    home: Home,
-    'graduation-cap': GraduationCap,
-    graduation: GraduationCap,
-    'book-open': BookOpen,
-    educacion: BookOpen,
-    briefcase: Briefcase,
-    car: Car,
-    building: Building,
-    'calendar-check': CalendarCheck,
-    'calendar-star': Ticket,
-    ticket: Ticket,
-    eventos: Ticket,
-    palette: Palette,
-    grid: LayoutGrid,
-};
-
-export const CategoryGrid = () => {
-    const [categories, setCategories] = useState<any[]>([]);
-
-    useEffect(() => {
-        const fetchCategories = async () => {
-            const { data } = await supabase
-                .from('categories')
-                .select('*')
-                .eq('is_active', true)
-                .order('order_num', { ascending: true });
-            setCategories(data || []);
-        };
-        fetchCategories();
-    }, []);
-
-    const getIcon = (iconName: string) => {
-        const key = iconName?.toLowerCase() || 'grid';
-        return ICON_MAP[key] || LayoutGrid;
-    };
-
->>>>>>> 56f280e928b510cd316e3d7a637182573aeb8b42
     return (
-        <section id="categorias" className="py-24 px-6 md:px-12 bg-white">
-            <div className="container mx-auto">
-                {/* Eyebrow */}
-                <div className="text-center mb-12">
-                    <p className="font-outfit font-black text-xs text-green-mid uppercase tracking-[0.25em] mb-4">
-                        Explorar por categoría
-                    </p>
-                    <h2 className="font-outfit font-black text-4xl md:text-5xl text-green-deeper mb-6">
-                        ¿Qué estás buscando hoy?
-                    </h2>
-                    <div className="w-16 h-1.5 bg-green rounded-full mx-auto" />
+        <section className="py-20 px-6 md:px-12 bg-white">
+            <div className="container max-w-7xl mx-auto">
+                <div className="text-center mb-16 space-y-4">
+                    <span className="text-[10px] font-black text-green uppercase tracking-[0.2em]">EXPLORA</span>
+                    <h2 className="font-outfit font-black text-3xl md:text-5xl text-green-deeper leading-tight">Encuentra lo que buscas</h2>
                 </div>
-
-                {/* Grid */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
-<<<<<<< HEAD
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {categories.map((cat) => (
-                        <Link key={cat.slug} href={`/categoria/${cat.slug}`} className="group">
-                            <div className="h-full bg-white border border-border rounded-3xl p-6 text-center flex flex-col items-center gap-4 hover:border-green hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-                                <div className="w-16 h-16 rounded-2xl bg-green-xpale text-green flex items-center justify-center group-hover:bg-green group-hover:text-white transition-all duration-300 transform group-hover:rotate-6">
-                                    <cat.icon size={32} />
-                                </div>
-                                <div>
-                                    <h3 className="font-jakarta font-black text-[13px] text-ink leading-tight mb-1">
-                                        {cat.name}
-                                    </h3>
-                                    <p className="text-[10px] text-muted leading-tight line-clamp-2">
-                                        {cat.sub}
-                                    </p>
-                                </div>
+                        <Link 
+                            key={cat.slug} 
+                            href={`/${cat.slug}`}
+                            className="group bg-[#F9FCFA] border border-border p-8 rounded-3xl hover:border-green-pale hover:shadow-xl transition-all flex items-start gap-6"
+                        >
+                            <div className="w-14 h-14 rounded-2xl bg-white border border-border flex items-center justify-center text-green group-hover:bg-green group-hover:text-white transition-all shadow-sm flex-shrink-0">
+                                <cat.icon size={26} />
+                            </div>
+                            <div>
+                                <h3 className="font-outfit font-black text-xl text-ink mb-1 group-hover:text-green transition-colors">{cat.name}</h3>
+                                <p className="text-muted text-xs font-jakarta">{cat.sub}</p>
                             </div>
                         </Link>
                     ))}
-=======
-                    {categories.map((cat) => {
-                        const IconComponent = getIcon(cat.icon);
-                        return (
-                            <Link key={cat.slug} href={`/categoria/${cat.slug}`} className="group">
-                                <div className="h-full bg-white border border-border rounded-3xl p-6 text-center flex flex-col items-center gap-4 hover:border-green hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-                                    <div className="w-16 h-16 rounded-2xl bg-green-xpale text-green flex items-center justify-center group-hover:bg-green group-hover:text-white transition-all duration-300 transform group-hover:rotate-6">
-                                        <IconComponent size={32} />
-                                    </div>
-                                    <div>
-                                        <h3 className="font-jakarta font-black text-[13px] text-ink leading-tight mb-1">
-                                            {cat.name}
-                                        </h3>
-                                        <p className="text-[10px] text-muted leading-tight line-clamp-2">
-                                          {cat.description || cat.name}
-                                        </p>
-                                    </div>
-                                </div>
-                            </Link>
-                        );
-                    })}
->>>>>>> 56f280e928b510cd316e3d7a637182573aeb8b42
                 </div>
             </div>
         </section>
