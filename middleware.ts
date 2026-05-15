@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
@@ -20,3 +21,14 @@ export async function middleware(req: NextRequest) {
 export const config = {
     matcher: ['/admin/:path*'],
 }
+=======
+import { NextResponse } from 'next/server';
+
+export function middleware() {
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: [],
+};
+>>>>>>> 56f280e928b510cd316e3d7a637182573aeb8b42

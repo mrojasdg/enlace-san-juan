@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { supabase } from "@/lib/supabase";
 import Link from "next/link";
 import { Magazine, MagazinePage } from "@/types/magazine";
@@ -5,18 +6,44 @@ import { ArrowRight, BookOpen, CheckCircle2, TrendingUp, Users, Calendar } from 
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
+=======
+import { supabase } from '@/lib/supabase';
+import Link from 'next/link';
+import { Magazine, MagazinePage } from '@/types/magazine';
+import {
+  ArrowRight,
+  BookOpen,
+  CheckCircle2,
+  TrendingUp,
+  Users,
+  Calendar,
+} from 'lucide-react';
+import { Navbar } from '@/components/layout/Navbar';
+import { Footer } from '@/components/layout/Footer';
+import { Button } from '@/components/ui/Button';
+import { PageTracker } from '@/components/shared/PageTracker';
+>>>>>>> 56f280e928b510cd316e3d7a637182573aeb8b42
 
 export const revalidate = 0;
 
 export async function generateMetadata() {
+<<<<<<< HEAD
     return {
         title: "Revista Digital - Enlace San Juan",
         description: "Explora las ediciones mensuales de nuestra revista digital interactiva de San Juan del Río.",
     };
+=======
+  return {
+    title: 'Revista Digital - Enlace San Juan',
+    description:
+      'Explora las ediciones mensuales de nuestra revista digital interactiva de San Juan del Río.',
+  };
+>>>>>>> 56f280e928b510cd316e3d7a637182573aeb8b42
 }
 
 // Función auxiliar para ordenar meses
 const monthOrder: Record<string, number> = {
+<<<<<<< HEAD
     enero: 1, febrero: 2, marzo: 3, abril: 4, mayo: 5, junio: 6,
     julio: 7, agosto: 8, septiembre: 9, octubre: 10, noviembre: 11, diciembre: 12
 };
@@ -228,4 +255,352 @@ export default async function RevistasPage() {
             <Footer />
         </div>
     );
+=======
+  enero: 1,
+  febrero: 2,
+  marzo: 3,
+  abril: 4,
+  mayo: 5,
+  junio: 6,
+  julio: 7,
+  agosto: 8,
+  septiembre: 9,
+  octubre: 10,
+  noviembre: 11,
+  diciembre: 12,
+};
+
+export default async function RevistasPage() {
+  // 1. Obtener revistas publicadas
+  const { data: magazines } = await supabase
+    .from('magazines')
+    .select('*')
+    .eq('status', 'published');
+
+  const publishedMagazines: Magazine[] = magazines || [];
+
+  // 2. Obtener las portadas (page_number = 1) para esas revistas
+  const { data: coversData } = await supabase
+    .from('magazine_pages')
+    .select('*')
+    .eq('page_number', 1)
+    .in(
+      'magazine_id',
+      publishedMagazines.map((m) => m.id)
+    )
+    .not('image_url', 'is', null);
+
+  const covers = (coversData as MagazinePage[]) || [];
+
+  // Combinar revistas con su portada y ordenar
+  const magazinesWithCovers = publishedMagazines
+    .map((mag) => ({
+      ...mag,
+      cover: covers.find((c) => c.magazine_id === mag.id)?.image_url || null,
+    }))
+    .sort((a, b) => {
+      // Orden consecutivo: Año descendente, Mes descendente
+      if (a.year !== b.year) return b.year - a.year;
+      return (
+        (monthOrder[b.month.toLowerCase()] || 0) -
+        (monthOrder[a.month.toLowerCase()] || 0)
+      );
+    });
+
+  const whatsappNumber = '524272195971';
+  const whatsappMessage = encodeURIComponent(
+    '¡Hola! Quiero ser parte de la revista digital.'
+  );
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+
+  return (
+    <div className="min-h-screen bg-[#F9FCFA]">
+      <PageTracker path="revista" />
+      <Navbar />
+
+      <main className="pt-32 pb-20">
+        {/* Cabecera */}
+        <div className="container mx-auto px-6 max-w-7xl mb-16">
+          <div className="max-w-3xl mx-auto text-center space-y-4">
+            <span className="bg-green-xpale text-green px-4 py-2 rounded-full font-black text-[10px] uppercase tracking-widest inline-flex items-center gap-2 border border-green/20">
+              <BookOpen size={12} />
+              EDICIONES MENSUALES
+            </span>
+            <h1 className="text-5xl md:text-7xl font-black font-outfit text-ink tracking-tight">
+              Revista <span className="text-green">Digital</span>
+            </h1>
+            <p className="text-lg text-muted font-jakarta max-w-xl mx-auto">
+              Explora la mejor guía de negocios, servicios y promociones
+              exclusivas de San Juan del Río en un formato interactivo premium.
+            </p>
+          </div>
+        </div>
+
+        {/* Listado de Revistas */}
+        <div className="container mx-auto px-6 max-w-7xl mb-32">
+          {magazinesWithCovers.length > 0 ? (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 md:gap-10">
+              {magazinesWithCovers.map((mag) => (
+                <Link
+                  key={mag.id}
+                  href={`/revista/${mag.year}/${mag.month}`}
+                  target="_blank"
+                  className="group flex flex-col"
+                >
+                  <div className="relative w-full aspect-[9/16] bg-white rounded-3xl overflow-hidden border border-border shadow-sm transition-all duration-500 group-hover:-translate-y-3 group-hover:shadow-2xl group-hover:shadow-green/10 group-hover:border-green-pale">
+                    {mag.cover ? (
+                      <img
+                        src={mag.cover}
+                        alt={`Portada ${mag.month} ${mag.year}`}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center flex-col gap-4 text-muted/20">
+                        <BookOpen className="w-12 h-12" />
+                        <span className="text-xs font-black uppercase tracking-widest">
+                          Sin Portada
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Overlay Hover */}
+                    <div className="absolute inset-0 bg-ink/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <Button className="bg-white text-ink hover:bg-white hover:scale-105 transition-all rounded-2xl font-black uppercase text-[10px] tracking-widest px-6 h-12 shadow-2xl">
+                        Leer Ahora
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 px-2">
+                    <h3 className="text-xl font-black font-outfit uppercase text-ink group-hover:text-green transition-colors">
+                      {mag.month}
+                    </h3>
+                    <p className="text-muted font-bold tracking-widest text-xs uppercase">
+                      {mag.year}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="bg-white rounded-[3rem] p-20 text-center border-2 border-dashed border-border shadow-sm">
+              <BookOpen className="w-16 h-16 text-muted/20 mx-auto mb-6" />
+              <h3 className="text-2xl font-outfit font-black text-ink mb-2">
+                Próximamente nuevas ediciones
+              </h3>
+              <p className="text-muted font-jakarta">
+                Estamos preparando el contenido del próximo mes para ti.
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* Sección de Beneficios & Call to Action */}
+        <div className="container mx-auto px-6 max-w-7xl mb-32">
+          <div className="bg-white rounded-[2.5rem] border border-border p-8 md:p-16 relative overflow-hidden shadow-xl">
+            {/* Background Decor */}
+            <div className="absolute top-0 right-0 w-1/2 h-full bg-green-xpale opacity-30 select-none pointer-events-none -skew-x-12 translate-x-1/2"></div>
+
+            <div className="relative z-10 flex flex-col xl:flex-row gap-16 items-center">
+              <div className="flex-1 space-y-10">
+                <div className="space-y-4">
+                  <h2 className="text-4xl md:text-5xl font-black font-outfit text-ink leading-tight">
+                    ¿Por qué aparecer en la <br />{' '}
+                    <span className="text-green underline decoration-green/20 underline-offset-8">
+                      Revista Digital
+                    </span>
+                    ?
+                  </h2>
+                  <p className="text-muted font-jakarta text-lg">
+                    Más que un anuncio, es una experiencia interactiva que
+                    conecta tu marca con miles de personas de forma directa y
+                    elegante.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {[
+                    {
+                      icon: <TrendingUp className="w-5 h-5" />,
+                      title: 'Exposición Total',
+                      text: 'Visibilidad garantizada para tu negocio las 24 horas del día.',
+                    },
+                    {
+                      icon: <Users className="w-5 h-5" />,
+                      title: 'Botones Directos',
+                      text: 'Visualiza el perfil en el directorio general.',
+                    },
+                    {
+                      icon: <CheckCircle2 className="w-5 h-5" />,
+                      title: 'Diseño personalizado',
+                      text: 'Si no tienes un diseño nosotros te apoyamos a crearlo.',
+                    },
+                    {
+                      icon: <BookOpen className="w-5 h-5" />,
+                      title: 'Multiplataforma',
+                      text: 'Visualización perfecta en celulares, tablets y computadoras.',
+                    },
+                  ].map((item, i) => (
+                    <div
+                      key={i}
+                      className="flex gap-5 p-6 rounded-3xl bg-green-xpale/20 border border-green-pale/10 hover:bg-white hover:shadow-lg transition-all duration-300"
+                    >
+                      <div className="flex-shrink-0 w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-green shadow-sm border border-border">
+                        {item.icon}
+                      </div>
+                      <div>
+                        <h4 className="font-outfit font-black text-ink uppercase text-[11px] tracking-widest mb-1">
+                          {item.title}
+                        </h4>
+                        <p className="text-sm text-muted font-jakarta leading-relaxed">
+                          {item.text}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Aviso de Apartado - Fuera de la cuadrícula para ancho total */}
+                <div className="bg-green-xpale/50 border border-green-pale/30 rounded-[2.5rem] p-8 md:p-10 text-ink relative overflow-hidden mt-10">
+                  <div className="flex flex-col md:flex-row items-center gap-8 relative z-10">
+                    <div className="flex-shrink-0 w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-green shadow-sm border border-border">
+                      <Calendar size={32} />
+                    </div>
+                    <div className="flex-1 space-y-2 text-center md:text-left">
+                      <h4 className="font-outfit font-black text-xl uppercase tracking-wider">
+                        ¡Asegura tu Espacio!
+                      </h4>
+                      <p className="text-muted text-sm font-jakarta leading-relaxed">
+                        Tienes hasta el{' '}
+                        <strong className="text-green">
+                          día 25 de cada mes
+                        </strong>{' '}
+                        para apartar tu espacio y enviar tu publicidad.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="w-full xl:w-[420px] bg-green-xpale/30 rounded-[3rem] p-10 border border-green-pale/20 text-center space-y-8 flex flex-col justify-center py-16">
+                <div className="space-y-4">
+                  <h3 className="text-2xl font-black font-outfit text-ink uppercase tracking-tight">
+                    Anúnciate con nosotros
+                  </h3>
+                  <p className="text-muted text-sm font-jakarta">
+                    Ya con tu mensualidad del plan enlace agrega 249 pesos y
+                    decide en qué mes quieres anunciarte.
+                  </p>
+                </div>
+                <div className="space-y-4">
+                  <div className="p-10 bg-white rounded-[2rem] border border-border shadow-xl hover:shadow-2xl transition-all duration-300">
+                    <p className="text-5xl md:text-6xl font-black text-ink font-outfit tracking-tighter">
+                      $249{' '}
+                      <span className="text-[12px] text-muted block md:inline mt-2 md:mt-0 font-bold uppercase tracking-widest">
+                        IVA Incluido
+                      </span>
+                    </p>
+                    <p className="text-[11px] font-black text-green uppercase tracking-[0.3em] mt-6">
+                      Costo extra por edición
+                    </p>
+                  </div>
+                  <Link
+                    href={whatsappLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block"
+                  >
+                    <Button className="w-full h-16 bg-green hover:bg-green-mid text-white rounded-2xl font-black uppercase tracking-widest text-[11px] shadow-xl shadow-green/20 group">
+                      Publicar mi Empresa
+                      <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </Link>
+                </div>
+                <p className="text-[10px] font-bold text-muted uppercase tracking-widest">
+                  Atención personalizada vía WhatsApp
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* PROMO ABRIL SECTION (REPLICATED) */}
+        <div className="container mx-auto px-6 max-w-7xl mb-32">
+          <div className="max-w-5xl mx-auto">
+            <div className="bg-gradient-to-r from-green-deeper to-green rounded-[3rem] p-1 shadow-2xl overflow-hidden group">
+              <div className="bg-white rounded-[2.8rem] p-8 md:p-12 relative overflow-hidden h-full">
+                {/* Elementos Decorativos */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-green-xpale rounded-full blur-3xl opacity-60 -mr-32 -mt-32 group-hover:scale-110 transition-transform duration-700"></div>
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-green-xpale rounded-full blur-3xl opacity-40 -ml-32 -mb-32"></div>
+
+                <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-10">
+                  <div className="flex-1 space-y-6 text-center lg:text-left">
+                    <div className="space-y-4">
+                      <span className="inline-block bg-ink text-white px-6 py-2 rounded-full font-black text-[12px] uppercase tracking-[0.3em] shadow-xl">
+                        🔥 PROMO ABRIL
+                      </span>
+                      <h2 className="font-outfit font-black text-4xl md:text-5xl text-ink leading-[1.1] tracking-tight">
+                        Asegura tu presencia <br className="hidden md:block" />
+                        <span className="text-green">Abril + Mayo</span>
+                      </h2>
+                    </div>
+
+                    <div className="space-y-6">
+                      <p className="text-muted font-jakarta text-lg max-w-xl leading-relaxed">
+                        Obtén el <span className="font-black text-ink">Plan Enlace</span> (lo que queda de Abril y todo Mayo) +{' '}
+                        <span className="font-black text-ink">Revista Enlace edición Mayo</span> por un precio especial.
+                      </p>
+                      <div className="flex flex-wrap justify-center lg:justify-start gap-3">
+                        <div className="flex items-center gap-2 bg-[#F9FCFA] px-4 py-2.5 rounded-2xl border border-border group-hover:border-green/20 transition-colors">
+                          <CheckCircle2 size={18} className="text-green" />
+                          <span className="text-[11px] font-black text-ink uppercase tracking-wider">
+                            Plan Enlace Vigente
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2 bg-[#F9FCFA] px-4 py-2.5 rounded-2xl border border-border group-hover:border-green/20 transition-colors">
+                          <CheckCircle2 size={18} className="text-green" />
+                          <span className="text-[11px] font-black text-ink uppercase tracking-wider">
+                            Revista Mayo Incluida
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="w-full lg:w-auto flex flex-col items-center gap-6 bg-green-xpale/30 p-10 md:px-14 rounded-[2.8rem] border border-green-pale/20 shadow-inner relative group/card">
+                    <div className="absolute inset-0 bg-white/20 opacity-0 group-hover/card:opacity-100 transition-opacity rounded-[2.8rem]"></div>
+                    <div className="text-center relative z-10">
+                      <p className="text-[11px] font-black text-muted uppercase tracking-[0.3em] mb-2">
+                        Pago Único Especial
+                      </p>
+                      <div className="flex items-baseline justify-center gap-2">
+                        <span className="font-outfit font-black text-7xl text-green-deeper tracking-tighter">
+                          $349
+                        </span>
+                        <span className="font-bold text-muted text-sm uppercase tracking-widest">
+                          MXN
+                        </span>
+                      </div>
+                      <p className="text-[10px] font-black text-green uppercase tracking-[0.2em] mt-6 bg-white px-6 py-3 rounded-full shadow-sm border border-green/5">
+                        Siguiente pago en Junio
+                      </p>
+                    </div>
+
+                    <Link href="/registrate" className="w-full relative z-10">
+                      <Button className="w-full h-16 bg-green hover:bg-green-mid text-white border-none rounded-2xl font-black uppercase tracking-widest text-[11px] shadow-xl shadow-green/20 group-hover:scale-105 active:scale-95 transition-all">
+                        Aprovechar Promo
+                        <ArrowRight className="ml-3 w-5 h-5 animate-pulse" />
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+
+      <Footer />
+    </div>
+  );
+>>>>>>> 56f280e928b510cd316e3d7a637182573aeb8b42
 }

@@ -31,6 +31,15 @@ export default async function AdminDashboardPage() {
         .order("created_at", { ascending: false })
         .limit(5);
 
+<<<<<<< HEAD
+=======
+    // Normalize category if it's returned as an array by Supabase join
+    const normalizedBusinesses = (latest || []).map((biz: any) => ({
+        ...biz,
+        category: Array.isArray(biz.category) ? biz.category[0] : biz.category
+    }));
+
+>>>>>>> 56f280e928b510cd316e3d7a637182573aeb8b42
     const kpis = [
         { label: "Negocios activos", value: totalActive || 0, icon: Building2, color: "text-green", bg: "bg-green-xpale" },
         { label: "Empresas destacadas", value: featured || 0, icon: Star, color: "text-gold", bg: "bg-gold/10" },
@@ -41,6 +50,7 @@ export default async function AdminDashboardPage() {
     return (
         <AdminLayout>
             {/* KPI Grid */}
+<<<<<<< HEAD
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 {kpis.map((kpi) => (
                     <div key={kpi.label} className="bg-white p-8 rounded-[2.5rem] border border-border shadow-sm flex items-center justify-between group hover:shadow-2xl hover:shadow-green/5 hover:-translate-y-1 transition-all duration-300">
@@ -50,6 +60,17 @@ export default async function AdminDashboardPage() {
                         </div>
                         <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110", kpi.bg, kpi.color)}>
                             <kpi.icon size={24} />
+=======
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+                {kpis.map((kpi) => (
+                    <div key={kpi.label} className="bg-white p-6 md:p-8 rounded-3xl md:rounded-[2.5rem] border border-border shadow-sm flex items-center justify-between group hover:shadow-2xl hover:shadow-green/5 transition-all duration-300">
+                        <div className="space-y-1 md:space-y-2">
+                            <p className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-muted/60">{kpi.label}</p>
+                            <h3 className="font-outfit font-black text-3xl md:text-5xl text-ink leading-none">{kpi.value}</h3>
+                        </div>
+                        <div className={cn("w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110", kpi.bg, kpi.color)}>
+                            <kpi.icon size={20} className="md:w-6 md:h-6" />
+>>>>>>> 56f280e928b510cd316e3d7a637182573aeb8b42
                         </div>
                     </div>
                 ))}
@@ -76,7 +97,11 @@ export default async function AdminDashboardPage() {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-border">
+<<<<<<< HEAD
                                 {latest?.map((biz) => (
+=======
+                                {normalizedBusinesses?.map((biz) => (
+>>>>>>> 56f280e928b510cd316e3d7a637182573aeb8b42
                                     <tr key={biz.id} className="group hover:bg-green-xpale/30 transition-colors">
                                         <td className="px-8 py-6">
                                             <div className="flex items-center gap-5">
