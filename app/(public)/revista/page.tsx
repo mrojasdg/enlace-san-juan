@@ -520,11 +520,7 @@ export default async function RevistasPage() {
                   Atención personalizada vía WhatsApp
                 </p>
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* PROMO ABRIL SECTION (REPLICATED) */}
+               {/* PROMO MAYO SECTION (REPLICATED) */}
         <div className="container mx-auto px-6 max-w-7xl mb-32">
           <div className="max-w-5xl mx-auto">
             <div className="bg-gradient-to-r from-green-deeper to-green rounded-[3rem] p-1 shadow-2xl overflow-hidden group">
@@ -537,18 +533,18 @@ export default async function RevistasPage() {
                   <div className="flex-1 space-y-6 text-center lg:text-left">
                     <div className="space-y-4">
                       <span className="inline-block bg-ink text-white px-6 py-2 rounded-full font-black text-[12px] uppercase tracking-[0.3em] shadow-xl">
-                        🔥 PROMO ABRIL
+                        🔥 PROMO MAYO
                       </span>
                       <h2 className="font-outfit font-black text-4xl md:text-5xl text-ink leading-[1.1] tracking-tight">
                         Asegura tu presencia <br className="hidden md:block" />
-                        <span className="text-green">Abril + Mayo</span>
+                        <span className="text-green">Mayo + Junio</span>
                       </h2>
                     </div>
 
                     <div className="space-y-6">
                       <p className="text-muted font-jakarta text-lg max-w-xl leading-relaxed">
-                        Obtén el <span className="font-black text-ink">Plan Enlace</span> (lo que queda de Abril y todo Mayo) +{' '}
-                        <span className="font-black text-ink">Revista Enlace edición Mayo</span> por un precio especial.
+                        Obtén el <span className="font-black text-ink">Plan Enlace</span> (lo que queda de Mayo y todo Junio) +{' '}
+                        <span className="font-black text-ink">Revista Enlace edición Junio</span> por un precio especial.
                       </p>
                       <div className="flex flex-wrap justify-center lg:justify-start gap-3">
                         <div className="flex items-center gap-2 bg-[#F9FCFA] px-4 py-2.5 rounded-2xl border border-border group-hover:border-green/20 transition-colors">
@@ -560,7 +556,7 @@ export default async function RevistasPage() {
                         <div className="flex items-center gap-2 bg-[#F9FCFA] px-4 py-2.5 rounded-2xl border border-border group-hover:border-green/20 transition-colors">
                           <CheckCircle2 size={18} className="text-green" />
                           <span className="text-[11px] font-black text-ink uppercase tracking-wider">
-                            Revista Mayo Incluida
+                            Revista Junio Incluida
                           </span>
                         </div>
                       </div>
@@ -575,14 +571,14 @@ export default async function RevistasPage() {
                       </p>
                       <div className="flex items-baseline justify-center gap-2">
                         <span className="font-outfit font-black text-7xl text-green-deeper tracking-tighter">
-                          $349
+                          $350
                         </span>
                         <span className="font-bold text-muted text-sm uppercase tracking-widest">
                           MXN
                         </span>
                       </div>
                       <p className="text-[10px] font-black text-green uppercase tracking-[0.2em] mt-6 bg-white px-6 py-3 rounded-full shadow-sm border border-green/5">
-                        Siguiente pago en Junio
+                        Siguiente pago en Julio
                       </p>
                     </div>
 
@@ -602,5 +598,4 @@ export default async function RevistasPage() {
       <Footer />
     </div>
   );
->>>>>>> 56f280e928b510cd316e3d7a637182573aeb8b42
 }
