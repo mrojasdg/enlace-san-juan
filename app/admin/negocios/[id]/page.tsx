@@ -27,3 +27,4 @@ export default async function EditBusinessPage({ params }: { params: { id: strin
             </div>
         </AdminLayout>
     );
+}
