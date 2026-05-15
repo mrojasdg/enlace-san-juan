@@ -43,7 +43,7 @@ export const SearchResults = ({ businesses, total, isLoading }: SearchResultsPro
             <div className="w-full max-w-4xl p-6 flex flex-col gap-6">
                 {businesses.length > 0 ? (
                     businesses.map((biz) => (
-                        <BusinessCardH key={biz.id} business={biz} />
+                        <BusinessCardH key={biz.id} business={biz as any} />
                     ))
                 ) : (
                     <div className="flex flex-col items-center justify-center py-32 text-center">
@@ -79,3 +79,4 @@ export const SearchResults = ({ businesses, total, isLoading }: SearchResultsPro
             )}
         </div>
     );
+};

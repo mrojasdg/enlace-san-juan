@@ -3,6 +3,8 @@
 import { Search, RotateCcw, Filter, Check } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
 
 const categories = [
     { name: "Gastronomía", id: "gastronomia" },
@@ -19,9 +21,6 @@ const features = [
     "Aire Acondicionado",
     "Delivery",
 ];
-
-import { useRouter, useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
 
 interface SearchFiltersProps {
     onApply?: () => void;
@@ -149,3 +148,4 @@ export const SearchFilters = ({ onApply }: SearchFiltersProps) => {
             </div>
         </div>
     );
+};

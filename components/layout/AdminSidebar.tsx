@@ -11,7 +11,6 @@ import {
     Home,
     Grid3X3,
     BookOpen,
-    Mail,
     HelpCircle,
 } from "lucide-react";
 import Image from "next/image";
@@ -139,3 +138,4 @@ export const AdminSidebar = () => {
             </div>
         </aside>
     );
+};

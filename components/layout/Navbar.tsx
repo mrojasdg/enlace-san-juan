@@ -215,3 +215,4 @@ export const Navbar = () => {
             )}
         </nav>
     );
+};
