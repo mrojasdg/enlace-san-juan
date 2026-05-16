@@ -56,3 +56,4 @@ export interface Business {
     meta_title?: string;
     meta_description?: string;
     search_keywords?: string;
+}
