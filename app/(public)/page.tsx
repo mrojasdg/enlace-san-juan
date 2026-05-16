@@ -11,12 +11,18 @@ import { supabase } from "@/lib/supabase";
 export const revalidate = 3600; // Cache for 1 hour
 
 export default async function HomePage() {
+  const { data: featured } = await supabase
+    .from("businesses")
+    .select("*, category:categories(name)")
+    .eq("is_featured", true)
+    .limit(6);
+
   return (
     <main className="min-h-screen bg-white">
       <Navbar />
       <HeroSection />
       <CategoryGrid />
-      <FeaturedBiz />
+      <FeaturedBiz businesses={featured || []} />
       <StatsStrip />
       <RevistaSection />
       <CTASection />
