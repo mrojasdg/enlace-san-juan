@@ -606,7 +606,7 @@ export default function PreciosPage() {
                 </p>
                 <div className="mt-6 flex flex-col sm:flex-row sm:items-center gap-3">
                   <span className="font-outfit font-black text-6xl text-white leading-none">
-                    +$249
+                    +$150
                   </span>
                   <span className="text-xs sm:text-sm font-bold text-white/60 uppercase tracking-widest leading-relaxed text-left">
                     pesos al mes / <br className="hidden sm:block" />
@@ -617,7 +617,7 @@ export default function PreciosPage() {
 
               <div className="flex-1 space-y-4 mb-10 relative z-10">
                 {[
-                  'Con tu plan enlace suma +249 y obtén tu anuncio',
+                  'Con tu plan enlace suma +150 y obtén tu anuncio',
                   'Revista digital local',
                   'Espacio de página completa de tu negocio',
                   'Promocionaremos en todos los canales',
