@@ -153,7 +153,7 @@ export const BusinessForm = ({ initialData, categories, isPublicRegistration = f
         watch,
         setValue,
         formState: { errors },
-    } = useForm({
+    } = useForm<z.infer<typeof businessSchema>>({
         resolver: zodResolver(businessSchema),
         defaultValues: initialData ? {
             ...initialData,
