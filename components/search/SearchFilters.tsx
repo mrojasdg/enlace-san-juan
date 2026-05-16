@@ -4,7 +4,7 @@ import { Search, RotateCcw, Filter, Check } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 
 const categories = [
     { name: "Gastronomía", id: "gastronomia" },
