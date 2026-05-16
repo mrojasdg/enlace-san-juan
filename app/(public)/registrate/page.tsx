@@ -2,13 +2,19 @@ import React from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { BusinessForm } from "@/components/admin/BusinessForm";
+import { supabase } from "@/lib/supabase";
 
 export const metadata = {
     title: "Registra tu Negocio | Enlace San Juan",
     description: "Llena el formulario para dar de alta tu empresa en el directorio local de San Juan del Río.",
 };
 
-export default function RegistratePage() {
+export default async function RegistratePage() {
+    const { data: categories } = await supabase
+        .from("categories")
+        .select("*")
+        .order("name");
+
     return (
         <div className="min-h-screen bg-[#F9FCFA]">
             <Navbar />
@@ -21,7 +27,7 @@ export default function RegistratePage() {
                 </div>
 
                 <div className="bg-white p-8 md:p-12 rounded-[3rem] border border-border shadow-2xl shadow-green/5">
-                    <BusinessForm mode="create" />
+                    <BusinessForm categories={categories || []} isPublicRegistration={true} />
                 </div>
             </div>
 
