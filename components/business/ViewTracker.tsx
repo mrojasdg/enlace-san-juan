@@ -19,3 +19,4 @@ export const ViewTracker = ({ businessId }: { businessId: string }) => {
     }, [businessId]);
 
     return null; // Este componente es invisible en pantalla
+};

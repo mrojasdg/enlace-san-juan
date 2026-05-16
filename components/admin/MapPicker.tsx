@@ -85,3 +85,4 @@ export default function MapPicker({ lat, lng, onChange }: MapPickerProps) {
             </div>
         </div>
     );
+}

@@ -67,8 +67,7 @@ export const HeroSection = () => {
                         Buscar
                     </Button>
                 </form>
-
-
             </div>
         </section>
     );
+};
