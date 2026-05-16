@@ -26,7 +26,7 @@ interface SearchFiltersProps {
     onApply?: () => void;
 }
 
-export const SearchFilters = ({ onApply }: SearchFiltersProps) => {
+const SearchFiltersInner = ({ onApply }: SearchFiltersProps) => {
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -147,5 +147,22 @@ export const SearchFilters = ({ onApply }: SearchFiltersProps) => {
                 </div>
             </div>
         </div>
+    );
+};
+
+export const SearchFilters = (props: SearchFiltersProps) => {
+    return (
+        <Suspense fallback={
+            <div className="w-full h-full bg-white flex flex-col p-8 border-r border-border animate-pulse">
+                <div className="w-48 h-6 bg-gray-100 rounded mb-10" />
+                <div className="space-y-12">
+                    <div className="w-full h-12 bg-gray-50 rounded-xl" />
+                    <div className="w-full h-12 bg-gray-50 rounded-xl" />
+                    <div className="w-full h-40 bg-gray-50 rounded-xl" />
+                </div>
+            </div>
+        }>
+            <SearchFiltersInner {...props} />
+        </Suspense>
     );
 };

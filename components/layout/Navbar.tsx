@@ -7,8 +7,9 @@ import { Menu, X, Search as SearchIcon, Loader2, ArrowRight } from "lucide-react
 import Image from "next/image";
 import { cn } from "@/utils/cn";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export const Navbar = () => {
+const NavbarInner = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [visible, setVisible] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
@@ -214,5 +215,24 @@ export const Navbar = () => {
                 </div>
             )}
         </nav>
+    );
+};
+
+export const Navbar = () => {
+    return (
+        <Suspense fallback={
+            <nav className="fixed top-0 z-50 w-full bg-white border-b border-transparent py-4 h-20">
+                <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
+                    <div className="w-32 h-8 bg-gray-100 animate-pulse rounded-lg" />
+                    <div className="flex gap-8">
+                        <div className="w-20 h-4 bg-gray-50 animate-pulse rounded-full hidden lg:block" />
+                        <div className="w-20 h-4 bg-gray-50 animate-pulse rounded-full hidden lg:block" />
+                        <div className="w-20 h-4 bg-gray-50 animate-pulse rounded-full hidden lg:block" />
+                    </div>
+                </div>
+            </nav>
+        }>
+            <NavbarInner />
+        </Suspense>
     );
 };
