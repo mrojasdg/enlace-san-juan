@@ -126,7 +126,7 @@ export default function BusinessesAdminPage() {
                                             <span className="text-xs font-medium text-muted">{biz.category?.name}</span>
                                         </td>
                                         <td className="px-6 py-4 text-center">
-                                            <ActivationToggle businessId={biz.id} initialState={biz.is_active} />
+                                            <ActivationToggle businessId={biz.id} initialStatus={biz.is_active} />
                                         </td>
                                         <td className="px-6 py-4 text-center">
                                             <div className="flex flex-col items-center gap-2">
