@@ -148,7 +148,7 @@ export default async function BusinessProfilePage({
                     {business.gallery && business.gallery.length > 0 && (
                         <div className="space-y-6">
                             <h2 className="font-outfit font-black text-3xl text-ink">Galería</h2>
-                            <BusinessGallery images={business.gallery} />
+                            <BusinessGallery images={business.gallery} businessName={business.name} />
                         </div>
                     )}
 
@@ -204,7 +204,7 @@ export default async function BusinessProfilePage({
 
                      <div className="space-y-6">
                         <h3 className="font-outfit font-black text-2xl text-ink">Ubicación</h3>
-                        <BusinessMap lat={business.latitude} lng={business.longitude} />
+                        <BusinessMap lat={business.latitude} lng={business.longitude} name={business.name} address={business.address} logoUrl={business.logo_url} />
                      </div>
                 </div>
             </div>
