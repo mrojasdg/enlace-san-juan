@@ -52,7 +52,7 @@ export const RevistaSection = () => {
                                 Quiero aparecer en la revista
                             </Button>
                         </Link>
-                        <Link href="/revista/ultima-edicion" className="flex-1">
+                        <Link href="/revista" className="flex-1">
                             <Button variant="outline" size="lg" className="w-full text-green-dark border-green-dark bg-transparent">
                                 Ver última edición
                             </Button>
@@ -80,3 +80,4 @@ export const RevistaSection = () => {
             </div>
         </section>
     );
+};

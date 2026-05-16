@@ -30,7 +30,7 @@ export const Footer = () => {
                             (item) => (
                                 <li key={item}>
                                     <Link
-                                        href={`/categoria/${item.toLowerCase()}`}
+                                        href={`/buscar?cat=${item.toLowerCase()}`}
                                         className="text-white/50 hover:text-white/85 text-sm transition-colors"
                                     >
                                         {item}
@@ -108,3 +108,4 @@ export const Footer = () => {
             </div>
         </footer>
     );
+};

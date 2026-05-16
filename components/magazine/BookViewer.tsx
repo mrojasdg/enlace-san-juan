@@ -161,11 +161,11 @@ export const BookViewer = ({ pages, total }: BookViewerProps) => {
                     )}
                 </div>
 
-                {/* Botón Micrositio (Inferior) - Posicionado fuera de la imagen cerca del menú */}
+                {/* Botón Micrositio (Inferior) */}
                 {data?.business_link && scale === 1 && (
                     <div className="absolute -bottom-2 left-0 w-full flex justify-center z-[100] pointer-events-none px-4">
                         <Link href={data.business_link} target="_blank" className="pointer-events-auto">
-                            <button className="bg-green/90 hover:bg-green px-3.5 py-1.5 rounded-full text-white text-[9px] md:text-[10px] font-black uppercase tracking-widest shadow-xl border border-white/20 flex items-center gap-1.5 transform hover:scale-105 transition-all backdrop-blur-sm">
+                            <button className="bg-green/90 hover:bg-green px-3.5 py-1.5 rounded-full text-white text-[9px] md:text-[10px] font-black uppercase tracking-widest shadow-xl border border-white/20 flex items-center gap-1.5 transform hover:scale-105 transition-all backdrop-blur-sm border-none">
                                 <ExternalLink size={10} />
                                 {data.business_name || "Ver Perfil"}
                             </button>
@@ -202,7 +202,6 @@ export const BookViewer = ({ pages, total }: BookViewerProps) => {
             <div className="hidden" aria-hidden="true">
                 {prefetchImages.map(src => <img key={src} src={src} loading="lazy" />)}
             </div>
-            <div className="absolute inset-0 bg-[url('/bg-texture.png')] opacity-10 pointer-events-none" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black pointer-events-none" />
 
             {/* Area de Lectura */}
@@ -210,14 +209,14 @@ export const BookViewer = ({ pages, total }: BookViewerProps) => {
                 ${isDesktop ? 'items-center pt-2 pb-24' : 'items-start pt-4'}
             `}>
 
-                {/* Mobile Side Nav Buttons (Overlay on visual area) */}
+                {/* Mobile Side Nav Buttons */}
                 {!isDesktop && scale === 1 && (
                     <>
                         <div onClick={handlePrev} className="absolute left-0 top-0 w-12 h-full z-[150] cursor-pointer flex items-center justify-center">
-                            <ArrowLeft className="w-5 h-5 text-white/10 group-active:text-white" />
+                            <ArrowLeft className="w-5 h-5 text-white/10" />
                         </div>
                         <div onClick={handleNext} className="absolute right-0 top-0 w-12 h-full z-[150] cursor-pointer flex items-center justify-center">
-                            <ArrowRight className="w-5 h-5 text-white/10 group-active:text-white" />
+                            <ArrowRight className="w-5 h-5 text-white/10" />
                         </div>
                     </>
                 )}
@@ -296,12 +295,7 @@ export const BookViewer = ({ pages, total }: BookViewerProps) => {
                     </button>
                     <button
                         onClick={() => {
-                            // Intenta cerrar la ventana/pestaña si fue abierta por script o es nueva
-                            window.close();
-                            // Fallback: si no se cerró, redirigir al inicio o ir atrás
-                            if (!window.closed) {
-                                window.location.href = '/';
-                            }
+                            window.location.href = '/';
                         }}
                         className="p-2 md:p-2.5 bg-red-500/10 text-red-500 rounded-full hover:bg-red-500 hover:text-white transition-all border border-red-500/20"
                     >
@@ -309,5 +303,6 @@ export const BookViewer = ({ pages, total }: BookViewerProps) => {
                     </button>
                 </div>
             </div>
-
-            <style jsx global>{`
+        </div>
+    );
+};
