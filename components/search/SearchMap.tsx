@@ -79,11 +79,11 @@ export const SearchMap = ({ businesses }: SearchMapProps) => {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             />
             {businesses
-                .filter((b) => b.latitude && b.longitude)
+                .filter((b) => b.latitude != null && b.longitude != null)
                 .map((biz) => (
                     <Marker
                         key={biz.id}
-                        position={[biz.latitude, biz.longitude]}
+                        position={[biz.latitude as number, biz.longitude as number]}
                         icon={createCustomIcon(biz)}
                     >
                         <Popup className="custom-leaflet-popup">
