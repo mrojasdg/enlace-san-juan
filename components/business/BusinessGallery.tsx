@@ -96,3 +96,4 @@ export default function BusinessGallery({ images, businessName }: BusinessGaller
             )}
         </section>
     );
+}

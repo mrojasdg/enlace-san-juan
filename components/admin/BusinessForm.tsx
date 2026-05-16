@@ -795,3 +795,5 @@ export const BusinessForm = ({ initialData, categories, isPublicRegistration = f
             </form>
         </div>
     );
+}
+
