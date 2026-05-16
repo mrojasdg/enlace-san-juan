@@ -98,7 +98,7 @@ export const SearchMap = ({ businesses }: SearchMapProps) => {
                                     </div>
                                 </div>
                                 <a href={`/${biz.category?.slug}/${biz.slug}`} className="block">
-                                    <button class="w-full bg-ink text-white py-2 rounded-xl font-black uppercase text-[9px] tracking-widest hover:bg-green transition-colors border-none">Ver perfil completo</button>
+                                    <button className="w-full bg-ink text-white py-2 rounded-xl font-black uppercase text-[9px] tracking-widest hover:bg-green transition-colors border-none">Ver perfil completo</button>
                                 </a>
                             </div>
                         </Popup>
