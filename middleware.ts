@@ -6,12 +6,19 @@ export async function middleware(req: NextRequest) {
     const res = NextResponse.next()
     const supabase = createMiddlewareClient({ req, res })
 
-    // Obtenemos la sesión pero NO bloqueamos de inmediato si falla el refresh
     const { data: { session } } = await supabase.auth.getSession()
 
-    // Solo redirigimos si NO hay sesión Y estamos en páginas críticas
-    if (!session && req.nextUrl.pathname.startsWith('/admin/dashboard')) {
+    const isPathAdmin = req.nextUrl.pathname.startsWith('/admin')
+    const isPathLogin = req.nextUrl.pathname === '/admin/login'
+
+    // Si intenta entrar a admin y no tiene sesión, al login
+    if (isPathAdmin && !isPathLogin && !session) {
         return NextResponse.redirect(new URL('/admin/login', req.url))
+    }
+
+    // Si ya tiene sesión e intenta ir al login, al dashboard
+    if (isPathLogin && session) {
+        return NextResponse.redirect(new URL('/admin/dashboard', req.url))
     }
 
     return res

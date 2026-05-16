@@ -28,9 +28,8 @@ export default function AdminLoginPage() {
             if (error) throw error;
 
             toast.success("Bienvenido al panel, administrador");
-            setTimeout(() => {
-                window.location.href = "/admin/dashboard";
-            }, 500);
+            router.push("/admin/dashboard");
+            router.refresh();
         } catch (error: any) {
             toast.error(error.message || "Credenciales incorrectas");
         } finally {
