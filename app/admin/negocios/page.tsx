@@ -140,8 +140,8 @@ export default function BusinessesAdminPage() {
                                                 </div>
                                                 <Button 
                                                     variant="outline" 
-                                                    size="icon" 
-                                                    className="w-10 h-10 rounded-xl"
+                                                    size="sm" 
+                                                    className="w-10 h-10 rounded-xl p-0 flex items-center justify-center"
                                                     onClick={() => downloadQR(biz)}
                                                 >
                                                     <QrCode size={16} />
@@ -151,10 +151,10 @@ export default function BusinessesAdminPage() {
                                         <td className="px-6 py-4 text-right">
                                             <div className="flex items-center justify-end gap-2">
                                                 <Link href={`/${biz.category?.slug}/${biz.slug}`} target="_blank">
-                                                    <Button variant="ghost" size="icon" className="w-10 h-10 rounded-xl"><Eye size={18} /></Button>
+                                                    <Button variant="ghost" size="sm" className="w-10 h-10 rounded-xl p-0 flex items-center justify-center"><Eye size={18} /></Button>
                                                 </Link>
                                                 <Link href={`/admin/negocios/${biz.id}`}>
-                                                    <Button variant="ghost" size="icon" className="w-10 h-10 rounded-xl"><Edit size={18} /></Button>
+                                                    <Button variant="ghost" size="sm" className="w-10 h-10 rounded-xl p-0 flex items-center justify-center"><Edit size={18} /></Button>
                                                 </Link>
                                             </div>
                                         </td>

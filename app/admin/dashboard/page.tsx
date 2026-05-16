@@ -96,7 +96,7 @@ export default async function AdminDashboardPage() {
                                         </span>
                                     </div>
                                     <Link href={`/admin/negocios/${biz.id}`}>
-                                        <Button size="icon" variant="ghost" className="rounded-xl"><ChevronRight size={18} /></Button>
+                                        <Button size="sm" variant="ghost" className="rounded-xl w-10 h-10 p-0 flex items-center justify-center"><ChevronRight size={18} /></Button>
                                     </Link>
                                 </div>
                             </div>
