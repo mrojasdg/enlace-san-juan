@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { supabase } from "@/lib/supabase";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Button } from "@/components/ui/Button";
 import Image from "next/image";
 import { Mail, Lock, AlertCircle, ArrowRight, BookOpen } from "lucide-react";
@@ -14,6 +14,7 @@ export default function AdminLoginPage() {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+    const supabase = createClientComponentClient();
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
