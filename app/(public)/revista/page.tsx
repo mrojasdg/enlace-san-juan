@@ -15,6 +15,23 @@ export default async function RevistaPublicPage() {
         .order("year", { ascending: false })
         .order("created_at", { ascending: false });
 
+    const publishedMagazines = magazines || [];
+    let covers: any[] = [];
+    if (publishedMagazines.length > 0) {
+        const { data: coversData } = await supabase
+            .from("magazine_pages")
+            .select("*")
+            .eq("page_number", 1)
+            .in("magazine_id", publishedMagazines.map((m) => m.id))
+            .not("image_url", "is", null);
+        covers = coversData || [];
+    }
+
+    const magazinesWithCovers = publishedMagazines.map((mag) => ({
+        ...mag,
+        cover: covers.find((c: any) => c.magazine_id === mag.id)?.image_url || null,
+    }));
+
     const whatsappLink = "https://wa.me/524423432924?text=Hola,%20me%20gustaría%20más%20información%20sobre%20los%20planes%20de%20Enlace%20San%20Juan";
 
     return (
@@ -42,9 +59,20 @@ export default async function RevistaPublicPage() {
                 {/* Grid de Revistas */}
                 <div className="py-20 container max-w-7xl mx-auto px-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                        {magazines?.map((mag) => (
+                        {magazinesWithCovers.map((mag) => (
                             <div key={mag.id} className="group space-y-6">
                                 <Link href={`/revista/${mag.year}/${mag.month}`} className="block relative aspect-[3/4] bg-[#f0f0f0] rounded-[2.5rem] overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                                    {mag.cover ? (
+                                        <img 
+                                            src={mag.cover} 
+                                            alt={`Portada ${mag.month} ${mag.year}`} 
+                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                        />
+                                    ) : (
+                                        <div className="absolute inset-0 flex items-center justify-center bg-green-xpale/20">
+                                            <BookOpen size={48} className="text-muted/30" />
+                                        </div>
+                                    )}
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
                                     <div className="absolute inset-0 flex items-center justify-center">
                                         <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white scale-0 group-hover:scale-100 transition-transform duration-500">
