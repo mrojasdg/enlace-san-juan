@@ -77,7 +77,6 @@ export default async function PublicMagazinePage({
       <BookViewer 
         pages={finalPagesToRender} 
         total={totalPages} 
-        title={magazineTitle} 
       />
     </main>
   );
