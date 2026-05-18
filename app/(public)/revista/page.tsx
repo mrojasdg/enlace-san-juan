@@ -58,15 +58,15 @@ export default async function RevistaPublicPage() {
 
                 {/* Grid de Revistas */}
                 <div className="py-20 container max-w-7xl mx-auto px-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 md:gap-10">
                         {magazinesWithCovers.map((mag) => (
                             <div key={mag.id} className="group space-y-6">
-                                <Link href={`/revista/${mag.year}/${mag.month}`} className="block relative aspect-[3/4] bg-[#f0f0f0] rounded-[2.5rem] overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                                <Link href={`/revista/${mag.year}/${mag.month}`} className="block relative aspect-[3/4] bg-white border border-border/80 rounded-[2rem] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
                                     {mag.cover ? (
                                         <img 
                                             src={mag.cover} 
                                             alt={`Portada ${mag.month} ${mag.year}`} 
-                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                            className="absolute inset-0 w-full h-full object-contain p-4 transition-transform duration-700 group-hover:scale-105"
                                         />
                                     ) : (
                                         <div className="absolute inset-0 flex items-center justify-center bg-green-xpale/20">
@@ -75,13 +75,13 @@ export default async function RevistaPublicPage() {
                                     )}
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
                                     <div className="absolute inset-0 flex items-center justify-center">
-                                        <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white scale-0 group-hover:scale-100 transition-transform duration-500">
-                                            <BookOpen size={24} />
+                                        <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white scale-0 group-hover:scale-100 transition-transform duration-500">
+                                            <BookOpen size={20} />
                                         </div>
                                     </div>
-                                    <div className="absolute bottom-8 left-8 right-8 text-white space-y-2">
-                                        <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-80">{mag.year}</p>
-                                        <h3 className="font-outfit font-black text-4xl capitalize">{mag.month}</h3>
+                                    <div className="absolute bottom-6 left-6 right-6 text-white space-y-1">
+                                        <p className="text-[9px] font-black uppercase tracking-[0.3em] opacity-80">{mag.year}</p>
+                                        <h3 className="font-outfit font-black text-2xl capitalize">{mag.month}</h3>
                                     </div>
                                 </Link>
                                 <div className="px-4">
