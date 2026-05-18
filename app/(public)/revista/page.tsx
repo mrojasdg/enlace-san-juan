@@ -5,6 +5,7 @@ import { ArrowRight, BookOpen, CheckCircle2, TrendingUp, Users, Calendar } from 
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
+import { PageTracker } from "@/components/shared/PageTracker";
 
 export default async function RevistaPublicPage() {
     // Fetch latest published magazines
@@ -36,6 +37,7 @@ export default async function RevistaPublicPage() {
 
     return (
         <div className="min-h-screen bg-white">
+            <PageTracker path="revista" />
             <Navbar />
             
             <main>
