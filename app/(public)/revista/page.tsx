@@ -66,12 +66,12 @@ export default async function RevistaPublicPage() {
                                 className="group block space-y-4 text-center"
                             >
                                 {/* Card Container */}
-                                <div className="relative aspect-[3/4] bg-white border border-border/50 rounded-[2rem] overflow-hidden shadow-sm group-hover:shadow-xl transition-all duration-500 group-hover:-translate-y-1.5 flex items-center justify-center">
+                                <div className="relative aspect-[3/4] rounded-[2rem] overflow-hidden shadow-md group-hover:shadow-xl transition-all duration-500 group-hover:-translate-y-1.5 flex items-center justify-center bg-gray-50">
                                     {mag.cover ? (
                                         <img 
                                             src={mag.cover} 
                                             alt={`Portada ${mag.month} ${mag.year}`} 
-                                            className="absolute inset-0 w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-[1.03]"
+                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                                         />
                                     ) : (
                                         <div className="absolute inset-0 flex items-center justify-center bg-green-xpale/10">
