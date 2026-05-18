@@ -60,38 +60,36 @@ export default async function RevistaPublicPage() {
                 <div className="py-20 container max-w-7xl mx-auto px-6">
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 md:gap-10">
                         {magazinesWithCovers.map((mag) => (
-                            <div key={mag.id} className="group space-y-6">
-                                <Link href={`/revista/${mag.year}/${mag.month}`} className="block relative aspect-[3/4] bg-white border border-border/80 rounded-[2rem] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                            <Link 
+                                key={mag.id}
+                                href={`/revista/${mag.year}/${mag.month}`} 
+                                className="group block space-y-4 text-center"
+                            >
+                                {/* Card Container */}
+                                <div className="relative aspect-[3/4] bg-white border border-border/50 rounded-[2rem] overflow-hidden shadow-sm group-hover:shadow-xl transition-all duration-500 group-hover:-translate-y-1.5 flex items-center justify-center">
                                     {mag.cover ? (
                                         <img 
                                             src={mag.cover} 
                                             alt={`Portada ${mag.month} ${mag.year}`} 
-                                            className="absolute inset-0 w-full h-full object-contain p-4 transition-transform duration-700 group-hover:scale-105"
+                                            className="absolute inset-0 w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-[1.03]"
                                         />
                                     ) : (
-                                        <div className="absolute inset-0 flex items-center justify-center bg-green-xpale/20">
-                                            <BookOpen size={48} className="text-muted/30" />
+                                        <div className="absolute inset-0 flex items-center justify-center bg-green-xpale/10">
+                                            <BookOpen size={40} className="text-muted/30" />
                                         </div>
                                     )}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-                                    <div className="absolute inset-0 flex items-center justify-center">
-                                        <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white scale-0 group-hover:scale-100 transition-transform duration-500">
-                                            <BookOpen size={20} />
-                                        </div>
-                                    </div>
-                                    <div className="absolute bottom-6 left-6 right-6 text-white space-y-1">
-                                        <p className="text-[9px] font-black uppercase tracking-[0.3em] opacity-80">{mag.year}</p>
-                                        <h3 className="font-outfit font-black text-2xl capitalize">{mag.month}</h3>
-                                    </div>
-                                </Link>
-                                <div className="px-4">
-                                    <Link href={`/revista/${mag.year}/${mag.month}`}>
-                                        <Button className="w-full h-14 bg-[#F9FCFA] hover:bg-green hover:text-white text-green border border-green-pale rounded-2xl font-black uppercase tracking-widest text-[11px] transition-all">
-                                            Abrir Edición
-                                        </Button>
-                                    </Link>
                                 </div>
-                            </div>
+
+                                {/* Text Label */}
+                                <div className="px-2">
+                                    <h3 className="font-outfit font-black text-xl text-ink capitalize tracking-tight group-hover:text-green transition-colors leading-none">
+                                        {mag.month}
+                                    </h3>
+                                    <p className="text-[9px] font-black text-muted/50 uppercase tracking-[0.25em] mt-2">
+                                        {mag.year}
+                                    </p>
+                                </div>
+                            </Link>
                         ))}
                     </div>
                 </div>
