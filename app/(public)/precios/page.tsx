@@ -279,7 +279,7 @@ export default function PreciosPage() {
               {[
                 {
                   icon: TrendingUp,
-                  title: 'Plan inicial desde $349 MXN',
+                  title: 'Plan inicial desde $350 MXN',
                   desc: 'Un micrositio personalizado y ser parte del directorio principal. Con la opción de aparecer en la Revista pagando un porcentaje.',
                 },
                 {
@@ -548,7 +548,7 @@ export default function PreciosPage() {
                 </p>
                 <div className="mt-6 flex items-baseline gap-2">
                   <span className="font-outfit font-black text-5xl text-green-deeper">
-                    $349
+                    $350
                   </span>
                   <span className="text-sm font-bold text-muted uppercase tracking-widest">
                     MXN / mes

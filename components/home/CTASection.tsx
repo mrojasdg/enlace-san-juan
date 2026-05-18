@@ -7,8 +7,8 @@ import Image from "next/image";
 
 export const CTASection = () => {
     const plans = [
-        { name: "$349 MXN", label: "Micrositio + QR", icon: Layers },
-        { name: "$250 MXN", label: "Revista extra", icon: BookOpen },
+        { name: "$350 MXN", label: "Micrositio + QR", icon: Layers },
+        { name: "$150 MXN", label: "Revista extra", icon: BookOpen },
         { name: "Sin contratos", label: "Solo el mes que necesites", icon: MessageCircle },
     ];
 
