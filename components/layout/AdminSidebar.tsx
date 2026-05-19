@@ -19,11 +19,12 @@ import { supabase } from "@/lib/supabase";
 import toast from "react-hot-toast";
 
 const menuItems = [
-    { name: "Resumen", href: "/admin/dashboard", icon: BarChart3 },
+    { name: "Resumen", href: "/admin/dashboard", icon: Home },
     { name: "Negocios", href: "/admin/negocios", icon: Building2 },
     { name: "Agregar nuevo", href: "/admin/negocios/nuevo", icon: PlusCircle },
     { name: "Categorías", href: "/admin/categorias", icon: Grid3X3 },
     { name: "Revista Web", href: "/admin/revistas", icon: BookOpen },
+    { name: "Visitas", href: "/admin/estadisticas", icon: BarChart3 },
 ];
 
 const secondaryItems = [
