@@ -3,6 +3,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { Navigation } from "lucide-react";
 
 // Fix for default marker icon
 const icon = L.icon({
@@ -68,6 +69,18 @@ export default function BusinessMap({ lat, lng, name, address, logoUrl }: Busine
                         </Popup>
                     </Marker>
                 </MapContainer>
+            </div>
+            
+            <div className="flex justify-center">
+                <a 
+                    href={`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 px-8 py-4 bg-green hover:bg-green-mid text-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 font-jakarta font-black text-xs uppercase tracking-widest active:scale-95 group"
+                >
+                    <Navigation size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    Abrir en Google Maps
+                </a>
             </div>
         </section>
     );
