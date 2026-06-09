@@ -72,7 +72,11 @@ export const BookViewer = ({ pages, total }: BookViewerProps) => {
         setIsChanging(true);
         setTimeout(() => {
             setSlideIndex(prev => prev + 1);
-            setIsChanging(false);
+            // Breve retraso (100ms) para que el navegador asigne y comience a renderizar el nuevo src
+            // en segundo plano (con opacity 0) antes de desvanecer de regreso a opacity 100.
+            setTimeout(() => {
+                setIsChanging(false);
+            }, 100);
         }, 300);
     };
 
@@ -81,7 +85,11 @@ export const BookViewer = ({ pages, total }: BookViewerProps) => {
         setIsChanging(true);
         setTimeout(() => {
             setSlideIndex(prev => prev - 1);
-            setIsChanging(false);
+            // Breve retraso (100ms) para que el navegador asigne y comience a renderizar el nuevo src
+            // en segundo plano (con opacity 0) antes de desvanecer de regreso a opacity 100.
+            setTimeout(() => {
+                setIsChanging(false);
+            }, 100);
         }, 300);
     };
 
