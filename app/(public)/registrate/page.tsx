@@ -31,14 +31,14 @@ export default async function RegistratePage() {
                     </div>
 
                     {/* Badge muy visible de WhatsApp */}
-                    <div className="inline-flex items-center justify-center pt-2">
+                    <div className="inline-flex items-center justify-center pt-2 w-full">
                         <a 
                             href="https://wa.me/524273232026?text=Hola,%20me%20gustaría%20registrar%20mi%20empresa%20en%20Enlace%20San%20Juan"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex flex-col sm:flex-row items-center gap-3 bg-[#E8F8F0] hover:bg-[#D4F3E2] text-green-deeper px-6 py-4 rounded-[2rem] sm:rounded-full border border-green/20 font-bold text-xs md:text-sm tracking-wide shadow-md hover:shadow transition-all group duration-300 max-w-lg text-center sm:text-left"
+                            className="inline-flex flex-col md:flex-row items-center justify-center gap-3 bg-[#E8F8F0] hover:bg-[#D4F3E2] text-green-deeper px-8 py-3.5 rounded-[2rem] md:rounded-full border border-green/20 font-bold text-xs md:text-sm tracking-wide shadow-md hover:shadow transition-all group duration-300 w-full max-w-2xl text-center md:text-left"
                         >
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-3 whitespace-nowrap">
                                 <span className="relative flex h-3.5 w-3.5">
                                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green opacity-75"></span>
                                     <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-[#25D366]"></span>
@@ -47,8 +47,8 @@ export default async function RegistratePage() {
                                     ¿Prefieres WhatsApp?
                                 </span>
                             </div>
-                            <span className="text-muted/80 font-normal sm:border-l sm:border-green/20 sm:pl-3">
-                                Regístrate enviando un mensaje al <strong className="text-green font-black font-mono">427 323 2026</strong>
+                            <span className="text-muted/80 font-normal md:border-l md:border-green/20 md:pl-4 whitespace-nowrap">
+                                Regístrate enviando un mensaje al <strong className="text-green font-black font-mono whitespace-nowrap">427 323 2026</strong>
                             </span>
                         </a>
                     </div>
