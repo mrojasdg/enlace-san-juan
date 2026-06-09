@@ -11,8 +11,12 @@ export const PageTracker = ({ path }: PageTrackerProps) => {
   useEffect(() => {
     const recordPageView = async () => {
       try {
-        // Evitar múltiples conteos en la misma sesión/día
-        const today = new Date().toISOString().split('T')[0];
+        // Obtener fecha local en formato YYYY-MM-DD (independiente de la zona horaria UTC)
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const today = `${year}-${month}-${day}`;
         const storageKey = `track_${path}_${today}`;
         
         if (sessionStorage.getItem(storageKey)) return;

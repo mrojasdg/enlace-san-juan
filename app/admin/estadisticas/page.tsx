@@ -50,11 +50,20 @@ export default async function EstadisticasPage() {
     const pageData = (stats || []).filter(s => s.page_path === path);
     const total = pageData.reduce((acc, curr) => acc + Number(curr.count), 0);
     
-    // Calcular últimos 30 días (aproximado por los datos que tengamos)
+    // Calcular límite de últimos 30 días de forma segura usando string en formato YYYY-MM-DD
+    // Esto evita diferencias de zona horaria (UTC vs Local) al comparar fechas
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+    const limitYear = thirtyDaysAgo.getFullYear();
+    const limitMonth = String(thirtyDaysAgo.getMonth() + 1).padStart(2, '0');
+    const limitDay = String(thirtyDaysAgo.getDate()).padStart(2, '0');
+    const limitDateString = `${limitYear}-${limitMonth}-${limitDay}`;
+
     const last30Days = pageData
-      .filter(s => new Date(s.view_date) >= thirtyDaysAgo)
+      .filter(s => {
+        // s.view_date viene de Supabase en formato YYYY-MM-DD (string)
+        return s.view_date >= limitDateString;
+      })
       .reduce((acc, curr) => acc + Number(curr.count), 0);
 
     return { total, last30Days };
