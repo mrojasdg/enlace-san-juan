@@ -472,18 +472,18 @@ export default function PreciosPage() {
                   <div className="flex-1 space-y-6 text-center lg:text-left">
                     <div className="space-y-4">
                       <span className="inline-block bg-ink text-white px-6 py-2 rounded-full font-black text-[12px] uppercase tracking-[0.3em] shadow-xl">
-                        🔥 PROMO MAYO
+                        🔥 PROMO JUNIO
                       </span>
                       <h2 className="font-outfit font-black text-4xl md:text-5xl text-ink leading-[1.1] tracking-tight">
                         Asegura tu presencia <br className="hidden md:block" />
-                        <span className="text-green">Mayo + Junio</span>
+                        <span className="text-green">Junio + Julio</span>
                       </h2>
                     </div>
 
                     <div className="space-y-6">
                       <p className="text-muted font-jakarta text-lg max-w-xl leading-relaxed">
-                        Obtén el <span className="font-black text-ink">Plan Enlace</span> (lo que queda de Mayo y todo Junio) +{' '}
-                        <span className="font-black text-ink">Revista Enlace edición Junio</span> por un precio especial.
+                        Obtén el <span className="font-black text-ink">Plan Enlace</span> (lo que queda de Junio y todo Julio) +{' '}
+                        <span className="font-black text-ink">Revista Enlace edición Julio</span> por un precio especial.
                       </p>
                       <div className="flex flex-wrap justify-center lg:justify-start gap-3">
                         <div className="flex items-center gap-2 bg-[#F9FCFA] px-4 py-2.5 rounded-2xl border border-border group-hover:border-green/20 transition-colors">
@@ -495,7 +495,7 @@ export default function PreciosPage() {
                         <div className="flex items-center gap-2 bg-[#F9FCFA] px-4 py-2.5 rounded-2xl border border-border group-hover:border-green/20 transition-colors">
                           <CheckCircle2 size={18} className="text-green" />
                           <span className="text-[11px] font-black text-ink uppercase tracking-wider">
-                            Revista Junio Incluida
+                            Revista Julio Incluida
                           </span>
                         </div>
                       </div>
@@ -517,7 +517,7 @@ export default function PreciosPage() {
                         </span>
                       </div>
                       <p className="text-[10px] font-black text-green uppercase tracking-[0.2em] mt-6 bg-white px-6 py-3 rounded-full shadow-sm border border-green/5">
-                        Siguiente pago en Julio
+                        Siguiente pago en Agosto
                       </p>
                     </div>
 
