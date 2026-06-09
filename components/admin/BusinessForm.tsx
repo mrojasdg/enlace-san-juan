@@ -332,27 +332,28 @@ export const BusinessForm = ({ initialData, categories, isPublicRegistration = f
     return (
         <div className="bg-white rounded-[3rem] border border-border overflow-hidden shadow-2xl relative">
             {/* Tab Navigation */}
-            <div className="flex bg-[#F4FBF5] border-b border-border overflow-x-auto scrollbar-hide py-2 px-6">
+            <div className="flex bg-[#F4FBF5] border-b border-border overflow-x-auto scrollbar-hide py-2 px-2 sm:px-6 gap-1">
                 {tabs.map((tab) => (
                     <button
                         key={tab.id}
                         type="button"
                         onClick={() => setActiveTab(tab.id)}
                         className={cn(
-                            "flex items-center gap-3 px-8 py-5 rounded-[1.5rem] transition-all duration-300 font-jakarta font-black text-xs uppercase tracking-widest leading-none whitespace-nowrap",
+                            "flex items-center gap-2 px-4 sm:px-8 py-4 sm:py-5 rounded-[1.2rem] sm:rounded-[1.5rem] transition-all duration-300 font-jakarta font-black text-[10px] sm:text-xs uppercase tracking-widest leading-none whitespace-nowrap shrink-0",
                             activeTab === tab.id
                                 ? "bg-white text-green shadow-[0_10px_20px_rgba(42,122,59,0.1)] translate-y-2 ring-1 ring-border"
                                 : "text-muted/40 hover:text-green-mid hover:bg-white/50"
                         )}
                     >
-                        <tab.icon size={16} className={activeTab === tab.id ? "text-green" : "text-muted/20"} />
-                        {tab.label}
-                        {activeTab === tab.id && <div className="ml-2 w-1.5 h-1.5 bg-green rounded-full shadow-[0_0_8px_rgba(34,197,94,0.5)]" />}
+                        <tab.icon size={14} className={activeTab === tab.id ? "text-green" : "text-muted/20"} />
+                        <span className="hidden sm:inline">{tab.label}</span>
+                        <span className="sm:hidden">{tab.label.split(" ")[0]}</span>
+                        {activeTab === tab.id && <div className="ml-1.5 w-1.5 h-1.5 bg-green rounded-full shadow-[0_0_8px_rgba(34,197,94,0.5)]" />}
                     </button>
                 ))}
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit, onFormError)} className="p-10 md:p-14">
+            <form onSubmit={handleSubmit(onSubmit, onFormError)} className="p-5 sm:p-8 md:p-14">
                 {/* TAB 1: GENERAL */}
                 {activeTab === "general" && (
                     <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -464,15 +465,15 @@ export const BusinessForm = ({ initialData, categories, isPublicRegistration = f
                             </div>
                             <div className="md:col-span-2 space-y-4 pt-6 border-t border-border/50">
                                 <label className="text-[10px] font-black text-green uppercase tracking-[0.2em] ml-2 block">Catálogo / Menú (PDF)</label>
-                                <div className="flex items-center gap-6">
+                                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                                     <div className="flex-1 relative">
                                         <div className={cn(
-                                            "w-full bg-green-xpale border border-dashed border-border rounded-2xl py-6 px-8 flex items-center gap-4 transition-all hover:border-green group cursor-pointer",
+                                            "w-full bg-green-xpale border border-dashed border-border rounded-2xl py-6 px-6 flex items-center gap-4 transition-all hover:border-green group cursor-pointer",
                                             pdfFile || pdfUrl ? "bg-white border-green" : ""
                                         )}>
-                                            <FileText className={cn("text-muted transition-colors", (pdfFile || pdfUrl) && "text-green")} size={32} />
-                                            <div className="flex-1">
-                                                <p className="text-xs font-black uppercase text-ink">
+                                            <FileText className={cn("text-muted transition-colors shrink-0", (pdfFile || pdfUrl) && "text-green")} size={28} />
+                                            <div className="flex-1 min-w-0">
+                                                <p className="text-xs font-black uppercase text-ink truncate">
                                                     {pdfFile ? pdfFile.name : (pdfUrl ? "Catálogo subido correctamente" : "Subir archivo PDF")}
                                                 </p>
                                                 <p className="text-[9px] text-muted font-bold uppercase tracking-widest mt-1">
@@ -487,7 +488,7 @@ export const BusinessForm = ({ initialData, categories, isPublicRegistration = f
                                                         setPdfFile(null);
                                                         setPdfUrl(null);
                                                     }}
-                                                    className="w-8 h-8 rounded-full bg-red-500 text-white flex items-center justify-center hover:bg-red-600 transition-colors shadow-lg"
+                                                    className="w-8 h-8 rounded-full bg-red-500 text-white flex items-center justify-center hover:bg-red-600 transition-colors shadow-lg shrink-0"
                                                 >
                                                     <X size={14} />
                                                 </button>
@@ -513,7 +514,7 @@ export const BusinessForm = ({ initialData, categories, isPublicRegistration = f
                                             }}
                                         />
                                     </div>
-                                    <div className="w-1/3">
+                                    <div className="sm:w-1/3">
                                         <label className="text-[9px] font-black text-muted uppercase tracking-widest ml-1 block mb-2">Etiqueta del botón</label>
                                         <input {...register("catalog_label")} placeholder="Menú / Catálogo" className="w-full bg-green-xpale border border-border focus:bg-white focus:border-green outline-none rounded-xl py-3 px-4 font-bold text-xs" />
                                     </div>
@@ -661,13 +662,13 @@ export const BusinessForm = ({ initialData, categories, isPublicRegistration = f
                     <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <div className="bg-green-xpale/50 rounded-[2.5rem] border border-border p-8 space-y-4 shadow-inner">
                             {["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"].map((day) => (
-                                <div key={day} className="flex flex-col md:flex-row md:items-center justify-between gap-4 py-4 border-b border-border/50 last:border-0 hover:bg-white/40 transition-colors px-4 rounded-xl">
-                                    <span className="font-outfit font-black text-sm uppercase tracking-widest text-green-deeper min-w-[120px]">{day}</span>
-                                    <div className="flex items-center gap-4">
-                                        <input type="time" {...register(`schedule.${day}.open`)} disabled={watch(`schedule.${day}.closed`)} className="bg-white border border-border rounded-xl px-4 py-2 text-sm disabled:opacity-30" />
+                                <div key={day} className="flex flex-col gap-3 py-4 border-b border-border/50 last:border-0 hover:bg-white/40 transition-colors px-3 sm:px-4 rounded-xl">
+                                    <span className="font-outfit font-black text-sm uppercase tracking-widest text-green-deeper">{day}</span>
+                                    <div className="flex items-center gap-3 flex-wrap">
+                                        <input type="time" {...register(`schedule.${day}.open`)} disabled={watch(`schedule.${day}.closed`)} className="bg-white border border-border rounded-xl px-3 py-2 text-sm disabled:opacity-30 flex-1 min-w-[100px]" />
                                         <span className="text-muted text-xs">a</span>
-                                        <input type="time" {...register(`schedule.${day}.close`)} disabled={watch(`schedule.${day}.closed`)} className="bg-white border border-border rounded-xl px-4 py-2 text-sm disabled:opacity-30" />
-                                        <div className="ml-4">
+                                        <input type="time" {...register(`schedule.${day}.close`)} disabled={watch(`schedule.${day}.closed`)} className="bg-white border border-border rounded-xl px-3 py-2 text-sm disabled:opacity-30 flex-1 min-w-[100px]" />
+                                        <div className="ml-auto">
                                             <Toggle checked={watch(`schedule.${day}.closed`)} onChange={(val) => setValue(`schedule.${day}.closed`, val)} label="CERRADO" />
                                         </div>
                                     </div>
