@@ -73,14 +73,14 @@ export default async function RegistratePage() {
                                     </span>
                                     <h2 className="font-outfit font-black text-4xl md:text-5xl text-ink leading-[1.1] tracking-tight">
                                         Asegura tu presencia <br className="hidden md:block" />
-                                        <span className="text-green">Junio + Julio</span>
+                                        <span className="text-green">Junio + Julio + Revista de Julio</span>
                                     </h2>
                                 </div>
 
                                 <div className="space-y-6">
                                     <p className="text-muted font-jakarta text-lg max-w-xl leading-relaxed">
                                         Obtén el <span className="font-black text-ink">Plan Enlace</span> (lo que queda de Junio y todo Julio) +{' '}
-                                        <span className="font-black text-ink">Revista Enlace edición Junio</span> por un precio especial.
+                                        <span className="font-black text-ink">Revista Enlace edición Julio</span> (primer lunes de julio) por un precio especial.
                                     </p>
                                     <div className="flex flex-wrap justify-center lg:justify-start gap-3">
                                         <div className="flex items-center gap-2 bg-[#F9FCFA] px-4 py-2.5 rounded-2xl border border-border group-hover:border-green/20 transition-colors">
@@ -92,7 +92,7 @@ export default async function RegistratePage() {
                                         <div className="flex items-center gap-2 bg-[#F9FCFA] px-4 py-2.5 rounded-2xl border border-border group-hover:border-green/20 transition-colors">
                                             <CheckCircle2 size={18} className="text-green" />
                                             <span className="text-[11px] font-black text-ink uppercase tracking-wider">
-                                                Revista Junio Incluida
+                                                Revista Julio Incluida
                                             </span>
                                         </div>
                                     </div>
