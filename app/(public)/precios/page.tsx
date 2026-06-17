@@ -224,23 +224,14 @@ export default function PreciosPage() {
           </div>
 
           <div className="relative flex justify-center items-center">
-            <div className="absolute inset-0 bg-green-xpale rounded-[3rem] rotate-3 transform origin-center"></div>
-            <div className="relative w-full max-w-md bg-white border border-border rounded-[2.5rem] p-6 shadow-2xl z-10 transform -rotate-1 transition-transform hover:rotate-0">
-              {/* Browser/Microsite mockup top bar */}
-              <div className="flex items-center gap-2 mb-6 bg-gray-50 p-3 rounded-xl border border-gray-100">
-                <Globe size={16} className="text-muted ml-2" />
-                <div className="text-[10px] font-mono text-muted overflow-hidden text-ellipsis whitespace-nowrap">
-                  enlacesanjuan.com.mx/negocio...
-                </div>
-              </div>
-              {/* Placeholder for Mockup Image */}
-              <div className="w-full aspect-video sm:aspect-square bg-white rounded-2xl overflow-hidden relative border border-border/50">
-                <img
-                  src="/liman.jpg"
-                  alt="Microsite Preview"
-                  className="w-full h-full object-cover scale-105"
-                />
-              </div>
+            <div className="absolute inset-0 bg-green-xpale rounded-[3rem] rotate-3 transform origin-center pointer-events-none"></div>
+            <div className="relative w-full max-w-sm z-10 rounded-[2rem] overflow-hidden shadow-2xl border border-border/30">
+              <iframe
+                src="https://player.mux.com/v7VN9BXnZHLLwVyjQBDJhdrlGzOyWPTzwHt02UAaCfw8?metadata-video-title=MicrositioEnlace&video-title=MicrositioEnlace"
+                style={{ width: '100%', border: 'none', aspectRatio: '5/8', display: 'block' }}
+                allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture"
+                allowFullScreen
+              />
             </div>
           </div>
         </div>
