@@ -1,4 +1,5 @@
 import React from 'react';
+import Script from 'next/script';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { Button } from '@/components/ui/Button';
@@ -34,6 +35,35 @@ export const metadata = {
 export default function PreciosPage() {
   return (
     <div className="min-h-screen pt-12 selection:bg-green-pale selection:text-green-deeper bg-[#F9FCFA]">
+      {/* Meta Pixel */}
+      <Script
+        id="meta-pixel-precios"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '1330182825870715');
+            fbq('track', 'PageView');
+          `,
+        }}
+      />
+      <noscript>
+        <img
+          height="1"
+          width="1"
+          style={{ display: 'none' }}
+          src="https://www.facebook.com/tr?id=1330182825870715&ev=PageView&noscript=1"
+          alt=""
+        />
+      </noscript>
+
       <PageTracker path="precios" />
       <Navbar />
 
