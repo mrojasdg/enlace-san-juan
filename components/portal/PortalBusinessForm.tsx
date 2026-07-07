@@ -114,6 +114,7 @@ const businessSchema = z.object({
       sabado: { open: '10:00', close: '14:00', closed: false },
       domingo: { open: '', close: '', closed: true },
     }),
+  booking_duration: z.number().default(60),
 });
 
 interface PortalBusinessFormProps {
@@ -192,6 +193,7 @@ export default function PortalBusinessForm({ initialData, categories }: PortalBu
       twitter_x: initialData.twitter_x || '',
       youtube: initialData.youtube || '',
       catalog_label: initialData.catalog_label || 'Menú / Catálogo',
+      booking_duration: initialData.booking_duration || 60,
     },
   });
 
@@ -489,8 +491,30 @@ export default function PortalBusinessForm({ initialData, categories }: PortalBu
 
         {/* TAB 4: SCHEDULE */}
         {activeTab === 'schedule' && (
-          <div className="space-y-4 animate-in fade-in duration-300">
+          <div className="space-y-6 animate-in fade-in duration-300">
+            {/* Intervalo de citas */}
+            <div className="bg-white border border-border rounded-2xl p-6 space-y-3 max-w-md shadow-sm">
+              <label className="text-[10px] font-black text-green uppercase tracking-[0.2em] block">
+                Intervalo de Reservas (Duración)
+              </label>
+              <select
+                {...register('booking_duration', { valueAsNumber: true })}
+                className="w-full bg-green-xpale border border-border focus:border-green outline-none rounded-xl py-3.5 px-4 font-bold text-xs text-ink transition-all cursor-pointer"
+              >
+                <option value={30}>30 minutos</option>
+                <option value={60}>60 minutos (1 hora)</option>
+                <option value={90}>90 minutos (1.5 horas)</option>
+                <option value={120}>120 minutos (2 horas)</option>
+              </select>
+              <p className="text-[9px] text-muted leading-tight font-jakarta">
+                Define la duración de cada cita. Esto modificará los bloques de tiempo disponibles en tu página pública.
+              </p>
+            </div>
+
             <div className="bg-green-xpale/30 rounded-2xl border border-border p-6 space-y-4">
+              <label className="text-[10px] font-black text-green uppercase tracking-[0.2em] ml-2 block">
+                Horario de Atención Semanal
+              </label>
               {['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'].map((day) => (
                 <div key={day} className="flex flex-col md:flex-row md:items-center justify-between gap-4 py-3 border-b border-border/50 last:border-0">
                   <span className="font-outfit font-black text-xs uppercase tracking-widest text-green-deeper min-w-[120px]">{day}</span>
