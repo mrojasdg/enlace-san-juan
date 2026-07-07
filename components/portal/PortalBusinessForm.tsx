@@ -318,30 +318,30 @@ export default function PortalBusinessForm({ initialData, categories }: PortalBu
 
   return (
     <div className="bg-white rounded-[2rem] border border-border shadow-2xl overflow-hidden relative">
-      <div className="flex bg-green-xpale/50 border-b border-border overflow-x-auto py-2 px-6">
+      <div className="flex bg-green-xpale/50 border-b border-border overflow-x-auto py-2.5 px-4 sm:px-6 scrollbar-hide snap-x snap-mandatory gap-1.5">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             type="button"
             onClick={() => setActiveTab(tab.id)}
             className={cn(
-              'flex items-center gap-2 px-6 py-4 rounded-xl transition-all duration-300 font-jakarta font-black text-xs uppercase tracking-widest',
+              'flex items-center gap-2 px-4 py-3 md:px-6 md:py-4 rounded-xl transition-all duration-300 font-jakarta font-black text-[10px] md:text-xs uppercase tracking-widest whitespace-nowrap snap-center',
               activeTab === tab.id
                 ? 'bg-white text-green shadow-sm ring-1 ring-border'
                 : 'text-muted/55 hover:text-green'
             )}
           >
-            <tab.icon size={14} className={activeTab === tab.id ? 'text-green' : 'text-muted/30'} />
+            <tab.icon size={13} className={activeTab === tab.id ? 'text-green' : 'text-muted/30'} />
             {tab.label}
           </button>
         ))}
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="p-6 md:p-12">
+      <form onSubmit={handleSubmit(onSubmit)} className="p-4 sm:p-6 md:p-12">
         {/* TAB 1: GENERAL */}
         {activeTab === 'general' && (
-          <div className="space-y-8 animate-in fade-in duration-300">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-6 md:space-y-8 animate-in fade-in duration-300">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-muted uppercase tracking-[0.2em] ml-2 block">Nombre comercial</label>
                 <input {...register('name')} className="w-full bg-green-xpale border border-border rounded-xl py-4 px-5 font-bold text-sm" />
@@ -391,7 +391,7 @@ export default function PortalBusinessForm({ initialData, categories }: PortalBu
         {/* TAB 2: IMAGES */}
         {activeTab === 'images' && (
           <div className="space-y-8 animate-in fade-in duration-300">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
               <div className="space-y-4 text-center">
                 <label className="text-[10px] font-black text-muted uppercase tracking-widest block">Logo (Cuadrado)</label>
                 <div className="relative w-40 h-40 mx-auto rounded-full bg-green-xpale border-2 border-dashed border-border flex items-center justify-center overflow-hidden">
@@ -447,7 +447,7 @@ export default function PortalBusinessForm({ initialData, categories }: PortalBu
         {/* TAB 3: CONTACT */}
         {activeTab === 'contact' && (
           <div className="space-y-8 animate-in fade-in duration-300">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-muted uppercase tracking-[0.2em] ml-2 block">Teléfono comercial</label>
                 <input {...register('phone')} className="w-full bg-green-xpale border border-border rounded-xl py-4 px-5 font-bold text-sm" placeholder="427 123 4567" />

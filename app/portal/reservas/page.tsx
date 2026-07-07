@@ -23,6 +23,24 @@ export default function PortalBookingsPage() {
   };
 
   const today = getTodayString();
+  const [duration, setDuration] = useState<number>(business?.booking_duration || 60);
+
+  const handleDurationChange = async (newDuration: number) => {
+    if (!business) return;
+    setDuration(newDuration);
+    try {
+      const { error } = await supabase
+        .from('businesses')
+        .update({ booking_duration: newDuration })
+        .eq('id', business.id);
+
+      if (error) throw error;
+      toast.success('Intervalo de reservas actualizado');
+    } catch (err) {
+      console.error(err);
+      toast.error('Error al actualizar el intervalo');
+    }
+  };
 
   const fetchBookings = async () => {
     if (!business) return;
@@ -82,26 +100,45 @@ export default function PortalBookingsPage() {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
-      {/* Tabs */}
-      <div className="flex bg-white border border-border rounded-2xl p-1.5 shadow-sm max-w-md">
-        <button
-          onClick={() => setActiveTab('upcoming')}
-          className={cn(
-            'flex-1 py-3 rounded-xl font-jakarta font-black text-xs uppercase tracking-widest transition-all',
-            activeTab === 'upcoming' ? 'bg-green text-white shadow-md' : 'text-muted/60 hover:text-green'
-          )}
-        >
-          Próximas Citas
-        </button>
-        <button
-          onClick={() => setActiveTab('past')}
-          className={cn(
-            'flex-1 py-3 rounded-xl font-jakarta font-black text-xs uppercase tracking-widest transition-all',
-            activeTab === 'past' ? 'bg-green text-white shadow-md' : 'text-muted/60 hover:text-green'
-          )}
-        >
-          Historial / Canceladas
-        </button>
+      {/* Configuration Header */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        {/* Tabs */}
+        <div className="flex bg-white border border-border rounded-2xl p-1.5 shadow-sm w-full md:max-w-md">
+          <button
+            onClick={() => setActiveTab('upcoming')}
+            className={cn(
+              'flex-1 py-3 rounded-xl font-jakarta font-black text-xs uppercase tracking-widest transition-all',
+              activeTab === 'upcoming' ? 'bg-green text-white shadow-md' : 'text-muted/60 hover:text-green'
+            )}
+          >
+            Próximas Citas
+          </button>
+          <button
+            onClick={() => setActiveTab('past')}
+            className={cn(
+              'flex-1 py-3 rounded-xl font-jakarta font-black text-xs uppercase tracking-widest transition-all',
+              activeTab === 'past' ? 'bg-green text-white shadow-md' : 'text-muted/60 hover:text-green'
+            )}
+          >
+            Historial / Canceladas
+          </button>
+        </div>
+
+        {/* Interval Selector */}
+        <div className="flex items-center gap-3 bg-white border border-border rounded-2xl px-5 py-3 shadow-sm self-start md:self-auto">
+          <Clock size={16} className="text-green shrink-0" />
+          <span className="text-[10px] font-black text-muted uppercase tracking-widest select-none">Intervalo:</span>
+          <select
+            value={duration}
+            onChange={(e) => handleDurationChange(Number(e.target.value))}
+            className="bg-transparent border-none outline-none font-bold text-xs text-ink cursor-pointer focus:ring-0"
+          >
+            <option value={30}>30 minutos</option>
+            <option value={60}>60 minutos (1h)</option>
+            <option value={90}>90 minutos (1.5h)</option>
+            <option value={120}>120 minutos (2h)</option>
+          </select>
+        </div>
       </div>
 
       {loading ? (
