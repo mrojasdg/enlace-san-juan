@@ -94,6 +94,9 @@ const businessSchema = z.object({
     features: z.array(z.string()).default([]),
     catalog_label: z.string().nullable().optional().default("Menú / Catálogo"),
     search_keywords: z.string().nullable().optional().or(z.literal("")),
+    has_bookings: z.boolean().default(false),
+    booking_duration: z.number().default(60),
+    user_id: z.string().nullable().optional(),
     schedule: z.record(z.object({
         open: z.string().nullable().optional(),
         close: z.string().nullable().optional(),
@@ -175,6 +178,9 @@ export const BusinessForm = ({ initialData, categories, isPublicRegistration = f
             youtube: initialData.youtube || "",
             catalog_label: initialData.catalog_label || "Menú / Catálogo",
             search_keywords: initialData.search_keywords || "",
+            has_bookings: !!initialData.has_bookings,
+            booking_duration: initialData.booking_duration || 60,
+            user_id: initialData.user_id || "",
         } : {
             name: "",
             slug: "",
@@ -201,6 +207,9 @@ export const BusinessForm = ({ initialData, categories, isPublicRegistration = f
                 sabado: { open: "10:00", close: "14:00", closed: false },
                 domingo: { open: null, close: null, closed: true },
             },
+            has_bookings: false,
+            booking_duration: 60,
+            user_id: "",
         },
     });
 
@@ -327,6 +336,7 @@ export const BusinessForm = ({ initialData, categories, isPublicRegistration = f
         { id: "contact", label: "Ubicación & Contacto", icon: MapPin },
         { id: "schedule", label: "Horarios", icon: Clock },
         { id: "extra", label: "Características & Redes", icon: Star },
+        ...(!isPublicRegistration ? [{ id: "bookings", label: "Reservas", icon: CalendarCheck }] : []),
     ];
 
     return (
@@ -777,6 +787,136 @@ export const BusinessForm = ({ initialData, categories, isPublicRegistration = f
                                 </div>
                             </div>
                         </div>
+                    </div>
+                )}
+
+                {/* TAB 6: BOOKINGS */}
+                {!isPublicRegistration && activeTab === 'bookings' && (
+                    <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                        <div>
+                            <h2 className="font-outfit font-black text-xl md:text-3xl text-green-deeper mb-3 md:mb-4 flex items-center gap-3 md:gap-4">
+                                <span className="w-8 h-8 md:w-10 md:h-10 rounded-xl md:rounded-2xl bg-green text-white flex items-center justify-center text-sm md:text-lg">
+                                    <CalendarCheck size={18} />
+                                </span>
+                                Sistema de Reservas
+                            </h2>
+                            <p className="text-muted text-[12px] md:text-sm font-jakarta max-w-lg leading-snug">
+                                Habilita el sistema de reservas y gestiona las credenciales del portal del cliente.
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                            {/* Habilitar / Deshabilitar */}
+                            <div className="space-y-4">
+                                <label className="text-[10px] font-black text-muted uppercase tracking-[0.2em] ml-2 block">
+                                    Habilitar Reservas
+                                </label>
+                                <div className="flex items-center gap-4 bg-green-xpale/50 border border-green/20 rounded-2xl py-4 px-6 h-20 transition-all hover:bg-white hover:shadow-lg">
+                                    <Toggle
+                                        checked={watch('has_bookings') || false}
+                                        onChange={(val) => setValue('has_bookings', val)}
+                                        label={watch('has_bookings') ? 'ACTIVO' : 'INACTIVO'}
+                                    />
+                                    <div className="flex-1">
+                                        <p className="text-[9px] text-muted font-bold leading-tight">
+                                            Si está activo, los clientes podrán agendar citas en su micrositio.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Duración */}
+                            <div className="space-y-4">
+                                <label className="text-[10px] font-black text-muted uppercase tracking-[0.2em] ml-2 block">
+                                    Duración de Reservas
+                                </label>
+                                <select
+                                    {...register('booking_duration', { valueAsNumber: true })}
+                                    className="w-full bg-green-xpale border border-border focus:bg-white focus:border-green focus:shadow-xl outline-none rounded-xl md:rounded-2xl py-4 md:py-5 px-5 md:px-6 font-bold text-sm md:text-base text-ink transition-all appearance-none cursor-pointer"
+                                >
+                                    <option value={30}>30 minutos</option>
+                                    <option value={60}>60 minutos (1 hora)</option>
+                                    <option value={90}>90 minutos (1.5 horas)</option>
+                                    <option value={120}>120 minutos (2 horas)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        {/* Gestión de Acceso al Portal */}
+                        {initialData && (
+                            <div className="bg-[#F4FBF5] border border-green-pale/30 rounded-[2.5rem] p-8 md:p-10 space-y-6 mt-10">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-green shadow-sm border border-border">
+                                        <Plus size={24} />
+                                    </div>
+                                    <div>
+                                        <h3 className="font-outfit font-black text-ink text-lg">
+                                            Acceso al Portal de Cliente
+                                        </h3>
+                                        <p className="text-xs text-muted font-jakarta">
+                                            El cliente podrá acceder al portal con su correo electrónico de contacto principal.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="bg-white rounded-2xl p-6 border border-border space-y-4">
+                                    <div>
+                                        <p className="text-[10px] text-muted font-black uppercase tracking-widest mb-1">
+                                            Correo de Contacto Principal (Usuario)
+                                        </p>
+                                        <p className="font-mono text-sm font-bold text-ink">
+                                            {watch('contact_email') || 'No se ha definido correo de contacto principal en la pestaña Info General.'}
+                                        </p>
+                                    </div>
+
+                                    {watch('contact_email') ? (
+                                        <div className="pt-4 flex flex-col sm:flex-row items-center gap-4">
+                                            <button
+                                                type="button"
+                                                onClick={async () => {
+                                                    if (!watch('contact_email')) {
+                                                        toast.error('Define un correo de contacto primero.');
+                                                        return;
+                                                    }
+                                                    setLoading(true);
+                                                    try {
+                                                        const res = await fetch('/api/admin/create-portal-user', {
+                                                            method: 'POST',
+                                                            headers: { 'Content-Type': 'application/json' },
+                                                            body: JSON.stringify({ businessId: initialData.id }),
+                                                        });
+                                                        const data = await res.json();
+                                                        if (data.error) throw new Error(data.error);
+                                                        toast.success(data.message || 'Cuenta del portal generada con éxito');
+                                                        if (data.user_id) {
+                                                            setValue('user_id', data.user_id);
+                                                        }
+                                                    } catch (err: any) {
+                                                        toast.error(err.message || 'Error al generar cuenta');
+                                                    } finally {
+                                                        setLoading(false);
+                                                    }
+                                                }}
+                                                disabled={loading}
+                                                className="w-full sm:w-auto px-6 h-12 bg-green hover:bg-green-mid text-white rounded-xl font-black uppercase tracking-widest text-[10px] shadow-lg shadow-green/20 transition-all flex items-center justify-center gap-2"
+                                            >
+                                                {watch('user_id') ? 'Restablecer y Re-enviar Acceso' : 'Generar Acceso al Portal'}
+                                            </button>
+
+                                            {watch('user_id') && (
+                                                <span className="text-[10px] font-black text-green uppercase tracking-widest bg-green-xpale px-4 py-2 rounded-full border border-green/10">
+                                                    ✓ Cuenta Vinculada
+                                                </span>
+                                            )}
+                                        </div>
+                                    ) : (
+                                        <p className="text-xs text-red-500 font-bold">
+                                            Debes guardar un Correo del Representante en la pestaña "Información General" para poder habilitar el portal.
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+                        )}
                     </div>
                 )}
 

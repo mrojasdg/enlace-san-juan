@@ -56,4 +56,7 @@ export interface Business {
     meta_title?: string;
     meta_description?: string;
     search_keywords?: string;
+    has_bookings?: boolean;
+    booking_duration?: number;
+    user_id?: string;
 }

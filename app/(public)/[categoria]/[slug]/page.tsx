@@ -42,6 +42,7 @@ import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 import { CTASection } from '@/components/home/CTASection';
 import { ViewTracker } from '@/components/business/ViewTracker';
+import BookingWidget from '@/components/business/BookingWidget';
 import dynamic from 'next/dynamic';
 import {
   UberEatsIcon,
@@ -385,6 +386,13 @@ export default async function BusinessMicrosite({
                   'Este negocio aún no ha añadido una descripción detallada.'}
               </div>
             </section>
+
+            {/* Booking System Section */}
+            {business.has_bookings && (
+              <section id="reservar" className="scroll-mt-24">
+                <BookingWidget business={business} />
+              </section>
+            )}
 
             {/* Business Services / Features */}
             {business.features && business.features.length > 0 && (

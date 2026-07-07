@@ -108,4 +108,56 @@ CREATE POLICY "Public read businesses" ON businesses FOR SELECT USING (is_active
 
 -- Write policies only for authenticated
 CREATE POLICY "Admin write categories" ON categories FOR ALL TO authenticated USING (true) WITH CHECK (true);
-CREATE POLICY "Admin write businesses" ON businesses FOR ALL TO authenticated USING (true) WITH CHECK (true);
+
+-- Agregar campos para reservas en la tabla businesses
+ALTER TABLE businesses ADD COLUMN IF NOT EXISTS has_bookings BOOLEAN DEFAULT false;
+ALTER TABLE businesses ADD COLUMN IF NOT EXISTS booking_duration INT DEFAULT 60;
+ALTER TABLE businesses ADD COLUMN IF NOT EXISTS user_id UUID UNIQUE REFERENCES auth.users(id) ON DELETE SET NULL;
+
+-- Crear tabla de reservas
+CREATE TABLE IF NOT EXISTS bookings (
+  id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  created_at    TIMESTAMPTZ DEFAULT now(),
+  business_id   UUID NOT NULL REFERENCES businesses(id) ON DELETE CASCADE,
+  client_name   TEXT NOT NULL,
+  client_phone  TEXT NOT NULL,
+  client_email  TEXT NOT NULL,
+  booking_date  DATE NOT NULL,
+  booking_time  TEXT NOT NULL,
+  duration      INT NOT NULL DEFAULT 60,
+  status        TEXT NOT NULL DEFAULT 'confirmed'
+);
+
+-- Habilitar RLS en bookings
+ALTER TABLE bookings ENABLE ROW LEVEL SECURITY;
+
+-- Políticas de RLS para bookings
+CREATE POLICY "Permitir inserción pública de reservas" ON bookings 
+  FOR INSERT WITH CHECK (true);
+
+CREATE POLICY "Permitir lectura pública de reservas" ON bookings
+  FOR SELECT USING (true);
+
+CREATE POLICY "Dueños y admins controlan reservas" ON bookings
+  FOR ALL TO authenticated
+  USING (
+    auth.uid() = (SELECT user_id FROM businesses WHERE id = bookings.business_id)
+    OR auth.jwt() ->> 'email' IN ('mauriciorojasdiseno@gmail.com', 'hola@enlacesanjuan.com.mx', 'admin@enlacesanjuan.com.mx')
+  )
+  WITH CHECK (
+    auth.uid() = (SELECT user_id FROM businesses WHERE id = bookings.business_id)
+    OR auth.jwt() ->> 'email' IN ('mauriciorojasdiseno@gmail.com', 'hola@enlacesanjuan.com.mx', 'admin@enlacesanjuan.com.mx')
+  );
+
+-- Actualizar políticas de businesses para dueños de negocios
+DROP POLICY IF EXISTS "Admin write businesses" ON businesses;
+
+CREATE POLICY "Super Admin write businesses" ON businesses
+  FOR ALL TO authenticated
+  USING (auth.jwt() ->> 'email' IN ('mauriciorojasdiseno@gmail.com', 'hola@enlacesanjuan.com.mx', 'admin@enlacesanjuan.com.mx'))
+  WITH CHECK (auth.jwt() ->> 'email' IN ('mauriciorojasdiseno@gmail.com', 'hola@enlacesanjuan.com.mx', 'admin@enlacesanjuan.com.mx'));
+
+CREATE POLICY "Business Owner write businesses" ON businesses
+  FOR ALL TO authenticated
+  USING (auth.uid() = user_id)
+  WITH CHECK (auth.uid() = user_id);
