@@ -4,8 +4,10 @@ import { useState } from 'react';
 import { PortalSidebar } from './PortalSidebar';
 import { cn } from '@/utils/cn';
 import { usePathname } from 'next/navigation';
-import { Menu, X, LayoutGrid, Globe } from 'lucide-react';
+import { Menu, X, LayoutGrid, Globe, LogOut } from 'lucide-react';
 import Link from 'next/link';
+import { supabase } from '@/lib/supabase';
+import toast from 'react-hot-toast';
 
 interface PortalLayoutProps {
   children: React.ReactNode;
@@ -25,6 +27,16 @@ export function PortalLayout({ children, business }: PortalLayoutProps) {
   const pageTitle = pathname.split('/').pop() || 'Dashboard';
 
   const categorySlug = business.category?.slug || 'premium';
+
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      toast.error('Error al cerrar sesión');
+    } else {
+      toast.success('Sesión cerrada correctamente');
+      window.location.href = '/portal/login';
+    }
+  };
 
   return (
     <div className="flex bg-green-xpale min-h-screen relative overflow-hidden">
@@ -51,7 +63,7 @@ export function PortalLayout({ children, business }: PortalLayoutProps) {
                 Portal de Negocios
               </span>
               <h1 className="font-outfit font-black text-lg md:text-2xl text-green-deeper leading-none capitalize truncate max-w-[200px] md:max-w-none">
-                {pageTitle === 'dashboard' ? 'Resumen General' : pageTitle === 'reservas' ? 'Mis Reservas' : 'Editar Mi Negocio'}
+                {pageTitle === 'dashboard' ? 'Resumen General' : pageTitle === 'reservas' ? 'Mis Reservas' : pageTitle === 'contrasena' ? 'Seguridad' : 'Editar Mi Negocio'}
               </h1>
             </div>
           </div>
@@ -61,9 +73,18 @@ export function PortalLayout({ children, business }: PortalLayoutProps) {
             <Link href={`/${categorySlug}/${business.slug}`} target="_blank">
               <button className="h-10 md:h-12 px-4 md:px-6 rounded-xl bg-green text-white font-black text-[10px] md:text-xs uppercase tracking-widest shadow-lg shadow-green/20 hover:bg-green-mid transition-all flex items-center gap-2">
                 <Globe size={14} />
-                <span>Ver Mi Sitio</span>
+                <span className="hidden sm:inline">Ver Mi Sitio</span>
+                <span className="sm:hidden">Ver</span>
               </button>
             </Link>
+
+            <button
+              onClick={handleLogout}
+              className="h-10 md:h-12 px-4 md:px-6 rounded-xl bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white font-black text-[10px] md:text-xs uppercase tracking-widest transition-all flex items-center gap-2"
+            >
+              <LogOut size={14} />
+              <span className="hidden sm:inline">Cerrar Sesión</span>
+            </button>
           </div>
         </header>
 

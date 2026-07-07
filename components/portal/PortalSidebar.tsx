@@ -10,6 +10,7 @@ import {
   Building2,
   HelpCircle,
   Clock,
+  Lock,
 } from 'lucide-react';
 import Image from 'next/image';
 import { cn } from '@/utils/cn';
@@ -20,6 +21,7 @@ const menuItems = [
   { name: 'Dashboard', href: '/portal/dashboard', icon: BarChart3 },
   { name: 'Mis Reservas', href: '/portal/reservas', icon: CalendarDays },
   { name: 'Editar Perfil', href: '/portal/perfil', icon: Building2 },
+  { name: 'Cambiar Contraseña', href: '/portal/contrasena', icon: Lock },
 ];
 
 interface PortalSidebarProps {
@@ -38,8 +40,7 @@ export function PortalSidebar({ isOpen, onClose, businessName }: PortalSidebarPr
       toast.error('Error al cerrar sesión');
     } else {
       toast.success('Sesión cerrada correctamente');
-      router.push('/portal/login');
-      router.refresh();
+      window.location.href = '/portal/login';
     }
   };
 
