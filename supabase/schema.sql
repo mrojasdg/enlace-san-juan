@@ -112,6 +112,8 @@ CREATE POLICY "Admin write categories" ON categories FOR ALL TO authenticated US
 -- Agregar campos para reservas en la tabla businesses
 ALTER TABLE businesses ADD COLUMN IF NOT EXISTS has_bookings BOOLEAN DEFAULT false;
 ALTER TABLE businesses ADD COLUMN IF NOT EXISTS booking_duration INT DEFAULT 60;
+ALTER TABLE businesses ADD COLUMN IF NOT EXISTS booking_type TEXT DEFAULT 'personal';
+ALTER TABLE businesses ADD COLUMN IF NOT EXISTS booking_max_capacity INT DEFAULT 1;
 ALTER TABLE businesses ADD COLUMN IF NOT EXISTS user_id UUID UNIQUE REFERENCES auth.users(id) ON DELETE SET NULL;
 
 -- Crear tabla de reservas
@@ -125,6 +127,7 @@ CREATE TABLE IF NOT EXISTS bookings (
   booking_date  DATE NOT NULL,
   booking_time  TEXT NOT NULL,
   duration      INT NOT NULL DEFAULT 60,
+  num_people    INT NOT NULL DEFAULT 1,
   status        TEXT NOT NULL DEFAULT 'confirmed'
 );
 

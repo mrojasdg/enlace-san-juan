@@ -3,7 +3,7 @@ import { createAdminClient } from '@/lib/supabase';
 
 export async function POST(req: Request) {
   try {
-    const { businessId, clientName, clientPhone, clientEmail, bookingDate, bookingTime, duration } = await req.json();
+    const { businessId, clientName, clientPhone, clientEmail, bookingDate, bookingTime, duration, numPeople } = await req.json();
 
     if (!businessId || !clientName || !clientPhone || !clientEmail || !bookingDate || !bookingTime) {
       return NextResponse.json({ error: 'Missing required booking fields' }, { status: 400 });
@@ -33,6 +33,7 @@ export async function POST(req: Request) {
         booking_date: bookingDate,
         booking_time: bookingTime,
         duration: duration || 60,
+        num_people: numPeople || 1,
         status: 'confirmed'
       })
       .select()
@@ -88,6 +89,10 @@ export async function POST(req: Request) {
                       <tr>
                         <td style="padding: 8px 0; color: #6b7280; font-weight: bold; text-transform: uppercase; font-size: 11px;">Teléfono:</td>
                         <td style="padding: 8px 0; color: #111827;"><a href="tel:${clientPhone}">${clientPhone}</a></td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 8px 0; color: #6b7280; font-weight: bold; text-transform: uppercase; font-size: 11px;">Lugares:</td>
+                        <td style="padding: 8px 0; color: #111827; font-weight: bold;">${numPeople || 1}</td>
                       </tr>
                       <tr>
                         <td style="padding: 8px 0; color: #6b7280; font-weight: bold; text-transform: uppercase; font-size: 11px;">Correo:</td>
@@ -152,6 +157,10 @@ export async function POST(req: Request) {
                     <tr>
                       <td style="padding: 6px 0;">Hora:</td>
                       <td style="padding: 6px 0; font-weight: bold; color: #1a4d2e;">${bookingTime} hrs</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 6px 0;">Personas:</td>
+                      <td style="padding: 6px 0; font-weight: bold; color: #1a4d2e;">${numPeople || 1}</td>
                     </tr>
                   </table>
                 </div>

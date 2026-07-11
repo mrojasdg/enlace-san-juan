@@ -192,7 +192,14 @@ export default function PortalBookingsPage() {
                   <div className="bg-green-xpale/20 rounded-2xl p-5 border border-border/40 space-y-3 font-jakarta text-xs">
                     <div className="flex items-center gap-3">
                       <User size={14} className="text-muted/40" />
-                      <span className="font-black text-ink">{booking.client_name}</span>
+                      <span className="font-black text-ink">
+                        {booking.client_name}
+                        {booking.num_people && (
+                          <span className="ml-2 px-2.5 py-0.5 rounded-full bg-green/10 text-green font-black text-[9px] uppercase tracking-wider">
+                            {booking.num_people} {booking.num_people === 1 ? 'Lugar' : 'Lugares'}
+                          </span>
+                        )}
+                      </span>
                     </div>
                     <div className="flex items-center gap-3">
                       <Phone size={14} className="text-muted/40" />

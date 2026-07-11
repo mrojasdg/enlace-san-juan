@@ -17,6 +17,8 @@ export default function BookingWidget({ business }: BookingWidgetProps) {
   const [availableSlots, setAvailableSlots] = useState<string[]>([]);
   const [bookedSlots, setBookedSlots] = useState<string[]>([]);
   const [selectedSlot, setSelectedSlot] = useState<string>('');
+  const [slotOccupancy, setSlotOccupancy] = useState<Record<string, number>>({});
+  const [numPeople, setNumPeople] = useState<number>(1);
   const [loading, setLoading] = useState(false);
   const [checkingSlots, setCheckingSlots] = useState(false);
   
@@ -38,6 +40,9 @@ export default function BookingWidget({ business }: BookingWidgetProps) {
 
   // 1. Obtener slots ocupados cuando cambia la fecha
   useEffect(() => {
+    setSelectedSlot('');
+    setNumPeople(1);
+
     if (!selectedDate) {
       setAvailableSlots([]);
       return;
@@ -51,14 +56,25 @@ export default function BookingWidget({ business }: BookingWidgetProps) {
         // A. Obtener reservas existentes para este negocio en la fecha seleccionada
         const { data: bookings, error } = await supabase
           .from('bookings')
-          .select('booking_time')
+          .select('booking_time, num_people')
           .eq('business_id', business.id)
           .eq('booking_date', selectedDate)
           .eq('status', 'confirmed');
 
         if (error) throw error;
 
-        const bookedTimes = bookings?.map(b => b.booking_time) || [];
+        // B. Calcular la ocupación por cada slot de tiempo
+        const occupancy: Record<string, number> = {};
+        bookings?.forEach((b) => {
+          const time = b.booking_time;
+          const count = b.num_people || 1;
+          occupancy[time] = (occupancy[time] || 0) + count;
+        });
+        setSlotOccupancy(occupancy);
+
+        // C. Determinar qué slots están llenos
+        const maxCapacity = business.booking_type === 'group' ? (business.booking_max_capacity || 1) : 1;
+        const bookedTimes = Object.keys(occupancy).filter((time) => occupancy[time] >= maxCapacity);
         setBookedSlots(bookedTimes);
 
         // B. Identificar día de la semana
@@ -139,7 +155,8 @@ export default function BookingWidget({ business }: BookingWidgetProps) {
           clientEmail: email,
           bookingDate: selectedDate,
           bookingTime: selectedSlot,
-          duration: business.booking_duration || 60
+          duration: business.booking_duration || 60,
+          numPeople: numPeople
         }),
       });
 
@@ -174,12 +191,16 @@ export default function BookingWidget({ business }: BookingWidgetProps) {
           <p className="text-[10px] text-green font-black uppercase tracking-widest">Resumen de Cita</p>
           <p className="text-xs font-bold text-ink truncate">Cliente: {name}</p>
           <p className="text-xs text-muted">Negocio: {business.name}</p>
+          {business.booking_type === 'group' && (
+            <p className="text-xs text-muted">Personas: {numPeople}</p>
+          )}
         </div>
         <Button
           onClick={() => {
             setSuccess(false);
             setSelectedDate('');
             setSelectedSlot('');
+            setNumPeople(1);
             setName('');
             setPhone('');
             setEmail('');
@@ -245,15 +266,21 @@ export default function BookingWidget({ business }: BookingWidgetProps) {
                 {availableSlots.map((slot) => {
                   const isBooked = bookedSlots.includes(slot);
                   const isSelected = selectedSlot === slot;
+                  const alreadyBooked = slotOccupancy[slot] || 0;
+                  const maxCap = business.booking_type === 'group' ? (business.booking_max_capacity || 1) : 1;
+                  const remaining = maxCap - alreadyBooked;
 
                   return (
                     <button
                       key={slot}
                       type="button"
                       disabled={isBooked}
-                      onClick={() => setSelectedSlot(slot)}
+                      onClick={() => {
+                        setSelectedSlot(slot);
+                        setNumPeople(1);
+                      }}
                       className={cn(
-                        'h-12 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2 border-2',
+                        'h-14 rounded-xl text-xs font-black transition-all flex flex-col items-center justify-center border-2',
                         isBooked
                           ? 'bg-gray-100 border-transparent text-muted/30 cursor-not-allowed line-through'
                           : isSelected
@@ -261,8 +288,15 @@ export default function BookingWidget({ business }: BookingWidgetProps) {
                             : 'bg-white border-border text-ink hover:border-green-pale'
                       )}
                     >
-                      <Clock size={12} className={isSelected ? 'text-white' : 'text-muted/40'} />
-                      {slot}
+                      <span className="flex items-center gap-1.5 leading-none">
+                        <Clock size={12} className={isSelected ? 'text-white' : 'text-muted/40'} />
+                        {slot}
+                      </span>
+                      {business.booking_type === 'group' && (
+                        <span className={cn('text-[9px] font-black uppercase mt-1 leading-none tracking-wider', isSelected ? 'text-white/80' : 'text-green')}>
+                          {remaining} disp.
+                        </span>
+                      )}
                     </button>
                   );
                 })}
@@ -279,6 +313,35 @@ export default function BookingWidget({ business }: BookingWidgetProps) {
         {/* 3. Formulario de Datos Personales */}
         {selectedSlot && (
           <div className="space-y-4 pt-4 border-t border-border/50 animate-in fade-in duration-300">
+            {/* Selector de número de personas (Grupal) */}
+            {business.booking_type === 'group' && (() => {
+              const maxCap = business.booking_max_capacity || 1;
+              const alreadyBooked = slotOccupancy[selectedSlot] || 0;
+              const remaining = maxCap - alreadyBooked;
+
+              return (
+                <div className="space-y-2 group">
+                  <label className="text-[10px] font-black text-muted uppercase tracking-[0.2em] ml-2 block">
+                    ¿Cuántas personas asistirán?
+                  </label>
+                  <select
+                    value={numPeople}
+                    onChange={(e) => setNumPeople(Number(e.target.value))}
+                    className="w-full bg-green-xpale border border-border focus:bg-white focus:border-green outline-none rounded-xl py-4 px-5 font-bold text-sm text-ink transition-all cursor-pointer"
+                  >
+                    {Array.from({ length: remaining }, (_, i) => i + 1).map((num) => (
+                      <option key={num} value={num}>
+                        {num} {num === 1 ? 'persona' : 'personas'}
+                      </option>
+                    ))}
+                  </select>
+                  <p className="text-[9px] text-green font-bold ml-2 uppercase tracking-wide">
+                    Lugares disponibles para esta hora: {remaining} de {maxCap}
+                  </p>
+                </div>
+              );
+            })()}
+
             <div className="space-y-2 group">
               <label className="text-[10px] font-black text-muted uppercase tracking-[0.2em] ml-2 block">
                 Tu Nombre Completo

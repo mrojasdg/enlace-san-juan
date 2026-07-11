@@ -115,6 +115,8 @@ const businessSchema = z.object({
       domingo: { open: '', close: '', closed: true },
     }),
   booking_duration: z.number().default(60),
+  booking_type: z.enum(['personal', 'group']).default('personal'),
+  booking_max_capacity: z.number().default(1),
 });
 
 interface PortalBusinessFormProps {
@@ -194,8 +196,12 @@ export default function PortalBusinessForm({ initialData, categories }: PortalBu
       youtube: initialData.youtube || '',
       catalog_label: initialData.catalog_label || 'Menú / Catálogo',
       booking_duration: initialData.booking_duration || 60,
+      booking_type: initialData.booking_type || 'personal',
+      booking_max_capacity: initialData.booking_max_capacity || 1,
     },
   });
+
+  const selectedBookingType = watch('booking_type');
 
   const handleGalleryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
@@ -493,22 +499,69 @@ export default function PortalBusinessForm({ initialData, categories }: PortalBu
         {activeTab === 'schedule' && (
           <div className="space-y-6 animate-in fade-in duration-300">
             {/* Intervalo de citas */}
-            <div className="bg-white border border-border rounded-2xl p-6 space-y-3 max-w-md shadow-sm">
-              <label className="text-[10px] font-black text-green uppercase tracking-[0.2em] block">
-                Intervalo de Reservas (Duración)
-              </label>
-              <select
-                {...register('booking_duration', { valueAsNumber: true })}
-                className="w-full bg-green-xpale border border-border focus:border-green outline-none rounded-xl py-3.5 px-4 font-bold text-xs text-ink transition-all cursor-pointer"
-              >
-                <option value={30}>30 minutos</option>
-                <option value={60}>60 minutos (1 hora)</option>
-                <option value={90}>90 minutos (1.5 horas)</option>
-                <option value={120}>120 minutos (2 horas)</option>
-              </select>
-              <p className="text-[9px] text-muted leading-tight font-jakarta">
-                Define la duración de cada cita. Esto modificará los bloques de tiempo disponibles en tu página pública.
-              </p>
+            {/* Configuración de Reservas */}
+            <div className="bg-white border border-border rounded-2xl p-6 space-y-6 max-w-2xl shadow-sm">
+              <h3 className="font-outfit font-black text-sm text-green-deeper uppercase tracking-wider">
+                Configuración del Sistema de Reservas
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Intervalo de citas */}
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-muted uppercase tracking-[0.2em] ml-2 block">
+                    Duración / Intervalo de Reservas
+                  </label>
+                  <select
+                    {...register('booking_duration', { valueAsNumber: true })}
+                    className="w-full bg-green-xpale border border-border focus:border-green outline-none rounded-xl py-3.5 px-4 font-bold text-xs text-ink transition-all cursor-pointer"
+                  >
+                    <option value={30}>30 minutos</option>
+                    <option value={60}>60 minutos (1 hora)</option>
+                    <option value={90}>90 minutos (1.5 horas)</option>
+                    <option value={120}>120 minutos (2 horas)</option>
+                  </select>
+                  <p className="text-[9px] text-muted leading-tight font-jakarta ml-2">
+                    Define la duración de cada cita. Esto modificará los bloques de tiempo disponibles.
+                  </p>
+                </div>
+
+                {/* Tipo de Reservas */}
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-muted uppercase tracking-[0.2em] ml-2 block">
+                    Tipo de Reserva
+                  </label>
+                  <select
+                    {...register('booking_type')}
+                    className="w-full bg-green-xpale border border-border focus:border-green outline-none rounded-xl py-3.5 px-4 font-bold text-xs text-ink transition-all cursor-pointer"
+                  >
+                    <option value="personal">Individual / Personal (1 persona)</option>
+                    <option value="group">En Grupo / Colectivo (Múltiples personas)</option>
+                  </select>
+                  <p className="text-[9px] text-muted leading-tight font-jakarta ml-2">
+                    Elige si cada bloque de horario es exclusivo para una persona o si permite reservaciones grupales.
+                  </p>
+                </div>
+
+                {/* Capacidad Máxima (solo si es grupal) */}
+                {selectedBookingType === 'group' && (
+                  <div className="space-y-2 md:col-span-2 animate-in slide-in-from-top duration-300">
+                    <label className="text-[10px] font-black text-muted uppercase tracking-[0.2em] ml-2 block">
+                      Capacidad Máxima por Grupo
+                    </label>
+                    <input
+                      type="number"
+                      min={1}
+                      max={100}
+                      {...register('booking_max_capacity', { valueAsNumber: true })}
+                      className="w-full bg-green-xpale border border-border focus:border-green outline-none rounded-xl py-3.5 px-4 font-bold text-xs text-ink transition-all"
+                      placeholder="Ej: 10 personas"
+                    />
+                    <p className="text-[9px] text-muted leading-tight font-jakarta ml-2">
+                      Define la cantidad máxima de personas permitidas en un mismo bloque de horario.
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="bg-green-xpale/30 rounded-2xl border border-border p-6 space-y-4">

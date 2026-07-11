@@ -58,5 +58,7 @@ export interface Business {
     search_keywords?: string;
     has_bookings?: boolean;
     booking_duration?: number;
+    booking_type?: 'personal' | 'group';
+    booking_max_capacity?: number;
     user_id?: string;
 }
