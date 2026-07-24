@@ -503,8 +503,7 @@ export default function PreciosPage() {
 
                     <div className="space-y-6">
                       <p className="text-muted font-jakarta text-lg max-w-xl leading-relaxed">
-                        Obtén el <span className="font-black text-ink">Plan Enlace</span> (lo que queda de Julio y todo Agosto) +{' '}
-                        <span className="font-black text-ink">Revista Enlace edición Agosto</span> por un precio especial.
+                        Obtén tu anuncio por <span className="font-black text-ink">350 pesos</span> lo que resta de julio, todo agosto y la revista de agosto.
                       </p>
                       <div className="flex flex-wrap justify-center lg:justify-start gap-3">
                         <div className="flex items-center gap-2 bg-[#F9FCFA] px-4 py-2.5 rounded-2xl border border-border group-hover:border-green/20 transition-colors">
