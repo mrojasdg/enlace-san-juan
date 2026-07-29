@@ -298,7 +298,16 @@ export const BusinessForm = ({ initialData, categories, isPublicRegistration = f
                 cover_url,
                 gallery_urls,
                 catalog_pdf_url,
+                // Sanitize UUID fields: Postgres rejects empty string "" for UUID columns
+                category_id: values.category_id || null,
             };
+
+            // Guard: category_id must be present for update/insert
+            if (!finalData.category_id) {
+                toast.error("Selecciona una categoría antes de guardar");
+                setLoading(false);
+                return;
+            }
 
             if (initialData) {
                 const { error } = await supabase.from("businesses").update(finalData).eq("id", initialData.id);
