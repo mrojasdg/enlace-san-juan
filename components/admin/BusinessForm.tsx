@@ -292,17 +292,61 @@ export const BusinessForm = ({ initialData, categories, isPublicRegistration = f
                 catalog_pdf_url = supabase.storage.from("business-assets").getPublicUrl(data.path).data.publicUrl;
             }
 
-            const finalData = {
-                ...values,
+            // Build the update payload EXPLICITLY — never spread `values` directly.
+            // Using select("*") + spread initialData into defaultValues can leak
+            // DB-only UUID columns (e.g., created by triggers/extensions) that
+            // cause "invalid input syntax for type uuid: """ in Postgres.
+            const finalData: Record<string, any> = {
+                // Core info
+                name:             values.name,
+                slug:             values.slug,
+                tagline:          values.tagline || null,
+                description:      values.description,
+                category_id:      values.category_id || null,
+                // Status
+                is_featured:      values.is_featured,
+                is_active:        values.is_active,
+                verified:         values.verified,
+                // Contact
+                phone:            values.phone || null,
+                whatsapp:         values.whatsapp || null,
+                email:            values.email || null,
+                contact_name:     values.contact_name || null,
+                contact_email:    values.contact_email || null,
+                contact_phone:    values.contact_phone || null,
+                website:          values.website || null,
+                // Location
+                address:          values.address || null,
+                neighborhood:     values.neighborhood || null,
+                city:             values.city,
+                state:            values.state,
+                maps_embed_url:   values.maps_embed_url || null,
+                latitude:         values.latitude ?? null,
+                longitude:        values.longitude ?? null,
+                // Magazine
+                in_magazine:      values.in_magazine,
+                magazine_month:   values.magazine_month || null,
+                // Social
+                facebook:         values.facebook || null,
+                instagram:        values.instagram || null,
+                twitter_x:        values.twitter_x || null,
+                youtube:          values.youtube || null,
+                tiktok:           values.tiktok || null,
+                pinterest:        values.pinterest || null,
+                linkedin:         values.linkedin || null,
+                // Extras
+                features:         values.features ?? [],
+                catalog_label:    values.catalog_label || null,
+                search_keywords:  values.search_keywords || null,
+                schedule:         values.schedule,
+                // Assets (from state)
                 logo_url,
                 cover_url,
                 gallery_urls,
                 catalog_pdf_url,
-                // Sanitize UUID fields: Postgres rejects empty string "" for UUID columns
-                category_id: values.category_id || null,
             };
 
-            // Guard: category_id must be present for update/insert
+            // Guard: category_id must be a valid UUID
             if (!finalData.category_id) {
                 toast.error("Selecciona una categoría antes de guardar");
                 setLoading(false);
