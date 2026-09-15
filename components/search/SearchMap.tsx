@@ -75,8 +75,8 @@ export const SearchMap = ({ businesses }: SearchMapProps) => {
             zoomControl={false}
         >
             <TileLayer
-                url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
             {businesses
                 .filter((b) => b.latitude != null && b.longitude != null)
