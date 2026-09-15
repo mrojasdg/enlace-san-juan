@@ -73,13 +73,13 @@ export default async function RegistratePage() {
                                     </span>
                                     <h2 className="font-outfit font-black text-4xl md:text-5xl text-ink leading-[1.1] tracking-tight">
                                         Asegura tu presencia <br className="hidden md:block" />
-                                        <span className="text-green">Julio + Agosto</span>
+                                        <span className="text-green">Septiembre + Octubre</span>
                                     </h2>
                                 </div>
 
                                 <div className="space-y-6">
                                     <p className="text-muted font-jakarta text-lg max-w-xl leading-relaxed">
-                                        Obtén tu anuncio por <span className="font-black text-ink">350 pesos</span> lo que resta de julio, todo agosto y la revista de agosto.
+                                        Obtén tu anuncio por <span className="font-black text-ink">350 pesos</span> lo que resta de septiembre, todo octubre y la revista de octubre.
                                     </p>
                                     <div className="flex flex-wrap justify-center lg:justify-start gap-3">
                                         <div className="flex items-center gap-2 bg-[#F9FCFA] px-4 py-2.5 rounded-2xl border border-border group-hover:border-green/20 transition-colors">
@@ -91,7 +91,7 @@ export default async function RegistratePage() {
                                         <div className="flex items-center gap-2 bg-[#F9FCFA] px-4 py-2.5 rounded-2xl border border-border group-hover:border-green/20 transition-colors">
                                             <CheckCircle2 size={18} className="text-green" />
                                             <span className="text-[11px] font-black text-ink uppercase tracking-wider">
-                                                Revista Agosto Incluida
+                                                Revista Octubre Incluida
                                             </span>
                                         </div>
                                     </div>
@@ -113,7 +113,7 @@ export default async function RegistratePage() {
                                         </span>
                                     </div>
                                     <p className="text-[10px] font-black text-green uppercase tracking-[0.2em] mt-6 bg-white px-6 py-3 rounded-full shadow-sm border border-green/5">
-                                        Siguiente pago en Septiembre
+                                        Siguiente pago en Noviembre
                                     </p>
                                 </div>
 
